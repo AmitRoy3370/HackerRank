@@ -1,0 +1,96 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class HackerRank_In_A_String {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static String s;
+    
+    static int n;
+    
+    static String hacker="hackerrank";
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+       for(int i=0;i<n;i++){
+           
+           s=scanner.next();
+           
+           findHackerRank(s);
+           
+       }
+      
+    }
+
+    private static void findHackerRank(String i) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+      //  char []Allcharacters=  i.toCharArray();
+          
+   ArrayList<Character> list
+        = new ArrayList<>(
+                 i.toLowerCase().chars()
+                .mapToObj(e -> (char) e)
+                .collect(
+                        Collectors.toList()
+                )
+        );    
+    
+  // List<Character> list=new ArrayList<Character>( new HashSet(list1) );
+   
+  //  Collections.addAll(list, String.copyValueOf(Allcharacters, 1, 2)  );
+    
+    int index=Integer.MIN_VALUE,sum=0;
+    
+       // System.out.println("list size: "+list.size());
+    
+   for(int j=0;j<hacker.length();j++){
+       
+       int find=list.indexOf(hacker.charAt(j) );
+       
+       //System.out.println("hac: "+hacker.charAt(j));
+       
+       if(  find>=0){
+            
+           //System.out.println("find: "+find+" : "+hacker.charAt(j));   
+           
+           index=find;
+           
+           sum+=1;
+         //  list.remove( list.indexOf(hacker.charAt(j) ) );
+           
+         if( list.indexOf(hacker.charAt(j) )!=0){
+         
+             list.subList(0, list.indexOf(hacker.charAt(j) )+1 ).clear();
+         
+         }
+         else{
+             
+             list.remove( list.indexOf(hacker.charAt(j) ) );
+             
+         }
+         
+         //  System.out.println("list: "+list.toString());
+           
+       }
+       
+   }
+    
+        //System.out.println("sum: "+sum);
+   
+   if(sum==hacker.length()  ){
+       
+       System.out.println("YES");
+       
+   }else{
+       
+       System.out.println("NO");
+       
+   }
+   
+    }
+    
+}
