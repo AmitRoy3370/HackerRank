@@ -1,0 +1,181 @@
+import java.util.*;
+//import java.util.Map;
+
+
+ class Trie {
+
+private class TrieNode{
+    
+    Map<Character,TrieNode> map;
+    boolean endOfWord;
+
+        public TrieNode() {
+            
+    map=new HashMap<>();
+    endOfWord=false;
+            
+        }
+    
+}
+    
+public final TrieNode root;
+
+    public Trie() {
+        
+        root=new TrieNode();
+        
+    }
+
+public void AddData(String word){
+    
+    TrieNode current=root;
+    
+    for(int i=0;i<word.length();i++){
+        
+        char ch=word.charAt(i);
+        
+        TrieNode node=current.map.get(ch);
+        
+        if(node==null){
+            
+            node=new TrieNode();
+            
+            current.map.put(ch, node);
+            
+        }
+        
+        current=node;
+        
+    }
+    
+    current.endOfWord=true;
+    
+}
+
+public boolean search(String word){
+    
+    TrieNode current=root;
+    
+    for(int i=0;i<word.length();i++){
+        
+        char ch=word.charAt(i);
+        
+        TrieNode node=current.map.get(ch);
+        
+        if(node==null){
+            
+            return false;
+            
+        }
+        
+        current=node;
+        
+    }
+    
+    return true;
+
+}
+
+public boolean DeleteData(TrieNode current,String word,int i){
+    
+    if(i==word.length()){
+        
+        if(!current.endOfWord){
+            
+            return false;
+            
+        }
+        
+        current.endOfWord=false;
+        
+        return current.map.isEmpty();
+        
+    }
+    
+    char ch=word.charAt(i);
+    
+    TrieNode node=current.map.get(ch);
+    
+    if(node==null){
+        
+        return false;
+        
+    }
+
+   boolean shouldDelete=DeleteData(node,word,i+1);
+
+   if(shouldDelete){
+       
+       current.map.remove(ch);
+       
+       return current.map.isEmpty();
+       
+   }
+   
+    return false;
+    
+}
+
+public void DeleteData(String word){
+    
+    DeleteData(root,word,0);
+    
+    boolean b=search(word);
+    
+    if(b==false){
+   
+        System.out.println("The word deleted: " );
+    
+    }else{
+
+        System.out.println("The word not deleted");        
+        
+    }
+
+}
+
+}
+
+public class MainTrieClass {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static String s;
+    
+    public static void main(String[] args) {
+        
+        System.out.println("Enter the total word's: ");
+        n=scanner.nextInt();
+        
+        System.out.println("Enter your string's: ");
+        
+        Trie trie=new Trie();
+        
+        for(int i=0;i<n;i++){
+            
+            s=scanner.next();
+            
+            trie.AddData(s);
+            
+        }
+    
+        System.out.println("Enter searching word: ");
+        
+        s=scanner.next();
+        
+        boolean b=trie.search(s);
+        
+        System.out.println("The word found: "+b);
+        
+        System.out.println("Enter your deletinf data: ");
+        
+        s=scanner.next();
+        
+        trie.DeleteData(s);
+        
+    }
+    
+}
+
