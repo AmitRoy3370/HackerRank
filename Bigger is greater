@@ -1,0 +1,71 @@
+import java.util.*;
+
+public class Solution
+{
+    
+    static Scanner scanner=new Scanner(System.in);
+    static String input;
+    
+    static void sortMethod(){
+        
+        //System.out.println("Enter your string: ");
+        input=scanner.next();
+        
+        char []a=input.toCharArray();
+        
+        int st=-1,en=-1;
+        
+        for(int i=0;i<a.length-1;i++ ){
+            
+            if(a[i]<a[i+1]){
+                
+                st=i;
+                
+            }
+            
+        }
+        
+        if(st==-1){
+            
+            System.out.println("no answer");
+            
+        }else{
+        
+        for(int i=st+1;i<a.length;i++){
+            
+            if(a[st]<a[i]){
+                
+                en=i;
+                
+            }
+            
+        }    
+            
+         char temp=a[st];
+         a[st]=a[en];
+         a[en]=temp;
+        
+        Arrays.sort(a,st+1,a.length  );
+         
+         System.out.println( new String(a) );
+            
+        }
+        
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        int testCases;
+        
+        //System.out.println("Enter the number of test cases: ");
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            sortMethod();
+            
+        }
+        
+    }
+}
