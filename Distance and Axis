@@ -1,0 +1,38 @@
+
+//package LittleContest;
+
+import java.util.*;
+
+public class Distance_And_Axis {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long N,K,testCases,answer;
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextLong();
+        
+        for(int i=0;i<testCases;i++){
+            
+         N=scanner.nextLong();
+        
+        K=scanner.nextLong();
+        
+        long a= Math.max(N, K);
+        
+        answer=Math.abs(N- Math.abs( a ) );
+        
+        if( Math.abs(a)%2!=K%2 ){
+            
+            answer++;
+            
+        }
+        
+         System.out.println(answer);
+        
+        }
+            
+    }
+    
+}
