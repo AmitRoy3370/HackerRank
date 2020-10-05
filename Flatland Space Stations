@@ -1,0 +1,66 @@
+import java.util.*;
+
+public class Flatland_Space_Stations{
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int flatlandSpaceStations(int a[],int n){
+        
+        Arrays.sort(a);
+        
+        int difference=a[0];
+        
+        for(int i=1;i<a.length;i++){
+            
+            int maxDif=(a[i]-a[i-1])/2;
+            
+            if(difference<maxDif){
+                
+                difference=maxDif;
+                
+            }
+            
+        }
+        
+        int lastEnd=(n-1)-a[a.length-1];
+        
+        return (difference>lastEnd)? difference : lastEnd;
+    
+    }
+    
+    public static void main(String[] args) {
+         String[] nm = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nm[0]);
+
+        int m = Integer.parseInt(nm[1]);
+
+        int[] c = new int[m];
+
+        String[] cItems = scanner.nextLine().split(" ");
+//        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        //System.out.println("cItems: "+Arrays.toString(cItems));
+    
+        for (int i = 0; i < m; i++) {
+            
+            int cItem = Integer.parseInt(cItems[i]);
+        
+            c[i] = cItem;
+      
+        }
+
+        int result = flatlandSpaceStations( c,n);
+
+        System.out.println(result);
+        
+    }
+    
+}
+
+
+
+
+
+
+
