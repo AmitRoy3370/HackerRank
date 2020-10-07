@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Main
+{
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long raw,coloumn,answer,index;
+    
+	public static void main(String[] args) {
+	
+	raw=scanner.nextLong();
+	coloumn=scanner.nextLong();
+		
+		if(raw%2==0){
+		    
+		    long sub=raw/2;
+		    
+		    index=(sub-1)*5+coloumn;
+		    
+		    answer=(2*index)-1;
+		    
+		}else{
+		    
+		    long sub=raw-raw/2;
+		    
+		    index=(sub-1)*5+coloumn;
+		    
+		    answer=2*(index-1);
+		    
+		}
+		
+		System.out.println(answer);
+		
+	}
+
+    
+}
