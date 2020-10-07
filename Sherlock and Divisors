@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Sherlock_and_Divisors {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases;
+    static long N,ans=0;
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            N=scanner.nextLong();
+            
+            for(int j=2;j<=Math.sqrt(N);j++){
+                
+                if(N%j==0 && j%2==0){
+                    
+                    ans++;
+                    
+                }
+                
+                if(N%(N/j)==0 && ((N/j)!=j) && ((N/j)%2==0))
+                ans++;
+                
+            }
+            
+            if(N%2==0){
+                
+                ans++;
+                
+            }
+            
+            System.out.println(ans);
+            
+             ans=0;
+            
+        }
+        
+    }
+    
+}
+ 
+ 
