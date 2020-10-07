@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class Main
+{
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+	public static void main(String[] args) {
+		
+		n=scanner.nextInt();
+		
+		int a[]=new int[n];
+		
+		for(int i=0;i<n;i++){
+		    
+		    a[i]=scanner.nextInt();
+		    
+		}
+		
+		int sum=0;
+		
+		for(int i=0;i<n-1;i++){
+		    
+		    if(a[i]%2!=0){
+		        
+		        a[i]+=1;
+		        a[i+1]+=1;
+		        
+		        sum+=2;
+		        
+		    }
+		    
+		}
+		
+		int t=0;
+		
+		for(int i=0;i<n;i++){
+		    
+		    if(a[i]%2!=0){
+		        
+		        System.out.println("NO");
+		        t=0;
+		        
+		        break;
+		    }else{
+		        
+		        t=1;
+		        
+		    }
+		    
+		}
+		
+		if(t==1){
+		    
+		    System.out.println(sum);
+		    
+		}
+		
+	}
+}
+
+
