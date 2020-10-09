@@ -1,0 +1,80 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.stream.LongStream;
+
+public class Sherlock_and_Permutations {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long testCases,m,n;
+
+static List<String> list=new ArrayList<>();
+    
+//static 
+
+static long mod=(long) (Math.pow(10, 9)+7);
+
+static void permutation(long n,long m){
+    
+    long s=1;
+        
+    if(m>(n-m)){
+        
+        m=n-m;
+        
+    }
+    
+    for(long i=0;i<m;i++){
+        
+        s = ((s*(n-i))/(i+1));
+        
+    }
+    
+    System.out.println( (s%mod) );
+    
+}
+
+ public static BigInteger fac(final long num) {
+        
+     //long ans=(long) ((long) (Math.sqrt( 2*Math.PI*n ))*Math.pow((n/2.71828182846),n));
+     
+    if(num<=1){
+        
+       return BigInteger.valueOf(1);
+        
+    }
+    
+   return BigInteger.valueOf(num).multiply( fac(num-1) );
+    
+    }
+
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextLong();
+        
+        for(long i=0;i<testCases;i++){
+            
+            n=scanner.nextLong();
+            m=scanner.nextLong();
+
+//permutation(n+m-1,m-1);
+            // (M+N-1)!/(N! * (M-1)!).
+
+            BigInteger num=fac(n+m-1);
+            
+            BigInteger modulo=new BigInteger("10").pow(9).add(new BigInteger("7") );
+            
+            BigInteger deno=fac(n).multiply( fac(m-1) );
+            
+            BigInteger ans=(num.divide(deno)).mod(modulo);
+            
+            System.out.println( ans.longValue() );
+            
+        }
+                
+    }
+    
+}
