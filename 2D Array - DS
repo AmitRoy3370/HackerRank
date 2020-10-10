@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class TwoDArraySum {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int a[][]=new int[6][6];
+    
+    static List<Integer> list=new ArrayList<>();
+    
+    public static void main(String[] args) {
+        
+        for(int i=0;i<6;i++){
+            
+            for(int j=0;j<6;j++){
+                
+                a[i][j]=scanner.nextInt();
+                
+            }
+                        
+        }
+  
+        int sum;
+        
+        for(int i=1;i<5;i++){
+            
+            for(int j=1;j<5;j++){
+                
+            sum=a[i][j]+a[i+1][j-1]+a[i+1][j+1]+a[i-1][j-1]+a[i-1][j]+a[i-1][j+1]+a[i+1][j];    
+                
+            list.add(sum);
+            
+            }
+            
+        }
+        
+        System.out.println( Collections.max(list) );
+        
+    }
+    
+}
