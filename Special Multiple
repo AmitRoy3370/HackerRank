@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Special_Multiple
+{
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,ans=0,ans1=0,ans3=0;
+    
+    static long x;
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            x=scanner.nextLong();
+           
+        long j=1,a,n;
+                    
+    a = (Long.parseLong(Integer.toBinaryString((int)j))*9);
+
+    while(true){
+        
+        if(a%x==0){
+            
+            n=a;
+        
+            break;
+            
+        }
+        
+       a = (Long.parseLong(Integer.toBinaryString((int)j))*9);
+
+        
+        j++;
+        
+    }
+        
+            System.out.println(n);
+    
+        }
+        
+    }
+}
+
