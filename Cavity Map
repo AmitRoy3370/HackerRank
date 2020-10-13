@@ -1,0 +1,106 @@
+import java.util.Scanner;
+
+public class Cavity_Map {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases;
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        Character t[][]=new Character[testCases][testCases];
+        
+        for(int i=0;i<testCases;i++){
+          
+            String s=scanner.next();
+            
+            for(int j=0;j<s.length();j++){
+                    
+                t[i][j]=s.charAt(j);
+                
+            }
+            
+        }
+    
+      /*  for(int i=0;i<t.length;i++){
+            
+            for(int j=0;j<t.length;j++){
+                
+                System.out.println(t[i][j]+" ");
+                
+            }
+            
+        }*/
+        
+      for(int i=0;i<t.length;i++ ){
+          
+          System.out.print( t[0][i] );
+          
+      }
+      
+        System.out.println();
+      
+      for(int i=1;i<t.length;i++){
+          
+          StringBuilder stringBuilder=new StringBuilder();
+          
+          stringBuilder.append(t[i][0]);
+          
+          for(int j=1;j<t.length-1;j++){
+                         
+              if((i+1)<=(t.length-1) && (i-1)>=0 && (j-1)>=0 && (j+1)<=(t.length-1) ){
+             
+                  if( (int)t[i][j]>(int)t[i][j+1] && (int)t[i][j]>(int)t[i][j-1] &&
+           (int) t[i-1][j]<(int)t[i][j] && (int)t[i][j]>(int)t[i+1][j]         ){
+                  
+                  stringBuilder.append('X');
+                  
+              }else{
+                  
+                  stringBuilder.append(t[i][j]);
+                  
+              }
+              
+              }else{
+                  
+                  //System.out.println("i: "+i+" j: "+j+" len: "+t.length);
+             
+                  if( (i==t.length-1) && (j-1)>=0 && (j+1)<=(t.length-1) ){
+                      
+                      stringBuilder.append(t[i][j]);
+                      
+                  }/*else{
+                      
+                      stringBuilder.append(t[i][j]);
+                      
+                  }*/
+          /*     if( (int)t[i][j]>(int)t[i][j+1] && (int)t[i][j]>(int)t[i][j-1] &&
+           (int) t[i-1][j]<(int)t[i][j] && (int)t[i][j]>(int)t[i+1][j]         ){
+                  
+                  stringBuilder.append('X');
+                  
+              }else{
+                  
+                  stringBuilder.append(t[i][j]);
+                  
+              }*/ 
+                  
+                  
+              }
+          }
+          
+          if(t.length!=1)
+          stringBuilder.append(t[i][t.length-1]);
+          
+          System.out.println(stringBuilder.toString());
+          
+      }
+      
+      
+      //  System.out.println("len: "+t.length);
+        
+    }
+                
+}
