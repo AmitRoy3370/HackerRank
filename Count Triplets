@@ -1,0 +1,70 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Tripltes_Counts {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long n,r;
+  
+    static Map<Long,Long> left=new HashMap<>();
+    
+    static Map<Long,Long> right=new HashMap<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextLong();
+        r=scanner.nextLong();
+        
+        long a[]=new long[(int)n];
+  
+        for(long i=0;i<n;i++){
+            
+            a[(int)i]=scanner.nextLong();
+           
+           right.put(a[(int)i], (long)0);
+           left.put(a[(int)i], (long)0);
+          
+        }
+        
+        long count=0;
+      
+        for(int i=0;i<n;i++){
+            
+            long v=right.get(a[i])+1;
+            
+            right.put(a[i], v);
+            
+        }
+       
+        for(int i=0;i<n;i++){
+            
+             long v=right.get(a[i])-1;
+            
+            right.put(a[i], v);
+            
+            if(a[i]%r==0){
+                
+                try{
+                
+                count+=left.get(a[i]/r)*right.get(a[i]*r);
+                
+                }catch(Exception e){
+                    
+                    
+                }
+                
+            }
+            
+             long w=left.get(a[i])+1;
+            
+            left.put(a[i], w);
+            
+        }
+        
+        System.out.println(count);
+        
+    }
+    
+}
