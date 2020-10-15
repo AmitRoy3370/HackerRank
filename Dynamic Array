@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Dynamic_Array {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,q,x,y,qType,LastAnswer=0;
+    
+    static List< List<Integer> > seqList=new ArrayList<>();
+
+static List<Integer> seq=new ArrayList<>();    
+    
+static void createDynamic(int n){
+    
+    for(int i=0;i<n;i++){
+        
+        seq=new ArrayList<>();
+        
+        seqList.add(seq);
+        
+    }
+    
+}
+
+static void appendData(int x,int y,int n){
+    
+    int index=( (x^LastAnswer)%n );
+    
+    List<Integer> list=seqList.get(index);
+    
+    list.add(y);
+    
+}
+
+static void PrintData(int x,int y,int n){
+    
+    List<Integer> list=seqList.get( ( (x^LastAnswer)%n ) );
+    
+    LastAnswer=list.get( y%list.size() );
+    
+    System.out.println(LastAnswer);
+    
+}
+
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        q=scanner.nextInt();
+        
+        createDynamic(n);
+        
+        for(int i=0;i<q;i++){
+            
+            qType=scanner.nextInt();
+            x=scanner.nextInt();
+            y=scanner.nextInt();
+            
+            if(qType==1){
+                
+                appendData(x,y,n);
+                
+            }else{
+                
+                PrintData(x,y,n);
+                
+            }
+            
+        }
+        
+    }
+    
+}
