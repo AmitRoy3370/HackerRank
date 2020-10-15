@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Left_Rotation {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,rotation;
+    
+    static List<Integer> list=new ArrayList<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        rotation=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add(i,scanner.nextInt());
+            
+        }
+        
+        //System.out.println("in: 1: "+list.get(1));
+        
+        for(int i=0;i<rotation;i++){
+            
+           list.add( list.get(0) );
+            
+        //    System.out.println("remove: "+list.get(0));
+           
+           list.remove(0);
+           
+        }
+        
+        list.forEach((i) -> {
+            System.out.print(i+" ");
+        });
+        
+    }
+    
+}
