@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Sparse_Arrays {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,q;
+    
+    static List<String> list=new ArrayList<>();
+    
+    static String s;
+
+static Map<String,Integer> map=new HashMap<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add(i,scanner.next());
+       
+            map.put(list.get(i), 0);
+            
+        }
+        
+        for(int i=0;i<n;i++){
+            
+            int count=map.get(list.get(i))+1;
+            
+            map.put(list.get(i), count);
+            
+        }
+        
+        q=scanner.nextInt();
+       
+        for(int i=0;i<q;i++){
+            
+            String s=scanner.next();
+            
+            try{
+                 
+                if(map.get(s)==null){
+                    
+                    throw new Exception("0 ");
+                    
+                }else{
+                
+                System.out.println(map.get(s)+" ");
+                
+                }
+                
+            }catch(Exception e){
+                
+                System.out.println("0 ");
+                
+            }
+            
+        }
+        
+    }
+    
+}
