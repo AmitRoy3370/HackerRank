@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Array_Manipulation {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long n,a,b,k,max=Long.MIN_VALUE,q,x=0;
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextLong();
+        
+        k=scanner.nextLong();
+        
+        long arr[]=new long[(int)(n+1) ];
+        
+        for(int i=0;i<k;i++){
+            
+            a=scanner.nextLong();
+            b=scanner.nextLong();
+            q=scanner.nextLong();
+            
+            arr[(int)a]+=q;
+            
+            if((b+1)<=n ){
+                
+                arr[ (int)(b+1) ]-=q;
+                
+            }
+            
+        }
+        
+        for(int i=1;i<=n;i++){
+            
+            x=x+arr[i];
+            
+            if(max<x){
+                
+                max=x;
+                
+            }
+            
+        }
+        
+        System.out.println(max);
+        
+    }
+    
+}
