@@ -1,0 +1,60 @@
+
+/*we can solve this problem also use the ArrayList, then we have to must find all the unique element's of the list, as in the arraylist duplicate's are allowed but in the set duplicates
+are not allowed, and in the list insertion order preserved and in the set insertion order is not preserved. as example if we have n=4,a=10,b=100 then it works like:
+
+0     1      2     3  : here we multiple 10
+0*10  1*10  2*10  3*10 
+
+3      2      1     0: here we multiple 100
+3*100 2*100  1*100  0*100
+
+300    210   120    30
+
+in the tree set it prevents all the duplicate and rearrange it in this order or sorted order. so the answer is: 30 120 210 300*/  
+
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class Manasa_and_Stones {
+    
+static Scanner scanner=new Scanner(System.in);    
+
+static int testCases;
+
+static long n,a,b;
+
+static TreeSet<Long> list=new TreeSet<>();
+
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int k=0;k<testCases;k++){
+            
+            n=scanner.nextLong();
+            a=scanner.nextLong();
+            b=scanner.nextLong();
+            
+           for(int j=0;j<n;j++){
+            
+               list.add(b*j+(n-j-1)*a  );
+               
+           }
+            
+          // Collections.sort(list);
+           
+           list.forEach((j) -> {
+               System.out.print(j+" ");
+            });
+           
+            System.out.println("");
+           
+            list.clear();
+            
+        }
+        
+        
+        
+    }
+
+}
