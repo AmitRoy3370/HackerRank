@@ -1,3 +1,16 @@
+
+/*In this problem we have to detect all the divisor of a number that is divisible by 2. And we also have to see that the result of (n/j) that means the number/j indics can be 
+dibisible by n and this can not be equal to the indices j and also (n/j) or the number and indices division result must be dibisible by 2.so in this reason we have to run the loop
+till 2 to sqrt(n) as all the divisors of a number is divisible between 2 to sqrt(n).then we check the number is divisible by j or the indices and the indices or the number of j
+is divisible by 2 or not.then we have to check anther if statement to check that the result of (n/j) that means the number/j indics can be 
+dibisible by n or not and this can not be equal to the indices j and also (n/j) or the number and indices division result must be dibisible by 2 or not.and we have to check another 
+if statement to check that is it even or odd. if it is even then we increase our counting number*/
+
+/* suppose n=8, so if we run the loop we can check only 2 o root(n)=2 only, but we can not check the number's after 3 to n-1 or 7.so that's why we check that n is divisible by 
+the division of (n and j) or not. in the if condition 8%(8/2(the last number of j after the end of first loop) )==0 && (8%2==0) && (8/2)%2==0 && (8/2=4!=2) so 4 will be present here
+that's why we increase the value of ans.and finally check that 8 is even or odd. if it is even then it is divisible by n=8 snd also divisible by 2 so the answer will be 3
+2,4,8*/
+
 import java.util.*;
 
 public class Sherlock_and_Divisors {
@@ -15,15 +28,16 @@ public class Sherlock_and_Divisors {
             
             N=scanner.nextLong();
             
-            for(int j=2;j<=Math.sqrt(N);j++){
+            for(int j=2;j<=Math.sqrt(N);j++){//run the loop till 2 to root(n) to find all the divisor as the divisor is presented between 2 to root(n) of every number
                 
-                if(N%j==0 && j%2==0){
+                if(N%j==0 && j%2==0){//here we check that the number is divisible or nor divisible by 2 nad also the divisible number is divisible by 2 or not
                     
-                    ans++;
+                    ans++;//we increment the ans or the counting of the divisor's
                     
                 }
                 
-                if(N%(N/j)==0 && ((N/j)!=j) && ((N/j)%2==0))
+                if(N%(N/j)==0 && ((N/j)!=j) && ((N/j)%2==0))/*here we check that the division result of n and j is also divisible by 2 or not and it's modulo is divisible by n or 
+                not and the division result of n and j is equal to j or not*/
                 ans++;
                 
             }
