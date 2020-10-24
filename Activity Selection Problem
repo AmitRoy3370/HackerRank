@@ -8,107 +8,142 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-class Activity_Selection_Problem implements Comparable<Activity_Selection_Problem>{
+class Activity_Selection_problem_Helper_Class implements Comparable<Activity_Selection_problem_Helper_Class>{
 
- String Activity;
- int start,end;    
+String Activity;
+int start,end;    
 
-    public Activity_Selection_Problem() {
+    public Activity_Selection_problem_Helper_Class() {
         
         
     }
 
-    public Activity_Selection_Problem(String Activity, int start, int end) {
+    public Activity_Selection_problem_Helper_Class(String Activity, int start, int end) {
+    
         this.Activity = Activity;
         this.start = start;
         this.end = end;
+    
     }
 
     public String getActivity() {
+
         return Activity;
+
     }
 
     public void setActivity(String Activity) {
+
         this.Activity = Activity;
+
     }
 
     public int getStart() {
+
         return start;
+
     }
 
     public void setStart(int start) {
+
         this.start = start;
+
     }
 
     public int getEnd() {
+
         return end;
+
     }
 
     public void setEnd(int end) {
+
         this.end = end;
+
     }
 
-   
     @Override
-    public int compareTo(Activity_Selection_Problem t) {
-    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String toString() {
+
+        return  "Activity=" + Activity + " start=" + start + " end=" + end ;
+
+    }
+
+    @Override
+    public int compareTo(Activity_Selection_problem_Helper_Class t) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+//return String.valueOf(this.getEnd()).compareTo(String.valueOf(t.getEnd()));
+
+if(this.getEnd()>t.getEnd()){
     
-    return String.valueOf(this.getEnd()).compareTo( String.valueOf(t.getEnd()) );
+    return 1;
     
+}else if(t.getEnd()>this.getEnd()) {
+    
+    return -1;
+    
+}else{
+    
+    return 0;
+    
+}
+
     }
 
 }
 
 
+public class Activity_Selection_problem {
 
-public class Activity_Selection_Problem_Main_Method {
- 
     static Scanner scanner=new Scanner(System.in);
     
-    static int n,start,end;
+    static int total,start,end,answer=0;
+    
+    static Activity_Selection_problem_Helper_Class helper=new Activity_Selection_problem_Helper_Class();
     
     static String activity;
     
-    static List<Activity_Selection_Problem> list=new ArrayList<>();
-    
-    static Activity_Selection_Problem a=new Activity_Selection_Problem();
+   static List<Activity_Selection_problem_Helper_Class> list=new ArrayList<>();
     
     public static void main(String[] args) {
         
-        n=scanner.nextInt();
+        total=scanner.nextInt();
         
-        for(int i=0;i<n;i++){
-         
+        for(int i=0;i<total;i++){
+            
+          //  System.out.println("activity: ");
             activity=scanner.next();
+            
+            //System.out.println("start: ");
             start=scanner.nextInt();
+            
+            //System.out.println("end: ");
             end=scanner.nextInt();
             
-            a=new Activity_Selection_Problem(activity,start,end);
-        
-            a.setActivity(activity);
-            a.setEnd(end);
-            a.setStart(start);
-           
-            list.add(a);
+       helper=new Activity_Selection_problem_Helper_Class(activity,start,end);     
             
+      list.add(helper);
+       
         }
         
         Collections.sort(list);
         
-       /* System.out.println("The sorted list: ");
+        System.out.println("sorted list is: ");
         
-        list.forEach((i) -> {
-            System.out.println("activity: "+i.getActivity()+" start: "+i.getStart()+" end: "+i.getEnd());
-        });*/
-        
-        int count=0,j=0;
-        
-        for(int i=0;i<n-1;i++){
+        for(int i=0;i<list.size();i++){
             
-            if(list.get(j).getEnd()<=list.get(i+1).getStart()){
+            System.out.println(list.get(i).toString()+" ");
+            
+        }
+        
+        int j=0;
+        
+        for(int i=0;i<list.size()-1;i++){
+            
+            if( list.get(j).getEnd()<=list.get(i+1).getStart() ){
                 
-                System.out.println(list.get(j).getActivity()+" "+list.get(i+1).getActivity());
-                count++;
+                answer++;
                 
                 j=i;
                 
@@ -116,7 +151,7 @@ public class Activity_Selection_Problem_Main_Method {
             
         }
         
-        System.out.println("total: "+(count+1)+" activities");
+        System.out.println("total: "+(answer+1));
         
     }
     
