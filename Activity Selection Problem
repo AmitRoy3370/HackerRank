@@ -151,7 +151,7 @@ public class Activity_Selection_problem {
             
         }
         
-        System.out.println("total: "+(answer+1));
+        System.out.println("total: "+(answer));
         
     }
     
