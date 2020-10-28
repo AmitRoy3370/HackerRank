@@ -1,0 +1,141 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class The_Grid_Search
+{
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,MainRaw,MainColoumn,SearchRaw,SearchColoumn;
+    
+    static List<String> listMain=new ArrayList<>();
+    static List<String>listSearch=new ArrayList<>();
+    
+    public static boolean MainFunction(List<String> listMain,List<String> listSearch){
+        
+         boolean b=false;
+            
+            for(int j=0;j<listMain.size()-listSearch.size()+1;j++ ){
+                
+                for(int k=0;k<listMain.get(0).length()-listSearch.get(0).length()+1;k++ ){
+                    
+                     b=true;
+                    
+                    for(int l=0;l<listSearch.size();l++ ){
+                        
+                        for(int m=0;m<listSearch.get(0).length();m++ ){
+                            
+                            if( listMain.get(j+l).charAt( m+k )!=listSearch.get(l).charAt(m) ){
+                                
+                                b=false;
+                    break;            
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                    if(b){
+                        
+                        return true;
+                        
+                    }
+                    
+                }
+                
+            }
+            
+                /*    if(b==false){
+                    
+                    System.out.println("NO");
+                    
+                }*/
+                    
+        
+        
+        return false;
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            MainRaw=scanner.nextInt();
+            MainColoumn=scanner.nextInt();
+            
+            for(int j=0;j<MainRaw;j++){
+            
+            listMain.add(j,scanner.next() );    
+               
+            }
+         
+         SearchRaw=scanner.nextInt();
+         SearchColoumn=scanner.nextInt();
+            
+            for(int j=0;j<SearchRaw;j++){
+                
+                listSearch.add(j,scanner.next() );
+                
+            }
+            
+                    if( MainFunction(listMain,listSearch  )==true ){
+                        
+                        listSearch.clear();
+                        listMain.clear();
+                        
+                        System.out.println("YES");
+                        
+                    }else{
+                        
+                        listSearch.clear();
+                        listMain.clear();
+                        
+                        System.out.println("NO");
+                        
+                    }
+                    
+                }
+        
+    }
+}
+
+/*
+2
+10 10
+7283455864
+6731158619
+8988242643
+3830589324
+2229505813
+5633845374
+6473530293
+7053106601
+0834282956
+4607924137
+3 4
+9505
+3845
+3530
+15 15
+400453592126560
+114213133098692
+474386082879648
+522356951189169
+887109450487496
+252802633388782
+502771484966748
+075975207693780
+511799789562806
+404007454272504
+549043809916080
+962410809534811
+445893523733475
+768705303214174
+650629270887160
+2 2
+99
+99
+*/
