@@ -1,44 +1,65 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+/*
+
+Here we have a 2d list of string and we have another 2d pattern list. We have to fins the matching of that pattern in the first list. Actually we do not run this loop for full time's
+we have to run the loop just raw wise ( firstRaw-lastRaw+1 ) time's and coloumn wise ( firstColoumn-lastColoumn+1 ).
+here firstRaw=number of raw in the first list. and lastRaw=number of coloumn in the last list. we run the loop till this range as the pattern will be situted in this list
+till firstRaw-lastRaw index. and this is same for the coloumn wise travers.as example when my testCases is as like as the example situted in the below we have 10 raw's and 10 coloumn
+and in the searching list we have 3 raw and 4 coloumn. so we have to travers in the raw till 0 to (10-3)=7 time's and till 0 to 6 index and we have to traverse 0 to (10-4)=6 index and 7 time's.
+
+so for this reason we have to run the loop till ( firstRaw-lastRaw+1 ) and ( firstColoumn-lastColoumn+1 ). to get the index of firstColoumn-lastColoumn and firstRaw-lastRaw
+index.or we can run the loop till 0 to eqaul's to firstRaw-lastRaw time.
+
+our main task to find the matches between the first and second list.so we traverse the second list till the length of the second list and coloumn wise
+the length of the first string in the list as the evry coloumn is equal to another.
+
+here we found the matches of the chracter of first list to the second list, if they are not matched then we break from the loop
+when the system traverse the full path of the second list both raw wise and coloumn wise then it will be true and return the true.
+if the patern's of the second the list is not present then the value of b is not change and we return false
+when the main function get true it's print YES and other wise it will print NO
+
+*/
+
+import java.util.ArrayList;//header file for input and get output of the ArrayList
+import java.util.List;//header file for list
+import java.util.Scanner;//header file for Scanner function, it help's us to take input from the user
 
 public class The_Grid_Search
 {
     
-    static Scanner scanner=new Scanner(System.in);
+    static Scanner scanner=new Scanner(System.in);//declare the Scanner method or library function globally
     
-    static int testCases,MainRaw,MainColoumn,SearchRaw,SearchColoumn;
+    static int testCases,MainRaw,MainColoumn,SearchRaw,SearchColoumn;// here MainRaw and MainColoumn represent's the raw and coloumn Length of the main list, and SearchRaw and SearchColoumn represent's the raw and coloumn of the searchList 
     
-    static List<String> listMain=new ArrayList<>();
-    static List<String>listSearch=new ArrayList<>();
+    static List<String> listMain=new ArrayList<>();//this list store the data of first or main list
+    static List<String>listSearch=new ArrayList<>();//this is our second or searching pattern list
     
     public static boolean MainFunction(List<String> listMain,List<String> listSearch){
         
-         boolean b=false;
+         boolean b=false;//at first we initialize b as false
             
-            for(int j=0;j<listMain.size()-listSearch.size()+1;j++ ){
+            for(int j=0;j<listMain.size()-listSearch.size()+1;j++ ){//to get all the element's of the raw or do the raw wise traverse.listMain.size()-listSearch.size()+1 as we want to traverse till 0 to listMain.size()-listSearch.size() index.that's why it will run till 0 to the before of the listMain.size()-listSearch.size()+1  
                 
-                for(int k=0;k<listMain.get(0).length()-listSearch.get(0).length()+1;k++ ){
+                for(int k=0;k<listMain.get(0).length()-listSearch.get(0).length()+1;k++ ){//to get all the element's of the coloumn or do the coloumn wise traverse.listMain.size()-listSearch.get(0).length()+1 as we want to traverse till 0 to listMain.size()-listSearch.get(0).length() index.that's why it will run till 0 to the before of the listMain.size()-listSearch.get(0).length()+1.To get the coloumn we use listSearch.get(0).length() as every coloumn of the second list is equal to another.as our character's of the inputed string represent the coloumn of the second list  
                     
-                     b=true;
+                     b=true;//initialize the value of b is true
                     
-                    for(int l=0;l<listSearch.size();l++ ){
+                    for(int l=0;l<listSearch.size();l++ ){// raw wise traverse of the second list
                         
-                        for(int m=0;m<listSearch.get(0).length();m++ ){
+                        for(int m=0;m<listSearch.get(0).length();m++ ){//coloumn wise traverse of the second list.As the chracter's of the string represent coloumn of the second list
                             
-                            if( listMain.get(j+l).charAt( m+k )!=listSearch.get(l).charAt(m) ){
+                            if( listMain.get(j+l).charAt( m+k )!=listSearch.get(l).charAt(m) ){//if the element's of the first list and second list is not equal then we break from the list and make the value of b false
                                 
-                                b=false;
-                    break;            
+                                b=false;//make the value of b false
+                    break;   //break from the coloumn wise tracerse of the second list         
                             }
                             
                         }
                         
                     }
                     
-                    if(b){
+                    if(b){//if it will traverse the full raw wise and coloumn wise path of the second list then it will return the true.As the pattern or the value's of second list is present in the first list or main list or as a pattern
                         
-                        return true;
+                        return true;//return the value of true
                         
                     }
                     
@@ -54,7 +75,7 @@ public class The_Grid_Search
                     
         
         
-        return false;
+        return false;//if the second list pattern is not present at the first list or main list then it come's here and we can return the false value.
     }
     
     public static void main(String[] args) {
@@ -63,28 +84,28 @@ public class The_Grid_Search
         
         for(int i=0;i<testCases;i++){
             
-            MainRaw=scanner.nextInt();
-            MainColoumn=scanner.nextInt();
+            MainRaw=scanner.nextInt();//take the input of the main raw or first list's number of raw
+            MainColoumn=scanner.nextInt();//take the input of the main coloumn or the first list coloumn number 
             
             for(int j=0;j<MainRaw;j++){
             
-            listMain.add(j,scanner.next() );    
+            listMain.add(j,scanner.next() );//take the input of the main list here character's of the string represent the coloumn of the list   
                
             }
          
-         SearchRaw=scanner.nextInt();
-         SearchColoumn=scanner.nextInt();
+         SearchRaw=scanner.nextInt();//take the input of the second raw or second list's number of raw
+         SearchColoumn=scanner.nextInt();//take the input of the main coloumn or the second list coloumn number 
             
             for(int j=0;j<SearchRaw;j++){
                 
-                listSearch.add(j,scanner.next() );
+                listSearch.add(j,scanner.next() );//take the input of the searching list or second list here character's of the string represent the coloumn of the list 
                 
             }
             
                     if( MainFunction(listMain,listSearch  )==true ){
                         
-                        listSearch.clear();
-                        listMain.clear();
+                        listSearch.clear();//after each test cases we clear the value's of searching list
+                        listMain.clear();//after each test cases we clear the value's of main list or first list 
                         
                         System.out.println("YES");
                         
@@ -101,6 +122,8 @@ public class The_Grid_Search
         
     }
 }
+
+//here is our sample example
 
 /*
 2
