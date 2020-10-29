@@ -1,0 +1,147 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Happy_Ladybugs {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int TestCases;
+    
+    static String s;
+    
+    static Map<Character,Integer> map=new HashMap<>();
+    
+    static List<Character> list=new ArrayList<>();
+    
+    static String BeHappy(String s){
+        
+        for(int i=0;i<s.length();i++){
+            
+            list.add(s.charAt(i));
+            
+            map.put(s.charAt(i), 0);
+            
+        }
+        
+        for(int i=0;i<s.length();i++){
+            
+            int t=map.get(s.charAt(i))+1;
+            
+            map.put(s.charAt(i), t);
+            
+        }
+        
+        String result="NO";
+        
+        if(list.contains('_')){
+            
+            for(int i=0;i<s.length();i++){
+                
+                if(map.get(s.charAt(i))<2 && s.charAt(i)!='_'){
+                    
+                    list.clear();
+                    map.clear();
+                    
+        //            System.out.println("No from here: "+s);
+                    
+                    return "NO";
+                    
+                }else{
+                    
+                    result="YES";
+                    
+                }
+                
+            }
+            
+        }else{
+            
+             for(int i=0;i<s.length();i++){
+                
+                if(map.get(s.charAt(i))<2 && s.charAt(i)!='_'){
+                    
+                    list.clear();
+                    map.clear();
+                    
+                    return "NO";
+                    
+                }else{
+                    
+                    result="YES";
+                    
+                }
+                
+            }
+            
+           for(int i=0;i<s.length()-1;i++){
+               
+               try{
+                   
+                   if( s.charAt(i)==s.charAt(i+1) || s.charAt(i)==s.charAt(i-1) ){
+                       
+                       result="YES";
+                       
+                   }else{
+                       
+                       list.clear();
+                       map.clear();
+                       
+                       return "NO";
+                       
+                   }
+                   
+               }catch(Exception e){
+                   
+                   
+               }
+               
+           }
+               
+           if(result.equalsIgnoreCase("YES") && s.charAt( s.length()-1 )==s.charAt( s.length()-2 )){
+               
+               list.clear();
+               map.clear();
+               
+               return "YES";
+               
+           }else{
+               
+               list.clear();
+               map.clear();
+               
+               return "NO";
+               
+           }    
+           
+           
+        }
+        
+        list.clear();
+        map.clear();
+        
+        return result;
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        TestCases=scanner.nextInt();
+        
+        for(int i=0;i<TestCases;i++){
+            
+         int n=scanner.nextInt();
+            
+        s=scanner.next();
+            
+        s=s.toUpperCase();
+        
+            System.out.println(BeHappy(s));
+        
+        }
+        
+    }
+    
+}
