@@ -1,0 +1,85 @@
+/*
+
+We checked Binet's formula and it's more elegant;however, since the max 10^10, the number of elements in array is 50, so just straight forward pre-computation should work too.
+Phi=(1+√5)/2 (This is a constant)
+Nf=(log(n*√5) )/log(phi))+0.5
+Fn=(phi^NF)/(√5)+0.5
+In the case when the number is Fibonacci then the value of Fn will be equal to the value of n
+
+Formulla is generated as like as this way:
+
+Fib(i)=(Phi^i-(-Phi)^i)/(√5)
+But since phi=0.618 and phi2= 0.382, the powers of phi quickly get very small and have a smaller and smaller effect on Phii. By ignoring the small term we find a simpler formula for Fib(i) from which we can find a formula for the index number i:
+Fib(i)≈(Phi^i)/(√5)_____________(1)
+√5*Fib(i)≈Phi^i
+log(Fib(i) √5) ≈ log( Phii)
+
+using the log rule that log(a b)=log(a)+log(b) we have:
+log(Fib(i)) + log(√5) ≈ log( Phii)
+i ≈ (log(Fib(i)) + log(5)/2log(Phi))/(log(Phi)) ≈  (log(N) + log(5)/2log(Phi))/(log(Phi)) 
+
+Now we know,
+           log(√5)= log(5)/2= 0.80471 89562 17050 18730 03796 66613 ...log(Phi)= log((√5+1)/2)= 0.48121 18250 59603 44749 77589 13424 ...
+i≈(log⁡(N*√5))/log⁡(Phi) 
+So we guess that the value is 0.5 more than this number as it is approximately equal to I, then we can guess any little number here to guess the value of i. This is the actual value of nf.
+Now we set this value of I or nf to the equation number (1)
+Then we get,
+Fib(i) ≈(Phi)^i/√5 
+As the same reason we guess that the value is 0.5 more than this number as it is approximately equal to Fib(i), then we can guess any little number here to guess the value of Fib(i).
+So finally,
+Fib(i)= 〖((Phi)〗^i/√5)+0.5
+This is the formula we use to check that the number is Fibonacci or not. 
+Note: we can add any small number but It is same for both I and Fib(i)
+
+
+
+
+*/
+
+
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the solve function below.
+    static String solve(long n) {
+double phi=(1+Math.sqrt(5) )/2;
+        
+        long nf=(long)(Math.log(n*Math.sqrt(5)) / Math.log(phi) + 0.5 );
+        
+        long Fn = (long)( (long)Math.pow(phi, nf)/Math.sqrt(5) + 0.5);
+        
+        if (Fn==n) 
+        return "IsFibo";
+        else
+        return "IsNotFibo"; 
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            long n = scanner.nextLong();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            String result = solve(n);
+
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
