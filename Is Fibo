@@ -22,6 +22,9 @@ Now we know,
            log(√5)= log(5)/2= 0.80471 89562 17050 18730 03796 66613 ...log(Phi)= log((√5+1)/2)= 0.48121 18250 59603 44749 77589 13424 ...
 i≈(log⁡(N*√5))/log⁡(Phi) 
 So we guess that the value is 0.5 more than this number as it is approximately equal to I, then we can guess any little number here to guess the value of i. This is the actual value of nf.
+
+i=((log(N) + log(5)/2)/(log(Phi)) +0.5
+
 Now we set this value of I or nf to the equation number (1)
 Then we get,
 Fib(i) ≈(Phi)^i/√5 
