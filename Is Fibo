@@ -16,7 +16,7 @@ log(Fib(i) √5) ≈ log( Phii)
 
 using the log rule that log(a b)=log(a)+log(b) we have:
 log(Fib(i)) + log(√5) ≈ log( Phii)
-i ≈ (log(Fib(i)) + log(5)/2log(Phi))/(log(Phi)) ≈  ((log(N) + log(5)/2)/(log(Phi)) 
+i ≈ ((log(Fib(i)) + log(5)/2)/(log(Phi)) ≈  ((log(N) + log(5)/2)/(log(Phi)) 
 
 Now we know,
            log(√5)= log(5)/2= 0.80471 89562 17050 18730 03796 66613 ...log(Phi)= log((√5+1)/2)= 0.48121 18250 59603 44749 77589 13424 ...
