@@ -1,0 +1,59 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+private static final Scanner scanner = new Scanner(System.in);
+
+
+    /*
+     * Complete the halloweenParty function below.
+     */
+    static BigInteger halloweenParty(int n) {
+        /*
+         * Write your code here.
+         */
+
+BigInteger bigInteger=new BigInteger( String.valueOf(n) );
+
+    //    System.out.println("d: "+bigInteger.mod(new BigInteger("2") ));
+
+  //      System.out.println("e: "+bigInteger.divide(new BigInteger("2" )).multiply( bigInteger.divide(new BigInteger("2" )) ));
+        
+if(bigInteger.mod(new BigInteger("2") ).longValue()==new BigInteger("0").longValue()){
+    
+//    System.out.println("d: "+bigInteger.divide(new BigInteger("2" )).multiply( bigInteger.divide(new BigInteger("2" )) ));
+    
+    return bigInteger.divide(new BigInteger("2" )).multiply( bigInteger.divide(new BigInteger("2" )) );
+
+//return 0;
+
+    }
+
+return bigInteger.divide(new BigInteger("2" )).multiply( bigInteger.divide(new BigInteger("2" )).add(new BigInteger("1")) );
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            int k = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])*");
+
+            BigInteger result = halloweenParty(k);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
