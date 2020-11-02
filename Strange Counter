@@ -1,0 +1,65 @@
+
+/*
+
+Here our strange count start at the 3.Then the value is decreasing until the value become 1. In the next state it will start at 6.the double of the previous initialize value,
+and again it start to decrese.we have to find the value of the wanted time.As the value is increasing multiply 2 of previous value and each time the value is decreasing untill the 
+value become 1.so, we do not need to traverse the loop n time's. we just find the value at the initialize state when the value become double than the previous initialize.
+then we have to count that the value we have to decrease. this is actually the difference of the first index of the value to wanted time.
+
+as example we have to count the value of 15 time's
+
+so we know the value of 4 times is 6, first we try to find that value's index.ans we substract 3 untill the reminder become larger than the times
+
+15->value: 12, rem=6-> value=6 rem=12 (here rem is the initial value)
+
+but our wanted time is 15, so we have to decrease the value by one till n value now we have
+
+so the answer is: 12-6+1=7
+
+*/
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the strangeCounter function below.
+    static long strangeCounter(long t) {
+
+long rem=3;
+
+while(t>rem){
+
+t-=rem;
+
+rem*=2;
+
+}
+
+return (rem-t+1);
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        long t = scanner.nextLong();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        long result = strangeCounter(t);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
