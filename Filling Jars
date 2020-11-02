@@ -1,0 +1,107 @@
+
+/*
+
+Here we have to use BigInteger as the range of the number's are too long. 3<=N<=10^7 and 1<=M<=10^5. When we calculate the value's with this high range number
+then the range of the integer number will be pass and we can not get the exact ans for these test cases. We add ( (b-1)-(a-1)+1)*k in each time of the loop of operation's
+raw wise traverse as we have to add the value of k in the index of new n length list. so we have to add the same number k for each case.So that's why we do not need
+to run a loop to do that task, as we show time limit excess for this type of action, that's why we add the value of k ( (b-1)-(a-1)+1) time's.ans the final term we just retun the 
+avarge value.
+
+
+*/
+
+import java.math.BigInteger;
+import java.util.*;
+
+public class Filling_Jars {
+
+    // Complete the solve function below.
+    static BigInteger solve(int n, int[][] operations) {
+
+/*        List<Integer> list=new ArrayList<>();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add(0);
+            
+        }*/
+        
+        //System.out.println("list size: "+list.size()+" d: "+operations[2][0]);
+        
+  BigInteger bigInteger=new BigInteger("0");      
+        
+        //int sum=0;
+        
+        for(int i=0;i<operations.length;i++){
+            
+            try{
+            
+          //for(int j=0;j<3;j++){
+              
+            //  sum+=((operations[i][1]-operations[i][0])+1)*operations[i][2];
+              
+          //}
+            
+          long l=operations[i][0]-1;
+          long h=operations[i][1]-1;
+         
+          long candy=operations[i][2];
+          
+          long r=h-l+1;
+          
+          BigInteger temp=BigInteger.valueOf(r);
+          
+          temp=temp.multiply( BigInteger.valueOf(candy) );
+          
+         bigInteger= bigInteger.add(temp);
+          
+                }catch(Exception e){
+                   
+                   
+                   
+               }
+               
+        }
+
+bigInteger=(bigInteger.divide( new BigInteger( String.valueOf(n) ) ));
+        
+        return bigInteger;
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args)  {
+     //   BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nm = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nm[0]);
+
+        int m = Integer.parseInt(nm[1]);
+
+        int[][] operations = new int[m][3];
+
+        for (int operationsRowItr = 0; operationsRowItr < m; operationsRowItr++) {
+            String[] operationsRowItems = scanner.nextLine().split(" ");
+            //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int operationsColumnItr = 0; operationsColumnItr < 3; operationsColumnItr++) {
+                int operationsItem = Integer.parseInt(operationsRowItems[operationsColumnItr]);
+                operations[operationsRowItr][operationsColumnItr] = operationsItem;
+            }
+        }
+
+        BigInteger result = solve(n, operations);
+
+        System.out.println(String.valueOf(result));
+        
+        //bufferedWriter.write(String.valueOf(result));
+        //bufferedWriter.newLine();
+
+       // bufferedWriter.close();
+
+        scanner.close();
+    }
+}
+
