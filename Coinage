@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Coinage {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,one,two,five,ten,n;
+    
+    static void count(int n,int one,int two,int five,int ten){
+        
+        int count=0;
+        
+        for(int i=Math.min(n/10,ten);i>=0;i--){
+            
+            for(int j=Math.min(five,(n-10*i)/5 );j>=0;j--){
+                
+                for(int k= Math.min(two, (n-10*i-5*j)/2 );k>=0;k-- ){
+                    
+                    for(int l=Math.min(one, n-10*i-5*j-2*k);l>=0;l--){
+                        
+                        if( (i*10+j*5+k*2+l)==n ){
+                            
+                            count++;
+                            break;
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        System.out.println(count);
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=scanner.nextInt();
+            
+            one=scanner.nextInt();
+            two=scanner.nextInt();
+            five=scanner.nextInt();
+            ten=scanner.nextInt();
+            
+            count(n,one,two,five,ten);
+            
+        }
+        
+    }
+    
+}
