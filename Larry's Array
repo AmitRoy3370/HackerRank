@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Larrys_Array {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,n;
+    
+    public static void main(String[] args) {
+
+testCases=scanner.nextInt();
+        
+for(int i=0;i<testCases;i++){
+    
+    n=scanner.nextInt();
+    
+   List<Integer> list=new ArrayList<>();
+    
+    for(int j=0;j<n;j++){
+        
+        list.add(j,scanner.nextInt());
+        
+    }
+    
+    int count=0;
+    
+    for(int j=0;j<list.size()-1;j++){
+        
+        for(int k=j+1;k<list.size();k++){
+            
+            if( list.get(j)>list.get(k) ){
+                
+                count++;
+                
+            }
+            
+        }
+        
+    }
+    
+    if( count%2==0 ){
+        
+        System.out.println("YES");
+        
+    }else{
+        
+        System.out.println("NO");
+        
+    }
+    
+}
+
+    }
+    
+}
