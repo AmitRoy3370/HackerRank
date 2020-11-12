@@ -1,0 +1,114 @@
+import java.util.Scanner;
+
+public class Mars_Exploration {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static String s;
+    
+    public static void main(String[] args) {
+        
+        s=scanner.next();
+        
+        s=s.toUpperCase();
+        
+        int ans=0;
+        
+        if( s.length()%3==0 ){
+            
+            for(int i=0;i<=s.length()-3;i+=3){
+            
+                //System.out.println("i: "+i);
+                
+                if( s.charAt(i)=='S' ){
+                 
+                    if( s.charAt(i+1)=='O' ){
+                        
+                    //    i++;
+                        
+                        if( s.charAt(i+2)=='S' ){
+                            
+                      //      i++;
+                            
+                        }else{
+                            
+                      //      System.out.println("d: "+s.charAt(i+2));
+                            
+                            ans++;
+                            
+                        }
+                        
+                    }else{
+                        
+                        ans++;
+                        
+                        if( s.charAt(i+2)=='S' ){
+                            
+                      //      i++;
+                            
+                        }else{
+                            
+                      //      System.out.println("d: "+s.charAt(i+2));
+                            
+                            ans++;
+                            
+                        }
+                        
+                        
+                    //    System.out.println("d: "+s.charAt(i+1));
+                        
+                    }
+                    
+                }else{
+                    
+                  ans++;  
+                    
+                  if( s.charAt(i+1)=='O' ){
+                        
+                    //    i++;
+                        
+                        if( s.charAt(i+2)=='S' ){
+                            
+                      //      i++;
+                            
+                        }else{
+                            
+                      //      System.out.println("d: "+s.charAt(i+2));
+                            
+                            ans++;
+                            
+                        }
+                        
+                    }else{
+                        
+                        ans++;
+                        
+                         if( s.charAt(i+2)=='S' ){
+                            
+                      //      i++;
+                            
+                        }else{
+                            
+                      //      System.out.println("d: "+s.charAt(i+2));
+                            
+                            ans++;
+                            
+                        }
+                        
+                    //    System.out.println("d: "+s.charAt(i+1));
+                        
+                    }
+                  
+                  //  System.out.println("d: "+s.charAt(i));
+                  
+                }
+                
+            }
+            
+        }
+        
+        System.out.println(ans);
+        
+    }
+    
+}
