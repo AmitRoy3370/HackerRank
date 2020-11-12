@@ -1,0 +1,93 @@
+import java.util.Scanner;
+
+public class The_Full_Counting_Sort {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long n;
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextLong();
+        
+        //String s[]=new String[n];
+        
+        StringBuffer y[]=new StringBuffer[(int)100];
+         
+        //String y;
+        
+        for(int i=0;i<100;i++){
+            
+            y[i]=new StringBuffer();
+            
+        }
+        
+        for(long i=0;i<n;i++){
+        
+            int x=scanner.nextInt();
+           String s=scanner.next();
+            
+           String t;
+           
+            if(i<n/2){
+            
+          t="- ";
+            
+            }else{
+                
+            t=s+" ";
+                
+            }
+            
+            y[x]=y[x].append(t);
+            
+            //System.out.println("d: "+y[x]);
+            
+        }
+        
+         
+       /* for(long i=n/4;i<n/2;i++){
+        
+            int x=scanner.nextInt();
+           String s=scanner.next();
+            
+           if( y[x]!=null ){
+            
+               y[x]+="-"+" ";
+            
+           }else{
+               
+               y[x]="-"+" ";
+               
+           }
+            
+            //System.out.println("d: "+y[x]);
+            
+        }*/
+        
+       /* for(long i=n/2;i<n;i++){
+            
+            int x=scanner.nextInt();
+            String s=scanner.next();
+            
+           
+            
+        }*/
+        
+        for(long i=0;i<100;i++){
+            
+            if(y[(int)i]!=null)
+            System.out.print(y[(int)i]);
+            
+        }
+        
+       /* for(long i=50;i<100;i++){
+            
+            if(y[(int)i]!=null)
+            System.out.print(y[(int)i]);
+            
+        }*/
+        
+    }
+    
+}
