@@ -1,0 +1,79 @@
+import java.util.*;
+import java.util.Scanner;
+import java.util.HashMap;
+
+import java.util.ArrayDeque;
+
+class Parser{
+
+    boolean isBalanced(String next) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+
+        HashMap<Character, Character> map = new HashMap<>();
+
+
+        map.put('(', ')');
+
+
+        map.put('[', ']');
+
+
+        map.put('{', '}');
+    
+        if(next.length()%2!=0){
+            
+            return false;
+            
+        }
+        
+        ArrayDeque<Character> deque = new ArrayDeque<>(); // use deque as a stack
+
+
+        for (int i = 0; i < next.length(); i++) {
+
+
+            Character ch = next.charAt(i);
+
+
+            if (map.containsKey(ch)) {
+
+
+                deque.push(ch);
+
+
+            } else if (deque.isEmpty() || ch != map.get(deque.pop())) {
+
+
+                return false;
+
+
+            }
+
+
+        }
+
+
+        return deque.isEmpty();
+        
+    //return false;
+    
+    }
+       
+}
+
+// Write your code here. DO NOT use an access modifier in your class declaration.
+class JavaStack {
+	
+	public static void main(String[] args) {
+		Parser parser = new Parser();
+        
+		Scanner in = new Scanner(System.in);
+
+		while (in.hasNext()) {
+			System.out.println(parser.isBalanced(in.next()));
+		}
+        
+		in.close();
+	}
+}
