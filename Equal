@@ -14,34 +14,50 @@ public class Solution {
     
 
     // Complete the equal function below.
-    static long equal(int[] arr) {
-
-Arrays.sort(arr);
-
-long sum=0;
-
-long ans=Long.MAX_VALUE;
-
-for( int i=0;i<3;i++ ){
     
-    sum=0;
-    
-    for(int j=0;j<arr.length;j++ ){
+    static int sum(int data){
         
-        int data=arr[j]-arr[0]+i;
-        
-        sum+=(int)data / 5 + data % 5 / 2 + data % 5 % 2 / 1;
+        return data/5+(data%5)/2+data%5%2;
         
     }
     
-    ans=Math.min( sum,ans );
-    
-}
-
-return  ans;
-
+    static long equal(int a[]){
+        
+        int ans[][]=new int [3][a.length];
+        
+        Arrays.sort(a);
+        
+        for(int i=0;i<3;i++){
+            
+            int sum=0;
+            
+            for(int j=0;j<a.length;j++){
+                
+                int data=a[j]-a[0]+i;
+                
+                sum+=sum(data);
+                
+                ans[i][j]=sum;
+                
+            }
+           
+        }
+        
+        long min=Long.MAX_VALUE;
+        
+        for( int i=0;i<3;i++ ){
+            
+            if( min>ans[i][a.length-1] ){
+                
+                min=ans[i][a.length-1];
+                
+            }
+            
+        }
+        
+        return min;
     }
-
+    
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
