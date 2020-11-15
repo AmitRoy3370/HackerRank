@@ -1,0 +1,38 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Sumar_and_the_Floating_Rocks {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long x1,x2,y1,y2,testCases;
+    
+    static BigInteger solve(long x1,long y1,long x2,long y2){
+        
+        BigInteger b=BigInteger.valueOf(x1-x2);
+        
+        b=b.gcd( BigInteger.valueOf(y1-y2) );
+        
+        b=b.abs().subtract(BigInteger.ONE);
+        
+        return b;
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextLong();
+        
+        for(long i=0;i<testCases;i++){
+            
+            x1=scanner.nextLong();
+            y1=scanner.nextLong();
+            x2=scanner.nextLong();
+            y2=scanner.nextLong();
+            
+            System.out.println(solve(x1,y1,x2,y2) );
+            
+        }
+        
+    }
+    
+}
