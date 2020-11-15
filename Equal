@@ -1,0 +1,77 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+//static long ans=Long.MAX_VALUE;
+
+    // Complete the equal function below.
+    
+
+    // Complete the equal function below.
+    static long equal(int[] arr) {
+
+Arrays.sort(arr);
+
+long sum=0;
+
+long ans=Long.MAX_VALUE;
+
+for( int i=0;i<3;i++ ){
+    
+    sum=0;
+    
+    for(int j=0;j<arr.length;j++ ){
+        
+        int data=arr[j]-arr[0]+i;
+        
+        sum+=(int)data / 5 + data % 5 / 2 + data % 5 % 2 / 1;
+        
+    }
+    
+    ans=Math.min( sum,ans );
+    
+}
+
+return  ans;
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            int n = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            int[] arr = new int[n];
+
+            String[] arrItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int i = 0; i < n; i++) {
+                int arrItem = Integer.parseInt(arrItems[i]);
+                arr[i] = arrItem;
+            }
+
+            long result = equal(arr);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
