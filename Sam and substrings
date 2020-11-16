@@ -1,0 +1,44 @@
+
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Sam_and_substrings {
+    
+    //static Scanner scanner=new Scanner(System.in);
+    
+    static String s;
+     
+    static BigInteger modu=new BigInteger("10");
+    
+    public static void main(String[] args) {
+    
+        modu=modu.pow(9).add( new BigInteger("7") );
+        
+       Scanner sc = new Scanner(System.in);
+        
+       int[] s = Arrays.stream(sc.next().split("")).mapToInt(Integer::parseInt).toArray();
+        
+        long sum=0;
+        
+        int length = s.length;
+        
+        long ones = 1;
+        
+        for(int i=0;i<length;i++){
+            
+            sum = (sum + s[length-i-1]*(length-i)*ones ) % modu.intValue();
+        
+    //System.out.println("sum: "+sum+" "+" s: "+s[length-i-1]);
+       
+   //System.out.println("ones: "+ones);      
+            
+            ones = (ones*10 +1) % modu.intValue();
+            
+        }
+         
+        System.out.println(sum);
+    
+    }
+    
+}
