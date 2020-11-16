@@ -1,0 +1,163 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the abbreviation function below.
+    static String abbreviation(String a, String b) {
+
+        /*List<Character> listA=new ArrayList<>();
+         List<Character> listB=new ArrayList<>();
+         
+         for(int i=0;i<a.length();i++){
+             
+             listA.add( Character.toUpperCase(a.charAt(i)) );
+             
+         }
+         
+          for(int i=0;i<b.length();i++){
+             
+             listB.add( Character.toUpperCase(b.charAt(i)) );
+             
+         }
+         
+          if(!listA.containsAll(listB)){
+              
+              return "NO";
+              
+          }*/
+          
+        int ans[][]=new int [a.length()+1][b.length()+1];
+         
+        ans[0][0]=1;
+        
+        for(int i=1;i<=a.length();i++){
+            
+            if( Character.isUpperCase(a.charAt(i-1)) ){
+                
+                ans[i][0]=0;
+                
+            }else{
+                
+                ans[i][0]=1;
+                
+            }
+            
+        }
+        
+        int last=0,lastj=0;
+        
+        for(int i=1;i<=a.length();i++){
+            
+            for(int j=1;j<=b.length();j++){
+                
+                if( a.charAt(i-1)==b.charAt(j-1) ){
+                    
+                    ans[i][j]=ans[i-1][j-1];
+                    
+                }else if( String.valueOf(a.charAt(i-1)).equalsIgnoreCase(String.valueOf( b.charAt(j-1) )) ){
+                    
+                   // if( ans[i-1][j]==0 )
+                    
+                    ans[i][j]=ans[i-1][j-1] | ans[i-1][j] ;
+              
+              //ans[i-1][j]=0;
+                    
+                }else if( Character.isUpperCase(a.charAt(i-1)) ){
+                    
+                    ans[i][j]=0;
+                    
+                }
+                else{
+                    
+                    ans[i][j]=ans[i-1][j];
+                    
+                }
+                
+            }
+            
+        }
+         
+         /*System.out.println("created: ");
+        
+         for(int i=0;i<=a.length();i++){
+             
+             for(int j=0;j<=b.length();j++){
+                 
+                 System.out.print(ans[i][j]+" ");
+                 
+             }
+             
+             System.out.println("");
+             
+         }*/
+         
+       /*int n=last,m=lastj,t=0;
+         
+       for(int i=0;i<b.length();i++){
+           
+           if( ans[n][m]==1 ){
+               
+               t++;
+               
+               n--;
+               m--;
+               
+           }else{
+               
+               return "NO";
+               
+           }
+           
+       }
+        
+       if(t==b.length()){
+           
+           return "YES";
+           
+       }*/
+       
+      
+              
+      if( ans[a.length()][b.length()]==1 ){
+          
+          return "YES";
+          
+      }
+      
+       
+return "NO";
+
+   
+  
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int q = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int qItr = 0; qItr < q; qItr++) {
+            String a = scanner.nextLine();
+
+            String b = scanner.nextLine();
+
+            String result = abbreviation(a, b);
+
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
