@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class Grid_Challenge {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,n;
+    
+    static List<String> raw=new ArrayList<>();
+    
+    static List< List<String> > list=new ArrayList<>();
+    
+    static int coloumnCheck(StringBuilder stringBuilder){
+      
+         String p=stringBuilder.toString();
+        
+         char []ch=p.toCharArray();
+       
+       Arrays.sort(ch);
+       
+       p=new String(ch);
+        
+       if( p.equals(stringBuilder.toString()) ){
+        
+          // System.out.println("p yes: "+p);
+           
+           return 1;
+           
+       }else{
+           
+           //System.out.println("p no: "+p);
+           
+           return 0;
+           
+       }
+        
+        
+       // return 0;
+        
+    }
+    
+    static void solve(){
+        
+        n=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            String s=scanner.next();
+         
+       char []ch=s.toCharArray();
+       
+       Arrays.sort(ch);
+       
+       s=new String(ch);
+       
+          //  System.out.println("s: "+s);
+            
+            raw.add(s);
+            
+            list.add(raw);
+            
+        }
+        
+        boolean b=false;
+        
+        StringBuilder stringBuilder=new StringBuilder();
+        
+        for(int i=0;i<n;i++){
+         
+            stringBuilder=new StringBuilder();
+            
+          for(int j=0;j<n;j++){  
+
+              try{
+              
+            stringBuilder.append( list.get(i).get(j).charAt(i) );
+            
+              }catch(Exception e){
+                  
+                  
+              }
+            
+          }
+            
+          if( coloumnCheck( stringBuilder )==1 ){
+              
+              b=true;
+              
+          }else{
+              
+              b=false;
+              break;
+              
+          }
+          
+        }
+        
+        if(b==true){
+            
+            System.out.println("YES");
+            
+        }else{
+            
+            System.out.println("NO");
+            
+        }
+        
+      
+       list.clear();
+       raw.clear();
+       
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            solve();
+            
+        }
+        
+    }
+    
+}
