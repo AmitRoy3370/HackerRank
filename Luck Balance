@@ -1,0 +1,138 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+class Luck implements Comparable<Luck>{
+    
+    int l,t;
+
+    public Luck() {
+        
+    }
+
+    public Luck(int l, int t) {
+        this.l = l;
+        this.t = t;
+    }
+
+    public int getL() {
+        return l;
+    }
+
+    public void setL(int l) {
+        this.l = l;
+    }
+
+    public int getT() {
+        return t;
+    }
+
+    public void setT(int t) {
+        this.t = t;
+    }
+
+    @Override
+    public int compareTo(Luck t) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    if( Math.abs(this.getL()/*-this.getT()*/)>Math.abs(t.getL()/*-t.getT()*/) ){
+        
+        return 1;
+        
+    }else if( Math.abs(this.getL()/*-this.getT()*/)<Math.abs(t.getL()/*-t.getT()*/) ){
+        
+        return -1;
+        
+    }else{
+        
+        return 0;
+        
+    }
+    
+    }
+    
+}
+
+public class Luck_Balance {
+    
+     static final Scanner scanner = new Scanner(System.in);
+
+     static int n,k;
+     
+     static Luck luck=new Luck();
+     
+     static List<Luck> list=new ArrayList<>();
+     
+     static List<Luck> listZero=new ArrayList<>();
+     
+    public static void main(String[] args) {
+        
+     n=scanner.nextInt();
+     k=scanner.nextInt();
+        
+     for(int i=0;i<n;i++){
+         
+         int x=scanner.nextInt();
+         int y=scanner.nextInt();
+         
+         //if(y==1){
+         luck=new Luck( x,y );
+         
+         if(y==1){
+       
+             list.add(luck);
+         
+         }else{
+             
+             listZero.add(luck);
+             
+         }
+       
+     }
+     
+     Collections.sort(list,Collections.reverseOrder());
+     
+     long sum=0;
+     
+     if( k>list.size() ){
+         
+         for(Luck i: list){
+             
+             sum+=i.getL();
+             
+         }
+         
+         for(Luck i: listZero){
+             
+             sum+=i.getL();
+             
+         }
+         
+     }else{
+         
+         for(int i=0;i<k;i++){
+             
+             sum+=list.get(i).getL();
+             
+         }
+         
+         for(int i=0;i<listZero.size();i++){
+             
+             sum+=listZero.get(i).getL();
+             
+         }
+         
+         for(int i=k;i<list.size();i++){
+             
+             sum-=list.get(i).getL();
+             
+         }
+              
+     }
+     
+      System.out.println(sum);
+     
+    }
+    
+}
