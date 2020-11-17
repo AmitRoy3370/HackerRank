@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Minimum_Absolute_Difference_in_an_Array {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static List<Integer> list=new ArrayList<>();
+    
+   // static subset s=new subset();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+         
+            list.add(scanner.nextInt());
+          
+        }
+         
+        Collections.sort(list);
+        
+       int min=Integer.MAX_VALUE;
+        
+       for(int i=0;i<list.size()-1;i++){
+           
+           if( min>Math.abs( list.get(i)-list.get(i+1) ) ){
+               
+               min=Math.abs( list.get(i)-list.get(i+1) );
+               
+           }
+           
+       }
+       
+        System.out.println(min);
+       
+    }
+    
+}
