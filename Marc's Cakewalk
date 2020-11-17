@@ -1,0 +1,68 @@
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Marcs_Cakewalk {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static List<BigInteger> list=new ArrayList<>();
+    
+    static List<BigInteger> list1=new ArrayList<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add(i, BigInteger.valueOf(scanner.nextLong()) );            
+        list1.add(i,list.get(i));
+            
+        }
+        
+          BigInteger sum1=new BigInteger("0");  
+       
+        Collections.sort(list,Collections.reverseOrder());
+       
+        Collections.sort(list1);
+        
+        for(int i=0;i<list.size();i++){
+       
+            list.set(i, BigInteger.valueOf( (long)Math.pow(2, i)).multiply( list.get(i) )  );
+            
+        }
+        
+         for(int i=0;i<list1.size();i++){
+       
+            list1.set(i, BigInteger.valueOf( (long)Math.pow(2, i)).multiply( list1.get(i) )  );
+            
+        }
+        
+        BigInteger sum=new BigInteger("0");
+        
+      
+      for(BigInteger i: list){
+          
+          sum=sum.add(new BigInteger(String.valueOf(i)));
+          
+      }  
+        
+       for(BigInteger i: list1){
+          
+          sum1=sum1.add(new BigInteger(String.valueOf(i)));
+          
+      }  
+        
+        //System.out.println("sum: "+sum);
+        //System.out.println("sum1: "+sum1);
+        
+        System.out.println( sum.min(sum1) );
+       
+    }
+    
+}
