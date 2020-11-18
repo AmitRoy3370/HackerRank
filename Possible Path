@@ -1,0 +1,44 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class Possible_Path {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long testCases,a,b,x,y;
+    
+    static void solve(){
+        
+        a=scanner.nextLong();
+        b=scanner.nextLong();
+        x=scanner.nextLong();
+        y=scanner.nextLong();
+        
+        //System.out.println(" (a,b): "+BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)));    
+       // System.out.println(" (x,y): "+BigInteger.valueOf(x).gcd(BigInteger.valueOf(y)));
+        
+       if( BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).equals(BigInteger.valueOf(x).gcd(BigInteger.valueOf(y)) )){
+           
+           System.out.println("YES");
+           
+       }else{
+           
+           System.out.println("NO");
+           
+       }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextLong();
+        
+        for(long i=0;i<testCases;i++){
+            
+            solve();
+            
+        }
+        
+    }
+    
+}
