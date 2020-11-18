@@ -1,0 +1,78 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the countArray function below.
+    static long countArray(int n, int k, int x) {
+        // Return the number of ways to fill in the array.
+
+long a[]=new long[n];
+long b[]=new long[n];
+        
+if(x==1){
+    
+    a[0]=1;
+    
+}else{
+    
+    a[0]=0;
+    
+}
+
+if( x==1 ){
+    
+    b[0]=0;
+    
+}else{
+    
+    b[0]=1;
+    
+}
+
+BigInteger bigInteger=new BigInteger("10");
+
+bigInteger=bigInteger.pow(9).add( new BigInteger("7") );
+
+for(int i=1;i<n;i++){
+    
+     a[i]=b[i-1]%bigInteger.longValue();
+    
+    b[i]=(a[i-1]*(k-1)+b[i-1]*(k-2))%bigInteger.longValue();
+    
+}
+
+       // System.out.println(a[n-1]);
+
+return a[n-1];
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] nkx = scanner.nextLine().split(" ");
+
+        int n = Integer.parseInt(nkx[0]);
+
+        int k = Integer.parseInt(nkx[1]);
+
+        int x = Integer.parseInt(nkx[2]);
+
+        long answer = countArray(n, k, x);
+
+        bufferedWriter.write(String.valueOf(answer));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
