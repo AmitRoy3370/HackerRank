@@ -1,0 +1,49 @@
+import java.util.Scanner;
+ 
+public class Main{
+     
+     static Scanner scanner=new Scanner(System.in);
+     
+     static int n,ans=0;
+     
+     public static void main(String[]args){
+         
+         n=scanner.nextInt();
+         
+         int a[]=new int[1001];
+         
+for(int i=0;i<n;i++){
+    
+    a[scanner.nextInt()]++;
+    
+}
+         
+         for(int i=0;i<n;i++){
+             
+             int num=scanner.nextInt();
+             
+         //    a[num]++;
+             
+             if( a[num]>0 ){
+                 
+                 a[num]--;
+                 
+                 ans++;
+                 
+             }
+             
+         }
+         
+         if( ans==n ){
+             
+             System.out.println(ans-1);
+             
+         }else{
+             
+             System.out.println(ans+1);
+             
+         }
+         
+     }
+
+ }
