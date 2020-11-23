@@ -1,0 +1,111 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+class Jim implements Comparable<Jim>{
+    
+    int customer,order,prepTime;
+
+    public Jim(int customer, int order, int prepTime) {
+        this.customer = customer;
+        this.order = order;
+        this.prepTime = prepTime;
+    }
+
+    public Jim() {
+        
+    }
+
+    public int getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(int customer) {
+        this.customer = customer;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public void setPrepTime(int prepTime) {
+        this.prepTime = prepTime;
+    }
+
+    @Override
+    public String toString() {
+    
+        return  String.valueOf(customer) ;
+    
+    }
+
+    @Override
+    public int compareTo(Jim t) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    if( Math.abs( this.getOrder()+this.getPrepTime())>
+            Math.abs( t.getOrder()+t.getPrepTime() )){
+        
+        return 1;
+        
+        
+    }else if(Math.abs( this.getOrder()+this.getPrepTime())<
+            Math.abs( t.getOrder()+t.getPrepTime() )){
+        
+        return -1;
+        
+    }else{
+        
+        return 0;
+        
+    }
+    
+    }
+    
+}
+
+public class Jim_and_the_Orders {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,order,prepTime;
+    
+    static List<Jim> list=new ArrayList<>();
+    
+    static Jim jim=new Jim();
+    
+    public static void main(String[] args) {
+        
+    n=scanner.nextInt();
+        
+    for(int i=1;i<=n;i++){
+        
+        order=scanner.nextInt();
+        prepTime=scanner.nextInt();
+        
+        jim=new Jim( i,order,prepTime );
+        
+        list.add(jim);
+        
+    }
+        
+    Collections.sort(list);
+    
+    for(int i=0;i<n;i++){
+        
+        System.out.print(list.get(i).toString()+" ");
+        
+    }
+    
+    }
+    
+}
