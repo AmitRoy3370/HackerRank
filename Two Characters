@@ -1,0 +1,138 @@
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+public class Solution {
+
+    // Complete the alternate function below.
+    static int alternate(String s) {
+
+if( s.length()==1 ){
+    
+    return 0;
+    
+}
+
+List<Character> list=new ArrayList<>();
+
+for(int i=0;i<s.length();i++ ){
+    
+    list.add( s.charAt(i) );
+    
+}
+
+Set<Character> set=new HashSet<>(list);
+
+List<Character> uni=new ArrayList<>(set);
+
+String ans[][]=new String [ set.size() ][ set.size() ];
+
+for(int i=0;i<uni.size();i++ ){
+    
+    for(int j=0;j<uni.size();j++ ){
+        
+        ans[i][j]=" ";
+        
+    }
+    
+}
+
+for(int i=0;i<s.length();i++ ){
+    
+    int k=uni.indexOf( s.charAt(i) );
+    
+    for(int j=0;j<uni.size();j++ ){
+        
+        try{
+ 
+ if( Character.valueOf(ans[k][j].charAt( ans[k][j].length()-1 )).compareTo( Character.valueOf(s.charAt(i)) )==0   ){
+     
+   //  System.out.println("i am here");
+     
+     ans[k][j]=String.valueOf("0");
+     
+ }  if(Character.valueOf(ans[j][k].charAt( ans[j][k].length()-1 )).compareTo( Character.valueOf(s.charAt(i)) )==0){
+     
+     ans[j][k]="0";
+     
+     
+ }if( Character.valueOf(ans[k][j].charAt( ans[k][j].length()-1 )).compareTo( Character.valueOf(s.charAt(i)) )!=0 ||
+ Character.valueOf(ans[j][k].charAt( ans[j][k].length()-1 )).compareTo( Character.valueOf(s.charAt(i)) )!=0){
+        
+        if( !ans[k][j].trim().contains("0") ){
+        
+        ans[k][j]=ans[k][j].concat( String.valueOf(s.charAt(i)) );
+        
+        }
+        
+        if( !ans[j][k].trim().contains("0") ){
+        
+        ans[j][k]=ans[j][k].concat( String.valueOf(s.charAt(i)) );
+       
+        }
+       
+ }
+        
+        }catch(Exception e){
+            
+  //         System.out.println(e);
+            
+        }
+        
+    }
+    
+}
+
+//System.out.println("The matrix is: ");
+
+int max=0;
+
+for(int i=0;i<uni.size();i++ ){
+    
+    for(int j=0;j<uni.size();j++ ){
+        
+        if( ans[i][j].length()>max && !ans[i][j].equals("0") ){
+            
+            max=ans[i][j].trim().length();
+            
+        }
+        
+    //    System.out.print(ans[i][j]+" ");
+        
+    }
+    
+    //System.out.println();
+    
+}
+
+//System.out.println("max: "+max);
+
+return max;
+
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int l = Integer.parseInt(bufferedReader.readLine().trim());
+
+        String s = bufferedReader.readLine();
+
+        int result = alternate(s);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
