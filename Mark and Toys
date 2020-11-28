@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class Mark_and_Toys {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,profit;
+    
+    static List<Integer> list=new ArrayList<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        profit=scanner.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add(i,scanner.nextInt());
+            
+        }
+        
+        Collections.sort(list);
+        
+        int count=0;
+        
+        for(int i=0;i<list.size();i++){
+            
+            if( profit-list.get(i)>=0 ){
+                
+                profit-=list.get(i);
+                
+                count++;
+                
+            }
+            
+        }
+        
+        System.out.println(count);
+        
+    }
+    
+}
