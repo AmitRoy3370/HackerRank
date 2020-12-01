@@ -1,0 +1,42 @@
+import java.math.BigInteger;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class John_and_GCD_ist {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,n;
+    
+    static List<Long> list=new LinkedList<>();
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+        n=scanner.nextInt();
+            
+        for(int j=0;j<n;j++){
+            
+            list.add(j,scanner.nextLong());
+            
+        }
+        
+            System.out.print(list.get(0)+" ");
+        
+        for(int j=1;j<n;j++){
+            
+            System.out.print( ((list.get(j)*list.get(j-1))/BigInteger.valueOf( list.get(j) ).gcd(BigInteger.valueOf(list.get(j-1))).longValue()) +" ");
+            
+        }
+        
+            System.out.println(list.get(n-1));
+        
+        }
+        
+    }
+    
+}
