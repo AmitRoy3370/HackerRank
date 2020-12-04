@@ -1,0 +1,52 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class The_Longest_Increasing_Subsequence {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static List<Integer> list=new ArrayList<>();
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+    
+        int a[]=new int[n];
+        
+        for(int i=0;i<n;i++){
+            
+            //list.add(i,scanner.nextInt());
+            
+            a[i]=scanner.nextInt();
+            
+        }
+        
+        int index=0,temp=0;
+        
+      for(int i=1;i<n;i++){
+          
+          if( a[i]>a[index] ){
+              
+             // list.set(++index, list.get(i));
+              
+             a[++index]=a[i];
+             
+          }else if( (temp=Arrays.binarySearch(a, 0, index, a[i]))<0 ){
+              
+        //      list.set(-temp-1, list.get(i));
+          
+        a[-temp-1]=a[i];
+        
+          }
+          
+      }
+    
+        System.out.println(index+1);
+        
+    }
+    
+}
