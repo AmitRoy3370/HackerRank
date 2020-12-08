@@ -1,0 +1,108 @@
+import java.util.Scanner;
+
+public class Sherlock_and_The_Beast {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,n;
+    
+    static void solve(int n){
+        
+        StringBuilder stringBuilder=new StringBuilder();
+        
+        switch (n) {
+            case 3:
+                stringBuilder.append("555");
+                break;
+            case 5:
+                stringBuilder.append("33333");
+                break;
+            case 1:
+                stringBuilder.append("-1");
+                break;
+                    
+            case 2:
+                
+                stringBuilder.append("-1");
+                
+                break;
+                
+            case 4:
+                
+                stringBuilder.append("-1");
+                
+                break;
+                
+                case 7:
+                
+                stringBuilder.append("-1");
+                
+                break;
+                
+            default:
+                
+             
+        int m=n;        
+     
+       while(m%3!=0){
+           
+           m-=5;
+           
+       }
+        
+               // System.out.println("m: "+m);
+        
+        for(int i=0;i<m;i++){
+            
+          stringBuilder=stringBuilder.append("5");
+            
+        }
+ 
+        if( (n-m)%5==0 ){
+           
+        for(int i=0;i<(n-m);i++){
+            
+            stringBuilder=stringBuilder.append("3");
+            
+        }
+        
+        }else{
+            
+            for(int i=0;i<(n-m);i++ ){
+                
+                stringBuilder=stringBuilder.append("5");
+                
+            }
+            
+            
+        }
+        
+                break;
+        
+        }
+        
+        System.out.println(stringBuilder.toString());
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=scanner.nextInt();
+            
+            solve(n);
+            
+        }
+        
+    }
+    
+}
+/*4
+1 3 5 11*/
+
+/*2
+15
+13*/
