@@ -1,134 +1,223 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+public class Emas_Supercomputer {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int raw,coloumn;
 
-public class Emas_Supercomputer
+static class Plus{
+    
+    int rawIndex;
+    int coloumnIndex;
+    int len;
+    int size;
 
- {
+        public Plus() {
 
-    static class Plus {
-        int x;
-        int y;
-        int len;
-        int size;
-        
-        Plus(int x, int y) {
-            this.x = x;
-            this.y = y;
-            this.len = 0;
-            this.size = 1;
+            
+            
         }
+
+        public Plus(int rawIndex, int coloumnIndex) {
+            
+            this.rawIndex = rawIndex;
+            this.coloumnIndex = coloumnIndex;
         
-        Plus(int x, int y, int len, int size) {
-            this.x = x;
-            this.y = y;
+            this.len=0;
+            this.size=1;
+            
+        }
+
+        public Plus(int rawIndex, int coloumnIndex, int len, int size) {
+            this.rawIndex = rawIndex;
+            this.coloumnIndex = coloumnIndex;
             this.len = len;
             this.size = size;
         }
-        
-        void grow() {
-            this.len++;
-            this.size += 4;
+
+        public int getRawIndex() {
+            return rawIndex;
         }
-        
-        boolean overlaps(Plus p2, int r, int c) {
-        
-            if(this.x != p2.x && this.y == p2.y) {
-                if(p2.x >= this.x - this.len && 
-                   p2.x <= this.x + this.len ||
-                   p2.x < this.x - this.len && 
-                   p2.x + p2.len >= this.x - this.len ||
-                   p2.x > this.x + this.len && 
-                   p2.x - p2.len <= this.x + this.len)
-                    return true;                
-            }
-            
-            if(this.y != p2.y && this.x == p2.x) {
-                if(p2.y >= this.y - this.len && 
-                   p2.y <= this.y + this.len ||
-                   p2.y < this.y - this.len && 
-                   p2.y + p2.len >= this.y - this.len ||
-                   p2.y > this.y + this.len && 
-                   p2.y - p2.len <= this.y + this.len)
-                    return true;
-            }
-            
-            boolean[][] grid = new boolean[r][c];
-            
-            for(int i = this.x - this.len; i <= this.x + this.len; i++) 
-                grid[this.y][i] = true;
-            for(int i = this.y - this.len; i <= this.y + this.len; i++)
-                grid[i][this.x] = true;
-            
-            for(int i = p2.x - p2.len; i <= p2.x + p2.len; i++) {
-                if(grid[p2.y][i] == true)
-                    return true;          
-            }
-            for(int i = p2.y - p2.len; i <= p2.y + p2.len; i++) {
-                if(grid[i][p2.x] == true)
-                    return true;             
-            }
-            return false;
+
+        public int getColoumnIndex() {
+            return coloumnIndex;
         }
-    } 
+
+        public int getLen() {
+            return len;
+        }
+
+        public int getSize() {
+            return size;
+        }
     
-    static void findPlus(int x, int y, int r, int c, String[] grid, ArrayList<Plus> list) {
-        Plus plus = new Plus(x, y);
-        int s = 1;
-        while(y-s >= 0 && grid[y-s].charAt(x) != 'B' &&
-              y+s < r && grid[y+s].charAt(x) != 'B' &&
-              x-s >= 0 && grid[y].charAt(x-s) != 'B' &&
-              x+s < c && grid[y].charAt(x+s) != 'B') {
-            list.add(new Plus(plus.x, plus.y, plus.len, plus.size));
-            plus.grow();
-            s++;
-        }
-        list.add(plus);
-    }
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int r = sc.nextInt();
-        int c = sc.nextInt();
-        sc.nextLine();
-        String[] grid = new String[r];
-        ArrayList<Plus> list = new ArrayList<>();
+    void grow(){
         
-        for(int y = 0; y < r; y++) {
-            grid[y] = sc.nextLine();
-        }
-        
-        for(int y = 0; y < r; y++) {
-            for(int x = 0; x < c; x++) {
-                if(grid[y].charAt(x) != 'B')
-                    findPlus(x, y, r, c, grid, list);
-            }
-        }        
-        
-        int max = 0;
-        for(int i = 0; i < list.size()-1; i++) {
-            Plus p1 = list.get(i);
-            for(int j = i+1; j < list.size(); j++) {
-                Plus p2 = list.get(j);
-                int sum = p1.size * p2.size; 
-                if(sum > max && !p1.overlaps(p2, r, c)) {
-                    max = sum;
-                }  
-            }
-        }
-        System.out.println(max);
-    
-       /* System.out.println("The list was: ");
-        
-        for(Plus i: list){
-            
-            System.out.println(i.size+" "+i.len);
-            
-        }*/
+        this.len=this.getLen()+1;
+        this.size+=4;
         
     }
+     
+     boolean overlap(Plus plus,int totalRaw,int totalColoumn){
+        
+        if(this.getRawIndex()==plus.getRawIndex() &&
+                this.getColoumnIndex()!=plus.getColoumnIndex()){
+            
+            if( plus.getColoumnIndex()>=this.getColoumnIndex()-this.getLen()
+              && plus.getColoumnIndex()<=this.getColoumnIndex()+this.getLen() ||  
+                 plus.getColoumnIndex()>this.getColoumnIndex()+this.getLen() &&
+                    plus.getColoumnIndex()<this.getColoumnIndex()-this.getLen()){
+                
+                return true;
+                
+            }
+            
+        }
+        
+        if( this.getColoumnIndex()==plus.getColoumnIndex() &&
+                this.getRawIndex()!=plus.getRawIndex()){
+            
+            if(  plus.getRawIndex()>=this.getRawIndex()-this.getLen() &&
+                    plus.getRawIndex()<=this.getRawIndex()+this.getLen() ||
+                    plus.getRawIndex()<this.getRawIndex()-this.getLen() &&
+                    plus.getRawIndex()>this.getRawIndex()+this.getLen()){
+                
+                
+                return true;
+            }
+            
+        }
+        
+        boolean [][]gird=new boolean[totalRaw][totalColoumn];
+        
+        for(int i=this.getColoumnIndex()-this.getLen();i<=this.getColoumnIndex()+this.getLen();i++){
+            
+            gird[this.getRawIndex()][i]=true;
+            
+        }
+        
+        for(int i=this.getRawIndex()-this.getLen();i<=this.getRawIndex()+this.getLen();i++){
+            
+            gird[i][this.getColoumnIndex()]=true;
+            
+        }
+        
+        for(int i=plus.getColoumnIndex()-plus.getLen();i<=plus.getColoumnIndex()+plus.getLen();i++){
+            
+            if( gird[plus.getRawIndex()][i]==true ){
+                
+                return true;
+                
+            }
+            
+        }
+        
+        for(int i=plus.getRawIndex()-plus.getLen();i<=plus.getRawIndex()+plus.getLen();i++){
+            
+            if( gird[i][plus.getColoumnIndex()]==true ){
+                
+                return true;
+                
+            }
+            
+        }
+        
+        return false;
+    }
+    
 }
-/*5 6
+    
+static void findPlus(int rawIndex,int coloumnIndex,int totalRaw,int totalColoumn,char a[][],List<Plus> list ){
+        
+        Plus plus=new Plus(rawIndex,coloumnIndex  );
+        
+        int s=1;
+        
+        while( rawIndex-s>=0 && rawIndex+s<totalRaw
+              && coloumnIndex-s>=0 && coloumnIndex+s<totalColoumn 
+                && a[rawIndex+s][coloumnIndex]=='G' && a[rawIndex-s][coloumnIndex]=='G'
+             && a[rawIndex][coloumnIndex-s]=='G' && a[rawIndex][coloumnIndex+s]=='G'   ){
+        
+            list.add( new Plus( plus.getRawIndex(),plus.getColoumnIndex(),plus.getLen(),plus.getSize() ) );
+            
+            plus.grow();
+            
+            s++;
+        
+        }
+        
+        list.add(plus);
+        
+    }
+
+static List<Plus> list=new ArrayList<>();
+
+static Plus plus=new Plus();
+
+    public static void main(String[] args) {
+        
+        raw=scanner.nextInt();
+        coloumn=scanner.nextInt();
+        
+        char a[][]=new char[raw][coloumn];
+        
+        for(int i=0;i<raw;i++){
+            
+            String s=scanner.next();
+            
+            for(int j=0;j<s.length();j++){
+                
+                a[i][j]=s.charAt(j);
+                
+            }
+            
+        }
+        
+        for(int i=0;i<raw;i++){
+            
+            for(int j=0;j<coloumn;j++){
+                
+                if( a[i][j]=='G' ){
+                    
+findPlus(i,j,raw,coloumn,a,list  );                    
+                    
+                }
+                
+            }
+            
+        }
+        
+        int max=0;
+        
+        for(int i=0;i<list.size()-1;i++){
+            
+          plus=list.get(i);
+            
+            for(int j=i+1;j<list.size();j++){
+                
+                Plus plus2=list.get(j);
+                
+                int mul=plus.getSize()*plus2.getSize();
+                
+                if( mul>max && !plus2.overlap(plus, raw, coloumn) ){
+                    
+                    max=mul;
+                    
+                }
+                
+            }
+            
+        }
+        
+        System.out.println(max);
+        
+    }
+    
+}
+/*/*5 6
 GGGGGG
 GBBBGB
 GGGGGG
