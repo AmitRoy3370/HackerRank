@@ -1,0 +1,282 @@
+import java.util.Scanner;
+
+public class Almost_Sorted {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static long[] merge(long a[],int left,int right,int mid){
+        
+        int n1=mid-left+1;
+        int n2=right-mid;
+        
+        long l[]=new long[n1];
+        long r[]=new long[n2];
+        
+        for(int i=0;i<n1;i++){
+            
+            l[i]=a[left+i];
+            
+        }
+        
+        for(int i=0;i<n2;i++){
+        
+            try{
+            
+            r[i]=a[mid+1+i];
+            
+            }catch(Exception e){
+                
+                
+            }
+            
+        }
+        
+        int i=0,j=0,k=left;
+        
+        while(i<n1 && j<n2){
+            
+            if( l[i]<=r[j] ){
+                
+                a[k]=l[i];
+                
+                i++;
+                
+            }
+            
+            else{
+                
+                a[k]=r[j];
+                
+                j++;
+                
+            }
+            
+            k++;
+            
+        }
+        
+        while(i<n1){
+            
+            try{
+                
+                a[k]=l[i];
+                
+                i++;
+                
+                k++;
+                
+            }catch(Exception e){
+                
+                i++;
+                
+            }
+            
+        }
+        
+        while(j<n2){
+            
+            try{
+                
+                a[k]=r[j];
+                
+                j++;
+                
+                k++;
+                
+            }catch(Exception e){
+                
+                
+            }
+            
+        }
+        
+    //    System.out.println("I stop at here");
+        
+        return a;
+        
+    }
+    
+    static long[] getSorted(long a[],int start,int end){
+        
+        if( start>=end ){
+            
+            return a;
+            
+        }
+        
+        int mid=(start+end-1)/2;
+        
+        getSorted( a,start,mid );
+        
+        getSorted( a,mid+1,end );
+        
+        a=merge( a,start,end,mid );
+        
+        return a;
+        
+    }
+    
+    static int isEqual(long a[],long b[]){
+        
+        for(int i=0;i<a.length;i++){
+            
+            if( a[i]!=b[i] ){
+                
+                return 0;
+                
+            }
+            
+        }
+        
+        return 1;
+    }
+    
+    static long[] copiedArray(long a[]){
+        
+        long b[]=new long[a.length];
+        
+        for(int i=0;i<a.length;i++){
+            
+            b[i]=a[i];
+            
+        }
+        
+        return b;
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+      //  System.out.println("n: "+n);
+        
+        long a[]=new long[n];
+        
+        long e[]=new long[n];
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=scanner.nextLong();
+            
+            e[i]=a[i];
+            
+        }
+        
+        long sortedArray[]=getSorted(e,0,n-1);
+        
+      //  System.out.println("sorted: "+Arrays.toString(sortedArray));
+        
+       // System.out.println("now a: "+Arrays.toString(a));
+        
+        if( isEqual( a,sortedArray )==1 ){
+            
+            //System.out.println("I am from here");
+            
+            System.out.println("yes");
+            
+        }else{
+            
+            int left=-1,right=-1;
+            
+            for(int i=0;i<n-1;i++){
+                
+                if( a[i]>a[i+1] ){
+                    
+                    left=i;
+                 
+               //     System.out.println("for left "+a[i]+" is greater than "+a[i+1]);
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            for(int i=n-1;i>0;i--){
+                
+                if( a[i]<a[i-1] ){
+            
+             //       System.out.println("for right "+a[i]+" is less than "+a[i-1]);
+                    
+                    right=i;
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            //System.out.println("left: "+left+" right: "+right);
+            
+            long c[]=copiedArray(a);
+            
+            long temp=c[left];
+            c[left]=c[right];
+            
+            c[right]=temp;
+            
+            if( isEqual( c,sortedArray )==1 ){
+                
+                System.out.println("yes");
+                
+                System.out.println("swap "+(left+1)+" "+(right+1) );
+                
+                System.exit(0);
+                
+            }
+            
+          int y[]=new int [n];
+            
+          int index=0;
+          
+          //List<Integer> list=new ArrayList<>();
+          
+          int subArrayLength=(right-left+1);
+
+            //System.out.println("sub array length: "+subArrayLength);
+          
+          for(int i=left;i<(left+(subArrayLength)/2);i++){
+
+try{
+              
+  //  System.out.println("swapd: "+a[i]+" and "+a[(right-index)] );
+    
+           temp=a[i];
+          a[i]=a[right-index];
+          a[right-index]=temp; 
+    
+          index++;
+          
+}catch(Exception ex){
+    
+    
+}
+          
+              //System.out.println("I stop at here");
+          
+          }
+          
+    //        System.out.println("a: "+Arrays.toString(a));
+          
+            if( isEqual( a,sortedArray )==1 ){
+                
+                System.out.println("yes");
+                
+                System.out.println("reverse "+(left+1)+" "+(right+1) );
+                
+            }else{
+                
+                System.out.println("no");
+                
+            }
+            
+        }
+        
+    }
+    
+}
+/*12
+1 2 3 11 10 9 8 7 6 5 4 12*/
