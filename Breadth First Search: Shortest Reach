@@ -1,0 +1,137 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Breadth_First_Search_Shortest_Reach {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases,n,edge,a,b,start;
+    
+    static List< List<Integer> > list=new ArrayList<>();
+    
+    static List<Integer> distance=new ArrayList<>();
+    
+    static void BFS(){
+        
+        boolean []visited=new boolean[n];
+        
+        Queue<Integer> queue=new LinkedList<>(); 
+        
+        queue.add(start-1);
+        
+        distance.set(start-1, 0);
+        
+        while(!queue.isEmpty()){
+            
+           start  =queue.poll();
+            
+           for(int x: list.get(start)){
+               
+               if( visited[x]==false ){
+                   
+                   visited[x]=true;
+                   
+                   try{
+                   
+                   distance.set(x, distance.get(start)+6);
+                   
+                   }catch(Exception e){
+                       
+                       
+                   }
+                   
+                   queue.add(x);
+                   
+               }
+               
+           }
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=scanner.nextInt();
+            edge=scanner.nextInt();
+            
+            for(int j=0;j<n;j++){
+                
+                list.add( new ArrayList<>() );
+                
+            }
+            
+            for(int j=0;j<edge;j++){
+                
+                a=scanner.nextInt();
+                b=scanner.nextInt();
+                
+                try{
+                
+                list.get(a-1).add(b-1);
+                list.get(b-1).add(a-1);
+                
+                }catch(Exception e){
+                    
+                    
+                }
+                
+            }
+            
+            start=scanner.nextInt();
+            
+            //distance.add(0);
+    
+            int y=start-1;
+            
+            for(int j=0;j<n;j++){
+                
+               distance.add(-1);
+                
+            }
+            
+            BFS();
+            
+            for(int j=0;j<distance.size();j++){
+                
+                if( j!=y ){
+                   
+                    //if(distance.get(j)!=0){
+                    
+                    System.out.print(distance.get(j)+" ");
+                    
+            /*        }else{
+                        
+                        System.out.print("-1 ");
+                        
+                    }*/
+                    
+                }
+                
+            }
+            
+            System.out.println();
+            
+            list.clear();
+            distance.clear();
+            
+        }
+        
+    }
+    
+}
+/*2
+4 2
+1 2
+1 3
+1
+3 1
+2 3
+2*/
