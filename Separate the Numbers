@@ -1,0 +1,75 @@
+import java.util.Scanner;
+
+public class Separate_the_Numbers {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases;
+    
+    static String s;
+    
+    static void solve(String s){
+        
+        long firstX=-1;
+        
+        boolean b=false;
+        
+        for(int i=1;i<=s.length()/2;i++){
+            
+            long x=Long.parseLong( s.substring(0, i) );
+            
+            firstX=x;
+            
+            String test=Long.toString(firstX);
+            
+            while( s.length()>test.length() ){
+                
+                test+=Long.toString(++x);
+                
+            }
+            
+            if( test.equalsIgnoreCase(s) ){
+                
+                b=true;
+                
+                //System.out.println("YES "+firstX);
+                
+                break;
+                
+            }else{
+                
+                b=false;
+                
+                //System.out.println("NO");
+                
+            }
+            
+        }
+        
+        if(b==true){
+            
+            System.out.println("YES "+firstX);
+            
+        }else{
+            
+            System.out.println("NO");
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            s=scanner.next();
+            
+            solve(s);
+            
+        }
+        
+    }
+    
+}
