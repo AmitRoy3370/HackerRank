@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Funny_String {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int testCases;
+    
+    static String s;
+    
+    static List<Integer> list=new ArrayList<>();
+    static List<Integer> reverse=new ArrayList<>();
+    
+    static List<Integer> listDistance=new ArrayList<>();
+    static List<Integer> reverseDistance=new ArrayList<>();
+    
+    static void solve(String s){
+        
+        StringBuilder stringBuilder=new StringBuilder();
+        StringBuilder reverseStringBuilder;
+        
+        stringBuilder.append(s);
+        
+        reverseStringBuilder=stringBuilder.reverse();
+        
+        //System.out.println("string: "+stringBuilder);
+        //System.out.println("reverse: "+reverseStringBuilder);
+        
+        for(int i=0;i<stringBuilder.toString().length();i++){
+            
+            list.add( (int)s.charAt(i) );
+            
+        }
+        
+        for(int i=0;i<reverseStringBuilder.toString().length();i++){
+            
+            reverse.add((int)reverseStringBuilder.toString().charAt(i)  );
+            
+        }
+        
+        for(int i=1;i<list.size();i++){
+            
+            listDistance.add( Math.abs( list.get(i)-list.get(i-1) ) );
+            
+        }
+        
+       // System.out.println("reverse: "+String.valueOf(reverse));
+        
+        for(int i=1;i<reverse.size();i++){
+            
+            reverseDistance.add( Math.abs( reverse.get(i)-reverse.get(i-1) ) );
+            
+        }
+        
+       // System.out.println("listDistance: "+String.valueOf(listDistance));
+        
+        //System.out.println("reverseDistance: "+String.valueOf(reverseDistance));
+        
+        if( listDistance.equals(reverseDistance) ){
+            
+            System.out.println("Funny");
+            
+        }else{
+            
+            System.out.println("Not Funny");
+            
+        }
+        
+        listDistance.clear();
+        reverseDistance.clear();
+        list.clear();
+        reverse.clear();
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+        s=scanner.next();
+            
+        solve(s);
+        
+        }
+        
+    }
+    
+}
