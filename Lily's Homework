@@ -1,0 +1,280 @@
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Lily_s_Homework {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n;
+    
+    static long count=0,count1=0;
+    
+    static void merge(long a[],int mid,int start,int end){
+        
+        int low=mid-start+1;
+        
+        int high=end-mid;
+        
+        long left[]=new long[low];
+        long right[]=new long[high];
+        
+        for(int i=0;i<low;i++){
+            
+            left[i]=a[start+i];
+            
+        }
+        
+        for(int j=0;j<high;j++){
+            
+            right[j]=a[mid+j+1];
+            
+        }
+        
+        int i=0,j=0,k=start;
+        
+        while(i<low && j<high){
+            
+            if( left[i]<=right[j] ){
+                
+                a[k]=left[i];
+                
+                i++;
+                
+            }else{
+                
+                a[k]=right[j];
+                
+        //        count+=left.length-i;
+                
+                j++;
+                
+            }
+            
+            k++;
+            
+        }
+        
+        while(i<low){
+            
+            try{
+            
+            a[k]=left[i];
+            
+            i++;
+            k++;
+            
+            }catch(Exception e){
+                
+                i++;
+                
+            }
+            
+        }
+        
+        while(j<high){
+            
+            a[k]=right[j];
+            
+            j++;
+            k++;
+          //  j++;
+            
+        }
+        
+    }
+    
+    static void mergeSort(long a[],int start,int end){
+        
+        if( start>=end ){
+            
+            return;
+            
+        }
+        
+        int mid=(start+end-1)/2;
+        
+        mergeSort( a,start,mid );
+        
+        mergeSort( a,mid+1,end );
+        
+        merge(a,mid,start,end);
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        long a[]=new long[n];
+       
+        long b[]=new long[n];
+      
+        long c[]=new long[n];
+        
+        StringBuilder stringBuilder=new StringBuilder();
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=scanner.nextInt();
+            
+            b[i]=a[i];
+            
+            c[i]=a[i];
+            
+            stringBuilder.append(b[i]);
+            
+        }
+         
+        mergeSort(a,0,n-1);
+        
+        //System.out.println("a: "+Arrays.toString(a));
+    
+        int z=n-1;
+        
+        
+      //  System.out.println("a: "+Arrays.toString(a));
+        
+        //System.out.println("holder: "+Arrays.toString(b));
+        
+       //int []holder=new int[ a[0]+1 ];
+       
+       Map<Long,Integer> map=new HashMap<>();
+       
+       Map<Long,Integer> map1=new HashMap<>();
+       
+       for(int i=0;i<n;i++){
+           
+          // holder[ b[i] ]=i;
+           
+           map.put(b[i], i);
+           map1.put(b[i], i);
+           
+       }
+       
+      //  System.out.println("holder: "+Arrays.toString(holder));
+       
+       for(int i=0;i<n;i++){
+           
+           if( a[i]!=c[i] ){
+              
+               //System.out.println("s: "+stringBuilder.toString());
+               
+            //   int x=stringBuilder.toString().indexOf( String.valueOf(a[i]) );
+              
+            int x=map1.get( a[i] );
+            
+              // System.out.println("x: "+x);
+               
+     //          String u=Integer.toString(b[x]);
+       //        String v=Integer.toString(b[i]);
+               
+               //System.out.println("u: "+u+" v: "+v);
+               
+            //   System.out.println("get( b(x) ) "+map.get(b[x]));
+               
+               map1.put(a[i], map1.get(c[x]) );
+               map1.put( c[i] , map1.get(a[i]) );
+               
+               long temp=c[i];
+               c[i]=c[x];
+               c[x]=temp;
+        
+         //      temp=holder[ b[i] ];
+           //    holder[ b[x] ]=holder[ b[i] ];
+             //  holder[ b[i] ]=temp;
+               
+              // map.put( b[i] , map.get(b[x]) );
+            //   map.put( b[x] , map.get(b[i]) );
+               
+  //System.out.println("now b: "+Arrays.toString(b));
+ 
+    //           System.out.println("now map: "+String.valueOf(map));
+  
+   //           char ch=stringBuilder.toString().charAt(i);
+              
+ //stringBuilder.setCharAt(i,u.charAt(0) );
+              
+ //stringBuilder.setCharAt(x, v.charAt(0));
+ 
+               //System.out.println("s: "+stringBuilder.toString());
+ 
+               count1++;
+               
+           }
+           
+       }
+      
+      for(int i=0;i<n/2;i++){
+            
+            long temp=a[i];
+            a[i]=a[n-i-1];
+            a[n-i-1]=temp;
+            
+            z--;
+            
+        }
+      
+       for(int i=0;i<n;i++){
+           
+           if( a[i]!=b[i] ){
+              
+               //System.out.println("s: "+stringBuilder.toString());
+               
+            //   int x=stringBuilder.toString().indexOf( String.valueOf(a[i]) );
+              
+            int x=map.get( a[i] );
+            
+              // System.out.println("x: "+x);
+               
+     //          String u=Integer.toString(b[x]);
+       //        String v=Integer.toString(b[i]);
+               
+               //System.out.println("u: "+u+" v: "+v);
+               
+            //   System.out.println("get( b(x) ) "+map.get(b[x]));
+               
+               map.put(a[i], map.get(b[x]) );
+               map.put( b[i] , map.get(a[i]) );
+               
+               long temp=b[i];
+               b[i]=b[x];
+               b[x]=temp;
+        
+         //      temp=holder[ b[i] ];
+           //    holder[ b[x] ]=holder[ b[i] ];
+             //  holder[ b[i] ]=temp;
+               
+              // map.put( b[i] , map.get(b[x]) );
+            //   map.put( b[x] , map.get(b[i]) );
+               
+  //System.out.println("now b: "+Arrays.toString(b));
+ 
+    //           System.out.println("now map: "+String.valueOf(map));
+  
+   //           char ch=stringBuilder.toString().charAt(i);
+              
+ //stringBuilder.setCharAt(i,u.charAt(0) );
+              
+ //stringBuilder.setCharAt(x, v.charAt(0));
+ 
+               //System.out.println("s: "+stringBuilder.toString());
+ 
+               count++;
+               
+           }
+           
+       }
+        
+        System.out.println( BigInteger.valueOf(count).min( BigInteger.valueOf(count1) ) );
+       
+    }
+    
+}
+/*6
+2 1 4 3 6 5*/
+
+/*5
+3 4 2 5 1*/
