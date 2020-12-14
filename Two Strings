@@ -1,0 +1,63 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Two_Strings {
+
+static Scanner scanner=new Scanner(System.in);
+    
+static int testCases;
+
+static String s1,s2;
+
+static void solve(String s1,String s2){
+    
+    int n=s1.length(),m=s2.length();
+    
+    Set<Character> setA=new HashSet<>();
+    Set<Character> setB=new HashSet<>();
+    
+    for(int i=0;i<n;i++){
+        
+        setA.add(s1.charAt(i));
+        
+    }
+    
+    for(int j=0;j<m;j++){
+        
+        setB.add(s2.charAt(j));
+        
+    }
+    
+    for(char i: setA){
+        
+        if( setB.contains(i) ){
+            
+            System.out.println("YES");
+            
+            return;
+            
+        }
+        
+    }
+    
+    System.out.println("NO");
+    
+}
+
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            s1=scanner.next().toLowerCase();
+            s2=scanner.next().toLowerCase();
+            
+            solve(s1,s2);
+            
+        }
+        
+    }
+
+}
