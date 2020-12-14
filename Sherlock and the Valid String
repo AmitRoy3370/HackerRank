@@ -1,0 +1,65 @@
+import java.util.Arrays;
+import java.util.HashMap;
+
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Sherlock_and_the_Valid_String {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static String s;
+    
+    static Map<Character,Integer> map=new HashMap<>();
+     
+    public static void main(String[] args) {
+        
+        final String GOOD = "YES";
+    final String BAD = "NO";
+
+    s=scanner.next();
+    
+    if(s.isEmpty()){
+        
+        System.out.println("NO");
+        
+        System.exit(0);
+        
+    }
+    if(s.length() <= 3){
+        
+        System.out.println("YES");   
+        
+    //    System.out.println("");
+      
+    System.exit(0);
+    
+    }
+
+    int[] letters = new int[26];
+    for(int i = 0; i < s.length(); i++){
+        letters[s.charAt(i) - 'a']++;
+    }
+    Arrays.sort(letters);
+    int i=0;
+    while(letters[i]==0){
+        i++;
+    }
+    //System.out.println(Arrays.toString(letters));
+    int min = letters[i];   //the smallest frequency of some letter
+    int max = letters[25]; // the largest frequency of some letter
+    String ret = BAD;
+    if(min == max) ret = GOOD;
+    else{
+        // remove one letter at higher frequency or the lower frequency 
+        if(((max - min == 1) && (max > letters[24])) ||
+            (min == 1) && (letters[i+1] == max))
+            ret = GOOD;
+    }
+     
+        System.out.println(ret);
+    
+    }
+    
+}
