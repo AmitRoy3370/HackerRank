@@ -1,0 +1,144 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.Stack;
+
+public class Roads_and_Libraries1 {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static List< Set<Integer> > list=new ArrayList<>();
+    
+    static int testCases,n,a,b,m;
+    
+    static long c_lib,c_road;
+    
+    static void solve(int n,long c_lib,long c_road){
+        
+        if( c_lib<=c_road ){
+            
+            System.out.println(c_lib*n);
+            
+            return;
+            
+        }
+        
+        boolean []visited=new boolean[n];
+        
+        long cost=0;
+        
+        for(int i=0;i<n;i++){
+            
+            if( !visited[i] ){
+                
+                long temp_cost=c_lib;
+                
+                Stack<Integer> stack=new Stack<>();
+                
+                stack.push(i);
+                
+                visited[i]=true;
+                
+                while( !stack.isEmpty() ){
+                    
+                    int element=stack.pop();
+                   
+                    Iterator iterator=list.get(element).iterator();
+                 
+                    while(iterator.hasNext()){
+                        
+                        int v=(int) iterator.next();
+                     
+                        if( !visited[v] ){
+                            
+                            stack.push(v);
+                            
+                            visited[v]=true;
+                            
+                            temp_cost+=c_road;
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                cost+=temp_cost;
+                
+            }
+            
+        }
+        
+        System.out.println(cost);
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=scanner.nextInt();
+            m=scanner.nextInt();
+            
+            for(int j=0;j<n;j++){
+                
+                list.add( new HashSet<>() );
+                
+            }
+            
+            c_lib=scanner.nextLong();
+            c_road=scanner.nextLong();
+            
+            for(int j=0;j<m;j++){
+                
+                a=scanner.nextInt()-1;
+                b=scanner.nextInt()-1;
+                
+                try{
+                
+                list.get(a).add(b);
+                
+                }catch(Exception e){
+                    
+                    
+                }
+                
+                try{
+                
+                list.get(b).add(a);
+                
+                }catch(Exception e){
+                    
+                    
+                }
+                 
+            }
+            
+         //  boolean []visited=new boolean[n];
+           
+     solve(n,c_lib,c_road);    
+         
+     list.clear();
+     
+        }
+        
+    }
+    
+}
+/*2
+3 3 2 1
+1 2
+3 1
+2 3
+6 6 2 5
+1 3
+3 4
+2 4
+1 2
+2 3
+5 6*/
