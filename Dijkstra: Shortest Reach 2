@@ -1,8 +1,5 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
+
 
 public class Dijkstra_Shortest_Reach_2 {
 
@@ -37,7 +34,7 @@ public class Dijkstra_Shortest_Reach_2 {
         
       //  Map<Integer,Integer> set=new HashMap<>();
         
-        Set< Map<Integer,Integer> > set=new HashSet<>();
+       // Set< Map<Integer,Integer> > set=new HashSet<>();
         
         int mat[][]=new int[node][node];
         
@@ -52,12 +49,12 @@ public class Dijkstra_Shortest_Reach_2 {
             
             weight=scanner.nextInt();
             
-            Map<Integer,Integer> m=new HashMap<>();
+            //Map<Integer,Integer> m=new HashMap<>();
             
-            Map<Integer,Integer> mn=new HashMap<>();
+            //Map<Integer,Integer> mn=new HashMap<>();
             
-            m.put(a, b);
-            mn.put(b, a);
+            //m.put(a, b);
+            //mn.put(b, a);
             
             //if( !set.contains(m) ){
             
@@ -71,7 +68,7 @@ public class Dijkstra_Shortest_Reach_2 {
                 
             }
             
-            set.add(m);
+           // set.add(m);
             
             //}
             
@@ -88,7 +85,7 @@ public class Dijkstra_Shortest_Reach_2 {
         }
             
             //set.add(a);
-            set.add(mn);
+            //set.add(mn);
             
             //}
             
