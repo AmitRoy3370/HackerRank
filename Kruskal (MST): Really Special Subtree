@@ -1,0 +1,182 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class Prim_s_MST_Special_Subtree_with_Priority_Queue {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int node,edges,a,b,source,weight;
+    
+    static class Graph implements Comparable<Graph>{
+        
+        int node,weight;
+
+        public Graph(int node, int weight) {
+            this.node = node;
+            this.weight = weight;
+        }
+
+        public Graph() {
+                    
+        }
+
+        public int getNode() {
+            return node;
+        }
+
+        public void setNode(int node) {
+            this.node = node;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+
+        @Override
+        public int compareTo(Graph t) {
+        //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if( this.getWeight()>t.getWeight() ){
+            
+            return 1;
+            
+        }
+        
+        return -1;
+        
+        }
+                
+    }
+    
+    static Graph graph=new Graph();
+    
+   static List< List<Graph> > list=new ArrayList<>();
+    
+   static void PrimMST(){
+       
+       PriorityQueue<Graph> priorityQueue=new PriorityQueue<>();
+       
+       boolean []visited=new boolean[node];
+       
+       priorityQueue.add( new Graph(source,0  ) );
+       
+       long sum=0;
+       
+       while( !priorityQueue.isEmpty() ){
+           
+           Graph g=priorityQueue.poll();
+           
+           if( !visited[ g.getNode() ] ){
+           
+           for(int i=0;i<list.get( g.getNode() ).size();i++  ){
+               
+               Graph temp=list.get( g.getNode() ).get(i);
+               
+               if( !visited[ temp.getNode() ] ){
+                   
+                   priorityQueue.add(temp);
+                   
+               }
+               
+           }
+           
+           sum+=g.getWeight();
+           
+           visited[ g.getNode() ]=true;
+           
+           }
+           
+       }
+       
+       System.out.println(sum);
+       
+   }
+   
+    public static void main(String[] args) {
+        
+        node=scanner.nextInt();
+        edges=scanner.nextInt();
+       
+        for(int i=0;i<node;i++){
+            
+            list.add( new ArrayList<>() );
+            
+        }
+        
+    for(int i=0;i<edges;i++){
+        
+        a=scanner.nextInt()-1;
+        b=scanner.nextInt()-1;
+        
+        weight=scanner.nextInt();
+        
+       try{
+           
+           list.get(a).add( new Graph( b,weight ) );
+           
+       }catch(Exception e){
+           
+           
+       }
+               
+       try{
+           
+           list.get(b).add( new Graph( a,weight ) );
+           
+       }catch(Exception e){
+           
+           
+       }
+               
+    }    
+     
+   // source=scanner.nextInt()-1;
+    
+    source=0;
+    
+    PrimMST();
+    
+    }
+    
+}
+/*5 6
+1 2 3
+1 3 4
+4 2 6
+5 2 2
+2 3 5
+3 5 7
+1*/
+
+/*9 14
+1 2 4
+1 8 8
+2 8 11
+2 3 8
+3 9 2
+3 4 7
+3 5 4
+4 6 14
+4 5 9
+5 6 10
+8 7 1
+7 6 2
+8 9 7
+7 9 6
+1*/
+
+/*5 7
+1 2 20
+1 3 50
+1 4 70
+1 5 90
+2 3 30
+3 4 40
+4 5 60
+1*/
