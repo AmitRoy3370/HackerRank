@@ -1,0 +1,108 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Missing_Numbers {
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int m,n;
+    
+    static void solve(int arr[],int brr[]){
+        
+Map<Integer,Integer> mapA=new HashMap<>();    
+        
+Map<Integer,Integer> mapB=new HashMap<>();
+
+for(int i=0;i<arr.length;i++){
+    
+    mapA.put( arr[i] , 0);
+    
+}
+
+for(int i=0;i<brr.length;i++){
+    
+    mapB.put( brr[i] , 0);
+    
+}
+
+for(int i=0;i<arr.length;i++){
+    
+    int x=mapA.get( arr[i] );
+    
+    mapA.put( arr[i] , x+1);
+    
+}
+
+for(int i=0;i<brr.length;i++){
+    
+    int x=mapB.get( brr[i] );
+    
+    mapB.put( brr[i] , x+1);
+    
+}
+
+Set<Integer> ans=new HashSet<>();
+
+for(Entry<Integer, Integer> entry: mapB.entrySet()) {
+
+    if( !Objects.equals(entry.getValue(), mapA.get( entry.getKey() )) ){
+        
+        ans.add( entry.getKey() );
+        
+    }
+     
+    }
+
+List<Integer> list=new ArrayList<>( ans );
+
+Collections.sort(list);
+
+for(int i: list){
+    
+    System.out.print(i+" ");
+    
+}
+
+        System.out.println();
+
+    }
+    
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+       int arr[]=new int[n];
+        
+       for(int i=0;i<n;i++){
+           
+           arr[i]=scanner.nextInt();
+           
+       }
+        
+       m=scanner.nextInt();
+       
+       int []brr=new int[m];
+       
+       for(int i=0;i<m;i++){
+           
+           brr[i]=scanner.nextInt();
+           
+       }
+       
+       solve(arr,brr);
+       
+    }
+    
+}
+/*10
+203 204 205 206 207 208 203 204 205 206
+13
+203 204 204 205 206 207 205 208 203 206 205 206 204*/
