@@ -1,0 +1,65 @@
+import java.util.Scanner;
+import java.util.TreeSet;
+
+public class maximum_subarray {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int n,testCases;
+    static long m;
+    
+    static long solve( long a[],long m ){
+        
+TreeSet<Long> treeSet=new TreeSet<>();        
+    
+long sum=0,maxSum=0;
+        
+for(int i=0;i<=a.length-1;i++ ){
+    
+    sum=( sum+a[i]%m )%m;
+    
+    maxSum=Math.max( sum , maxSum);
+    
+    Long pr=treeSet.higher(sum);
+    
+    if( pr!=null ){
+        
+     maxSum=Math.max(maxSum, (sum-pr+m)%m );
+        
+    }
+    
+    treeSet.add(sum);
+    
+}
+
+        return maxSum;
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int j=0;j<testCases;j++){
+            
+        n=scanner.nextInt();
+        m=scanner.nextLong();        
+    
+long a[]=new long[n];
+      
+for(int i=0;i<n;i++){
+    
+    a[i]=scanner.nextLong();
+    
+}
+
+            System.out.println( solve(a,m) );
+
+        }
+        
+    }
+    
+}
+/*1
+3 5
+1 5 9*/
