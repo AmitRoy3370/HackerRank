@@ -1,0 +1,233 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Road_Repairing {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int nodes,edges_Road,edges_Damage,a,b;
+    
+    static List< List<Integer> > list=new ArrayList<>();
+    
+    static List< List<Integer> > damage=new ArrayList<>();
+    
+    static boolean visited[];
+    
+    static void DFS( int source ){
+        
+        visited[source]=true;
+        
+        Stack<Integer> stack=new Stack<>();
+        
+        stack.push(source);
+        
+        while( !stack.isEmpty() ){
+            
+            int u=stack.pop();
+            
+            for(int i: list.get(u)){
+                
+                if( !visited[i] ){
+                    
+                    visited[i]=true;
+                    
+                    stack.push(i);
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+   
+    static void DFS_Damage(int source){
+        
+        visited[source]=true;
+        
+        Stack<Integer> stack=new Stack<>();
+        
+        stack.push(source);
+        
+        while( !stack.isEmpty() ){
+            
+            int u=stack.pop();
+            
+            for(int i: damage.get(u)){
+                
+                if( !visited[i] ){
+                    
+                    visited[i]=true;
+                    
+                    stack.push(i);
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+    nodes=scanner.nextInt();
+       
+    visited=new boolean[nodes];
+    
+    for(int i=0;i<nodes;i++){
+        
+        list.add( new ArrayList<>() );
+        
+        damage.add( new ArrayList<>() );
+        
+    }
+    
+   edges_Road=scanner.nextInt();
+    
+   for(int i=0;i<edges_Road;i++){
+       
+       a=scanner.nextInt()-1;
+       b=scanner.nextInt()-1;
+       
+       try{
+           
+           list.get(a).add(b);
+ 
+           damage.get(a).add(b);
+           
+       }catch(Exception e){
+           
+           
+       }
+       
+       try{
+           
+           list.get(b).add(a);
+           
+           damage.get(b).add(a);
+           
+       }catch(Exception e){
+           
+           
+       }
+       
+   }
+    
+   edges_Damage=scanner.nextInt();
+   
+   for(int i=0;i<edges_Damage;i++ ){
+       
+       a=scanner.nextInt()-1;
+       b=scanner.nextInt()-1;
+       
+       try{
+           
+           damage.get(a).add(b);
+           
+       }catch(Exception e){
+           
+           
+       }
+       
+       try{
+           
+           damage.get(b).add(a);
+           
+       }catch(Exception e){
+           
+           
+       }
+       
+   }
+   
+   int components=0,damage_Components=0;
+   
+   for(int i=0;i<nodes;i++){
+        
+       if( !visited[i] ){
+       
+     //      DFS(i);
+           
+           components++;
+     
+           DFS(i);
+                 
+       }
+       
+   }
+   
+   visited=new boolean[nodes];
+   
+   for(int i=0;i<nodes;i++){
+       
+       if( !visited[i] ){
+           
+   //        DFS_Damage(i);
+           
+           damage_Components++;
+     
+           DFS_Damage(i);
+           
+       }
+       
+   }
+   
+     //   System.out.println("components: "+components);
+   
+       // System.out.println(" damage_Componenets:  "+damage_Components);
+        
+   if( damage_Components>1 ){
+       
+       System.out.println(-1);
+       
+   }else{
+       
+       System.out.println( components-1 );
+       
+   }
+   
+    }
+    
+}
+/*4
+2
+1 2
+2 3
+2
+3 4
+1 4*/
+
+/*5
+0
+5
+3 5
+3 4
+1 2
+1 3
+1 1*/
+
+/*6
+3
+2 6
+1 4
+3 6
+3
+3 5
+2 3
+1 2*/
+
+/*7
+8
+2 6
+4 5
+1 7
+2 4
+4 7
+1 1
+1 2
+7 7
+1
+1 6*/
