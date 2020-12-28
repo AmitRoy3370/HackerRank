@@ -1,0 +1,134 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Minimum_Penalty_Path {
+
+    static Scanner scanner=new Scanner(System.in);
+    
+    static int nodes,edges,a,b,weight,A,B;
+     
+    static boolean visited[][];
+    
+   static List< List<Graph> > list=new ArrayList<>();
+    
+    static class Graph{
+        
+        int a,weight;
+
+        public Graph(int a, int weight) {
+            this.a = a;
+            this.weight = weight;
+            
+        }
+
+        public Graph() {
+        
+        }
+
+        public int getA() {
+            return a;
+        }
+
+        public void setA(int a) {
+            this.a = a;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+ 
+    }
+     
+   static Graph graph=new Graph();
+   
+   static void DFS(int source,int cost){
+       
+       visited[ source ][cost]=true;
+       
+      for( Graph i: list.get(source) ){
+          
+          if( !visited[ i.getA() ][ cost ]  ){
+          
+          DFS( i.getA(), cost | i.getWeight() );
+          
+          }
+          
+      }
+       
+      // stack.push( list.get(source) );
+       
+   }
+   
+    public static void main(String[] args) {
+        
+        nodes=scanner.nextInt();
+        edges=scanner.nextInt();
+        
+        visited=new boolean[nodes][1024];
+        
+        for(int i=0;i<nodes;i++){
+            
+            list.add( new ArrayList<>() );
+            
+        }
+        
+        for(int i=0;i<edges;i++){
+            
+            a=scanner.nextInt()-1;
+            b=scanner.nextInt()-1;
+            
+            weight=scanner.nextInt();
+            
+          try{
+              
+              list.get(a).add( new Graph(b,weight) );
+              
+          }catch(Exception e){
+              
+              
+          }
+            
+          try{
+              
+              list.get(b).add( new Graph(a,weight) );
+              
+          }catch(Exception e){
+              
+              
+          }
+          
+        }
+        
+        A=scanner.nextInt()-1;
+        B=scanner.nextInt()-1;
+        
+        DFS(A,0);
+        
+        for(int i=0;i<1024;i++){
+            
+            if( visited[B][i] ){
+                
+                System.out.println(i);
+                
+                System.exit(0);
+                
+            }
+            
+        }
+        
+        System.out.println(-1);
+        
+    }
+   
+}
+/*3 4
+1 2 1
+1 2 1000
+2 3 3
+1 3 100
+1 3*/
