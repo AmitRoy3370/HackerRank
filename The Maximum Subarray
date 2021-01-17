@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 public class The_Maximum_Subarray {
 
@@ -11,6 +10,84 @@ public class The_Maximum_Subarray {
     static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
     
     static PrintWriter out=new PrintWriter(System.out);
+    
+    static void Merge(int a[],int l,int r,int m){
+        
+        int n1=m-l+1;
+        int n2=r-m;
+        
+        int L[]=new int[n1];
+        int R[]=new int[n2];
+        
+        for(int i=0;i<n1;i++){
+            
+            L[i]=a[l+i];
+            
+        }
+        
+        for(int j=0;j<n2;j++){
+            
+            R[j]=a[m+j+1];
+            
+        }
+        
+        int i=0,j=0,k=l;
+        
+        while(i<n1 && j<n2){
+            
+            if( L[i]<=R[j] ){
+                
+                a[k]=L[i];
+                
+                i++;
+                
+            }else{
+                
+                a[k]=R[j];
+                
+                j++;
+                
+            }
+            
+            k++;
+            
+        }
+        
+        while(i<n1){
+            
+            a[k]=L[i];
+            
+            i++;
+            k++;
+            
+        }
+        
+        while(j<n2){
+            
+            a[k]=R[j];
+            k++;
+            j++;
+            
+        }
+        
+    }
+    
+    static void MergeSort(int a[],int l,int r){
+        
+        if( l>=r ){
+            
+            return;
+            
+        }
+        
+        int m=(l+r-1)/2;
+        
+        MergeSort( a,l,m );
+        MergeSort( a,m+1,r );
+        
+        Merge(a,l,r,m);
+        
+    }
     
     static void solve() throws IOException{
         
@@ -40,8 +117,10 @@ public class The_Maximum_Subarray {
             
         }
         
-        Arrays.sort(a);
+      //  Arrays.sort(a);
         
+      MergeSort(a,0,n-1);
+      
         int sum=0;
         
         if( a[ a.length-1 ]<=0 ){
