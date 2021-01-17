@@ -1,0 +1,90 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+public class The_Maximum_Subarray {
+
+    static int testCases,n;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static PrintWriter out=new PrintWriter(System.out);
+    
+    static void solve() throws IOException{
+        
+        n=Integer.parseInt( in.readLine() );
+        
+        String s[]=in.readLine().split("\\s");
+        
+        int a[]=new int[n];
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=Integer.parseInt( s[i] );
+            
+        }
+        
+        int max_Array=a[0],current_Max=a[0];
+        
+        for(int i=1;i<n;i++){
+            
+            current_Max=Math.max(a[i], current_Max+a[i]);
+            
+            if( max_Array<current_Max ){
+                
+                max_Array=current_Max;
+                
+            }
+            
+        }
+        
+        Arrays.sort(a);
+        
+        int sum=0;
+        
+        if( a[ a.length-1 ]<=0 ){
+            
+            sum=a[ a.length-1 ];
+            
+        }else{
+        
+        for(int i: a){
+            
+            if( i>0 ){
+                
+                sum+=i;
+                
+            }
+            
+        }
+        
+    }
+        
+        System.out.println(max_Array+" "+sum);
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine() );
+        
+        for(int i=0;i<testCases;i++){
+            
+        solve();    
+            
+        }
+        
+    }
+    
+}
+/*2
+4
+1 2 3 4
+6
+2 -1 2 3 4 -5*/
+
+/*1
+5
+-2 -3 -1 -4 -6*/
