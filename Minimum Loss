@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.TreeSet;
+
+public class Minimum_Loss {
+
+    static int n;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    public static void main(String[] args) throws IOException {
+        
+   n=Integer.parseInt( in.readLine() );
+        
+   TreeSet<Long> set=new TreeSet<>();
+   
+   String []x=in.readLine().split("\\s");
+   
+   set.add( Long.parseLong( x[0] ) );
+   
+   long min=Long.MAX_VALUE;
+   
+   for(int i=1;i<n;i++){
+       
+      Long value=Long.parseLong( x[i] );
+       
+      Long higher=set.higher(value);
+      
+      if( higher!=null ){
+          
+          min=Math.min(min, Math.abs( higher-value )  );
+          
+      }
+      
+      set.add(value);
+      
+   }
+   
+        System.out.println(min);
+   
+    }
+   
+}
+/*5
+20 7 8 2 5*/
+
+/*3
+5 10 3*/
