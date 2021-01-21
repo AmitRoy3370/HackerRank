@@ -1,0 +1,75 @@
+import java.util.*;
+
+class Node {
+    Node left;
+    Node right;
+    int data;
+    
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+public class Insertion {
+   
+  	public static void preOrder( Node root ) {
+      
+    	if( root == null)
+        	return;
+      
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
+     
+    }
+
+ /* Node is defined as :
+ class Node 
+    int data;
+    Node left;
+    Node right;
+    
+    */
+
+	public static Node insert(Node head,int data) {
+
+          Node tempHead = head;
+        Node n = new Node(data);
+        if(head == null){
+            head = n;
+            return head;
+        }
+        Node prev = null;
+        while(head != null){
+            prev = head;
+            if(head.data < data){
+                head = head.right;
+            }else{
+                head = head.left;
+            }
+        }
+        if(prev.data < data){
+            prev.right = n;
+        }else{
+            prev.left = n;
+        }
+        return tempHead;
+          
+    }
+
+	public static void main(String[] args) {
+            Node root;
+              try (Scanner scan = new Scanner(System.in)) {
+                  int t = scan.nextInt();
+                  root = null;
+                  while(t-- > 0) {
+                      int data = scan.nextInt();
+                      root = insert(root, data);
+                  }     }
+      	preOrder(root);
+    }	
+}
+/*6
+4 2 3 1 7 6*/
