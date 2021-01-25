@@ -1,0 +1,168 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Fraudulent_Activity_Notifications {
+
+    static int n,d;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static class counting{
+        
+        int number,count;
+
+        public counting() {
+        
+        }
+
+        public counting(int number, int count) {
+            this.number = number;
+            this.count = count;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+        
+    }
+    
+    static counting c[];
+    
+    static int activityNotifications(int []expenditure,int d){
+        
+        c=new counting[d];
+        
+        int notification=0;
+        
+     /*   for(int i=0;i<d;i++){
+            
+            c[i]=new counting( expenditure[i],0 );
+            
+        }
+        
+        for(int i=0;i<d;i++){
+            
+            c[i].setCount( c[i].getCount()+1 );
+            
+        }*/
+        
+     int []count=new int[201];
+     
+     for(int i=0;i<d;i++){
+         
+         count[ expenditure[i] ]++;
+         
+     }
+     
+        for(int i=d;i<expenditure.length;i++){
+            
+            double mediun=mediun(count,d);
+            
+            if( expenditure[i]>=2.0*mediun ){
+                
+                notification++;
+                
+            }
+        
+            count[ expenditure[i] ]++;
+            count[ expenditure[i-d] ]--;
+            
+        }
+        
+        return notification;
+        
+    }
+    
+    public static double mediun(int []count,int d){
+        
+        double mediuan=0,c=0;
+        
+        if( d%2==0 ){
+            
+            Integer m1=null,m2=null;
+            
+            for(int i=0;i<count.length;i++){
+                
+                c+=count[i];
+                
+                if( m1==null && c>=d/2 ){
+                    
+                    m1=i;
+                    
+                }
+                
+                 if( m2==null && c>=d/2+1 ){
+                    
+                    m2=i;
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            mediuan=(m1+m2)/2.0;
+            
+        }else{
+            
+            for(int i=0;i<count.length;i++){
+                
+                c+=count[i];
+                
+                if( c>d/2 ){
+                    
+                    mediuan=i;
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+        }
+        
+        return mediuan;
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        String x[]=in.readLine().split("\\s");
+        
+        n=Integer.parseInt( x[0] );
+        d=Integer.parseInt( x[1] );
+        
+        String y[]=in.readLine().split("\\s");
+        
+        int a[]=new int[n];
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=Integer.parseInt( y[i] );
+            
+        }
+        
+        System.out.println( activityNotifications( a,d ) );
+        
+    }
+    
+}
+/*
+
+9 5
+2 3 4 2 3 6 8 4 5
+
+*/
