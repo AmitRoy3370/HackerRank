@@ -1,0 +1,133 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+
+public class Fibonacci_Finding_easy {
+
+    static int testCases;
+    
+    static long a,b,n;
+    
+    static long I[][]=new long[3][3];
+    static long T[][]=new long[3][3];
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static BigInteger mod=BigInteger.valueOf(10).pow(9).add( BigInteger.valueOf(7) );
+    
+   static long solve(long a,long b,long n){
+       
+  /* if( n<=2 ){
+       
+       return b;
+       
+   }*/    
+       
+   I[1][1]=I[2][2]=1;
+   I[1][2]=I[2][1]=0;
+   
+   T[1][1]=0;
+   T[1][2]=T[2][1]=T[2][2]=1;
+   
+   //n--;
+   
+   while( n>=1 ){
+   
+       if( n%2==1 ){
+       
+      I= mul(I,T);
+       
+       n--;
+       
+       }else{
+       
+      T= mul( T,T );
+       
+       n/=2;
+       
+   }
+       
+   }
+      
+   long x=( a*I[1][1]+b*I[2][1] )%mod.longValue();
+   
+       return x;
+   
+   }
+    
+   static long[][] mul(long a[][],long b[][]){
+       
+       long res[][]=new long[3][3];
+       
+       for(int i=1;i<=2;i++){
+           
+           for(int j=1;j<=2;j++){
+               
+               for(int k=1;k<=2;k++){
+                   
+                   long x=( a[i][k]*b[k][j] )%mod.longValue();
+                   
+                   res[i][j]=(x+res[i][j] )%mod.longValue();
+                   
+               }
+               
+           }
+           
+       }
+       
+       for(int i=1;i<=2;i++){
+           
+       for(int j=1;j<=2;j++){
+           
+           a[i][j]=res[i][j];
+           
+       }
+           
+       }
+       
+       return a;
+       
+   }
+   
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine().trim() );
+        
+        for(int i=0;i<testCases;i++){
+            
+            String x[]=in.readLine().split("\\s");
+            
+            a=Long.parseLong( x[0] );
+            b=Long.parseLong( x[1] );
+            n=Long.parseLong( x[2] );
+        
+         //   System.out.println("n: "+n);
+            
+            System.out.println( solve( a,b,n ) );
+            
+        }
+        
+    }
+    
+}
+/*
+
+8  
+2 3 1  
+9 1 7  
+9 8 3  
+2 4 9  
+1 7 2  
+1 8 1  
+4 3 1  
+3 7 5  
+
+*/
+
+/*
+
+1
+9 1 7   
+
+*/
