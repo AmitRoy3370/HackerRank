@@ -1,0 +1,85 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Largest_Palindromic_Substring {
+
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    public static void main(String[] args) throws IOException {
+        
+        String s=in.readLine().trim().toLowerCase();
+        
+        char []ch=s.toCharArray();
+        
+        char T[]=new char[ 2*s.length()+3 ];
+        
+        T[0]='$';
+        T[ T.length-1 ]='@';
+        T[ T.length-2 ]='#';
+        
+        int index=0;
+        
+        for(int i=1;i<T.length-2;i++ ){
+            
+            if( i%2==0 ){
+                
+                T[i]=ch[index++];
+                
+            }else{
+                
+                T[i]='#';
+                
+            }
+            
+        }
+        
+        int P[]=new int[ T.length ];
+        
+        int c=0,R=0,longestCenter=0,longestLength=0;
+        
+        for(int i=1;i<T.length-1;i++){
+            
+            int mirr=2*c-i;
+            
+            if( R>i ){
+                
+                P[i]=Math.min(R-i, P[mirr] );
+                
+            }
+            
+            while( T[ i+(1+P[i]) ]==T[ i-( 1+P[i] ) ] ){
+                
+                P[i]++;
+                
+            }
+            
+            if( P[i]>=longestLength ){
+                
+                longestCenter=i;
+                longestLength=P[i];
+                
+            }
+            
+            if( i+P[i]>R ){
+                
+                c=i;
+                
+                R=i+P[i];
+                
+            }
+            
+        }
+        
+        String st=new String(T);
+        
+        st=st.replace("$", "");
+        
+        st=st.replace("@", "");
+        
+         System.out.println( st.substring( longestCenter-longestLength,longestCenter+longestLength ).replace( "#","" ) );
+        
+    }
+    
+}
+//hackerrekcahba
