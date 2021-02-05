@@ -1,0 +1,71 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the solve function below.
+    static String solve(long a, long m) {
+
+long pow=(m-1)/2,res=1;
+
+boolean ok=false;
+
+if( a==0 || m==2 ){
+    
+    ok=true;
+    
+}
+
+while( pow>0 ){
+    
+    if( pow%2==1 ){
+        
+        res=(res*a)%m;
+        
+    }
+    
+    a=(a*a)%m;
+    
+    pow/=2;
+    
+}
+
+if( res==1 || ok ){
+    
+    return "YES";
+    
+}
+
+return "NO";
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int t = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int tItr = 0; tItr < t; tItr++) {
+            String[] am = scanner.nextLine().split(" ");
+
+            long a = Long.parseLong(am[0]);
+
+            long m = Long.parseLong(am[1]);
+
+            String result = solve(a, m);
+
+            bufferedWriter.write(result);
+            bufferedWriter.newLine();
+        }
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
