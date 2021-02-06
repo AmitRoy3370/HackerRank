@@ -1,0 +1,315 @@
+import java.util.Scanner;
+
+public class Maximum_Element {
+
+    static stackLinkedList stack=new stackLinkedList();
+
+    static stackLinkedList maxSt=new stackLinkedList();
+    
+static int max=Integer.MIN_VALUE;
+    
+static int maxElement() throws Exception{
+    
+    stackLinkedList temp=new stackLinkedList();
+    
+    stackLinkedList copy=(stackLinkedList) stack.clone();
+  
+ /*stackLinkedList copyTemp=new stackLinkedList(); 
+    
+ while( !copy.isEmpty() ){
+     
+     int x1=copy.pop();
+     
+     copyTemp.push(x1);
+     
+ }*/
+ 
+    int maximum=Integer.MIN_VALUE;
+    
+    while( !copy.isEmpty() ){
+        
+        int h=copy.pop();
+        
+        if( h>maximum ){
+            
+            temp.push( h );
+            
+            maximum=h;
+            
+        }
+        
+    }
+    
+   // stack=copy;
+    
+    return maximum;
+    
+}
+
+    private static void solve() {
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+     type=scanner.nextInt();
+    
+        switch (type) {
+            case 1:
+                
+                x=scanner.nextInt();
+                max=Math.max( x , max);
+                stack.push(x);
+              
+                int y=x;
+                
+                //System.out.println("before: "+maxSt.peek()+" x: "+x+" size: "+maxSt.size()+" isEmpty: "+maxSt.isEmpty());
+                
+                if( maxSt.size()>0 && y < maxSt.peek() ){
+                    
+              //      System.out.println("inserted : "+x);
+                    
+                   // maxSt.push(x);
+                    
+                   y=maxSt.peek();
+                   
+                }
+                
+                //if( maxSt.size()==0 ){
+                
+            //        System.out.println("inserted first: "+y+" and size: "+maxSt.size());
+                    
+                maxSt.push(y);
+                
+          //      System.out.println("now size: "+maxSt.size());
+               // }
+               
+                break;
+            case 2:
+                
+                if( !stack.isEmpty() ){
+                    
+                    try {
+                        
+                        stack.pop();
+                        
+                    int t= maxSt.pop();
+                        
+        //                System.out.println("t: "+t);
+                    
+                    } catch (Exception ex) {
+                        //    Logger.getLogger(Maximum_Element.class.getName()).log(Level.SEVERE, null, ex);
+                        
+                    }
+                    
+                }      if( stack.isEmpty() ){
+                    
+                    max=Integer.MIN_VALUE;
+                    
+                }else{
+                    
+                    max=Math.max(stack.peek(),max);
+                    
+                }      break;
+            case 3:
+                
+                if( !stack.isEmpty() ){
+                    
+         try {
+         
+             //System.out.println( maxElement() );
+     
+             System.out.println(maxSt.peek() );
+             
+          //   System.out.println("max current: "+max);
+             
+           //  System.out.println("now stack size: "+stack.size());
+             
+         } catch (Exception ex) {
+         //    Logger.getLogger(Maximum_Element.class.getName()).log(Level.SEVERE, null, ex);
+         
+         //    System.out.println(ex);
+         
+         }
+                    
+                }else{
+                 
+          //          System.out.println("stack is empty: "+stack.size());
+                    
+                }
+                    
+                    break;
+                //}
+            
+            default:
+                break;
+        
+        }
+     
+    }
+
+    static class Node{
+        
+        int data;
+        
+        Node next;
+
+        public Node(int data) {
+            
+            this.data = data;
+       
+            this.next=null;
+            
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+        
+    }
+    
+    static class stackLinkedList implements Cloneable {
+        
+        int length;
+        
+        Node top;
+
+        public stackLinkedList() {
+        
+            length=0;
+            
+            top=null;
+            
+        }
+        
+       public void push(int data){
+           
+           Node node=new Node(data);
+           
+           node.setNext(top);
+           
+           top=node;
+           
+           length++;
+           
+       }
+        
+       public boolean isEmpty(){
+           
+           return length==0;
+           
+       }
+       
+       public int pop() throws Exception {
+           
+           if( isEmpty() ){
+               
+               throw new Exception("The list is empty");
+               
+           }
+           
+           int res=top.getData();
+           
+           top=top.getNext();
+           
+           length--;
+           
+           return res;
+           
+       }
+       
+       public int size(){
+           
+           return length;
+           
+       }
+       
+       public int peek(){
+           
+        //   stackLinkedList y=stack;
+           
+        if( isEmpty() ){
+            
+            return -1;
+            
+        }
+        
+           return top.data;
+           
+       }
+       
+        @Override
+       public Object clone() throws CloneNotSupportedException{
+    
+           try{
+      
+               stackLinkedList s = (stackLinkedList)super.clone();
+    //  s =  this.clone();
+      return s;
+    }catch(CloneNotSupportedException e){
+      //It mustn't happen
+      System.out.println("Cloning not allowed");
+      return this;
+    }
+       
+    }
+    
+    }
+       
+    static int testCases,type,x;
+    
+    static Scanner scanner=new Scanner( System.in );
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            solve();
+            
+        }
+        
+    }
+    
+}
+/*
+
+10
+1 97
+2
+1 20
+2
+1 26
+1 20
+2
+3
+1 91
+3
+
+*/
+
+/*
+
+11
+1 30
+1 7
+1 2
+2
+3
+1 60
+1 75
+2
+1 55
+3
+3
+*/
