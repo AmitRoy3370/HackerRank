@@ -1,0 +1,246 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Balanced_Brackets {
+
+    static int testCases;
+    
+    static String s;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    static class Node{
+        
+        char data;
+        
+        Node node;
+
+        public Node(char data) {
+        
+            this.data = data;
+        
+            this.node=null;
+            
+        }
+
+        public char getData() {
+            return data;
+        }
+
+        public void setData(char data) {
+            this.data = data;
+        }
+
+        public Node getNode() {
+            return node;
+        }
+
+        public void setNode(Node node) {
+            this.node = node;
+        }
+        
+    }
+    
+    static class stackLinkedList{
+        
+        int length;
+        
+        Node node;
+
+        public stackLinkedList() {
+        
+            length=0;
+            
+            node=null;
+            
+        }
+        
+        public void push(char data){
+            
+            Node top=new Node(data);
+            
+            top.setNode(node);
+            
+            node=top;
+            
+            length++;
+            
+        }
+        
+        public boolean isEmpty(){
+            
+            return length==0;
+            
+        }
+        
+        public char pop() throws Exception {
+            
+            if( isEmpty() ){
+                
+             //   System.out.println("got exception");
+                
+                throw new Exception("The list is empty");
+                
+            }
+            
+            char res=node.getData();
+            
+            node=node.getNode();
+            
+            length--;
+            
+            return res;
+            
+        }
+        
+        public char peek(){
+            
+            if( isEmpty() ){
+                
+                return '-';
+                
+            }
+            
+            return node.getData();
+            
+        }
+        
+        public int size(){
+            
+            return length;
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine() );
+        
+        for(int i=0;i<testCases;i++){
+            
+            s=in.readLine();
+            
+            try {
+            
+                solve(s);
+         
+            } catch (Exception ex) {
+            //    Logger.getLogger(Balanced_Brackets.class.getName()).log(Level.SEVERE, null, ex);
+            
+            }
+            
+        }
+        
+    }
+
+    private static void solve(String s) throws Exception {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+   stackLinkedList stack=new stackLinkedList();
+    
+   if( s.charAt(0)==')' || s.charAt( 0 )=='}' || s.charAt(0)==']' ){
+       
+       System.out.println("NO");
+       
+       return;
+       
+   }
+   
+       /* System.out.println("get string: ");
+   
+   for(int i=0;i<s.length();i++){
+       
+       System.out.print(s.charAt(i)+"   ");
+       
+   }
+   
+        System.out.println();*/
+   
+   for(int i=0;i<s.length();i++){
+       
+       if(  s.charAt(i)=='(' || s.charAt( i )=='{' || s.charAt(i)=='[' ){
+           
+           //System.out.println("last insert: "+s.charAt(i));
+           
+           stack.push( s.charAt(i) );
+           
+       }else{
+           
+          // System.out.println("before stack size: "+stack.size()+" peek: "+stack.peek());
+           
+           try{
+           
+          char ch=stack.pop();
+        
+           //System.out.println("ch: "+ch+" char: "+s.charAt(i)+" size: "+stack.size());
+          
+          if( s.charAt(i)==')' && ch!='(' ){
+              
+              System.out.println("NO");
+              
+             // System.out.println("return from first");
+              
+              return;
+              
+          }else if( s.charAt(i)=='}' && ch!='{' ){
+              
+              System.out.println("NO");
+              
+             // System.out.println("return from second");
+              
+              return;
+              
+          }else if( s.charAt(i)==']' && ch!='[' ){
+              
+              System.out.println("NO");
+              
+              //System.out.println("return from third: "+ch+" "+s.charAt(i));
+              
+              return;
+              
+          }else{
+              
+    //          System.out.println("for: "+s.charAt(i)+" top: "+stack.size());
+              
+          }
+          
+           }catch(Exception e){
+               
+     //          System.out.println(e);
+               
+           }
+               
+       }
+       
+   }
+   
+    if( !stack.isEmpty() ){
+       
+       System.out.println("NO");
+       
+       return;
+       
+   }
+   
+        System.out.println("YES");
+   
+    }
+    
+}
+/*
+
+1
+{{[[(())]]}}
+
+*/
+
+/*
+
+3
+{[()]}
+{[(])}
+{{[[(())]]}}
+
+*/
