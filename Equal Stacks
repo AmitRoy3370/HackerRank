@@ -1,0 +1,98 @@
+import java.util.*;
+
+public class Equal_Stacks {
+    
+    public static void main(String[] args)   {
+    
+        Scanner scanner=new Scanner(System.in);
+        
+        int x,y,z;
+        
+        x=scanner.nextInt();
+        
+        y=scanner.nextInt();
+        
+        z=scanner.nextInt();
+        
+        Stack<Integer> A=new Stack<>();
+        
+        Stack<Integer> B=new Stack<>();
+        
+        Stack<Integer> C=new Stack<>();
+        
+        for(int i=0;i<x;i++){
+            
+            A.add(scanner.nextInt());
+            
+        }
+        
+        for(int i=0;i<y;i++){
+            
+            B.add(scanner.nextInt());
+            
+        }
+        
+        for(int i=0;i<z;i++){
+            
+            C.add(scanner.nextInt());
+            
+        }
+        
+        int sumA=0,sumB=0,sumC=0;
+        
+        sumA = A.stream().map((i) -> i).reduce(sumA, Integer::sum);
+        
+        sumB = B.stream().map((i) -> i).reduce(sumB, Integer::sum);
+        
+        sumC = C.stream().map((i) -> i).reduce(sumC, Integer::sum);
+        
+        int i=0,j=0,k=0;
+        
+        while( !( sumA==sumB && sumB==sumC ) ){
+            
+        if( sumA>sumB && sumA>sumC ){
+            
+            sumA-=A.get(i);
+            
+            i++;
+            
+        }else if( sumB>=sumC && sumB>=sumA ){
+            
+            sumB-=B.get(j);
+            
+            j++;
+            
+        }else if( sumC>=sumB && sumC>=sumA ){
+            
+            sumC-=C.get(k);
+            
+            k++;
+            
+        }    
+            
+        //    System.out.println("sumA: "+sumA+" sumB: "+sumB+" sumC: "+sumC);
+        
+        }
+        
+        System.out.println(sumA);
+        
+    }
+}
+
+/*
+
+5 3 4
+3 2 1 1 1
+4 3 2
+1 1 4 1
+
+*/
+
+/*
+
+5 2 3
+1 1 1 1 2
+3 7
+1 3 1
+
+*/
