@@ -1,0 +1,98 @@
+import java.util.Scanner;
+
+public class Lena_Sort {
+
+    static int testCases,len,c;
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static long mins[]=new long[100001];
+    static long max[]=new long[100001];
+    
+    public static void main(String[] args) {
+        
+        testCases=scanner.nextInt();
+        
+        mins[2]=1;
+        max[2]=1;
+        
+        for(int i=3;i<100001;i++){
+            
+            mins[i]=i-1+mins[ (i-1)/2 ]+mins[ (i-1)-(i-1)/2 ];
+            
+            max[i]=max[i-1]+i-1;
+            
+        }
+        
+        for(int i=0;i<testCases;i++){
+            
+            len=scanner.nextInt();
+            
+            c=scanner.nextInt();
+            
+            if( max[len]<c || mins[len]>c ){
+                
+                System.out.println("-1");
+                continue;
+                
+            }
+            
+            System.out.println(solve(len,c,1,max,mins,new StringBuilder() ));
+            
+        }
+        
+    }
+
+    private static StringBuilder solve(int len,long c,int offset,long []max,long []mins,StringBuilder ans) {
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+     if( len==0 ){
+         
+         return ans;
+         
+     }
+     
+     if( len==1 ){
+         
+        ans.append(offset).append(" ");
+         
+         return ans;
+         
+     }
+     
+     int pivot=0;
+     
+     c-=len-1;
+     
+     while( mins[pivot]+mins[len-pivot-1]>c || max[ pivot ]+max[len-pivot-1]<c ){
+         
+         pivot++;
+         
+     }
+     
+     long newC=mins[pivot];
+     
+     while( mins[len-pivot-1]>c-newC || max[len-pivot-1]<c-newC ){
+         
+         newC++;
+         
+     }
+     
+     ans.append( (pivot+offset)+" " );
+     
+     solve(pivot,newC,offset,max,mins,ans);
+     
+     solve(len-pivot-1,c-newC,offset+pivot+1,max,mins,ans);
+     
+     return ans;
+     
+    }
+    
+}
+/*
+
+2
+5 6
+5 100
+
+*/
