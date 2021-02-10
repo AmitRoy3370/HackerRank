@@ -1,0 +1,287 @@
+import java.util.Scanner;
+
+public class Queue_using_Two_Stacks {
+
+    static int testCases,type,n;
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static class Node{
+        
+        int data;
+        
+        Node next;
+
+        public Node() {
+        
+            
+            
+        }
+
+     /*   public Node(int data) {
+            
+            this.data = data;
+        
+            this.next=null;
+            
+        }*/
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+        
+    }
+    
+    static class queue implements Cloneable {
+        
+        int length;
+        
+        Node node,node1;
+
+        public queue() {
+        
+            length=0;
+            
+            node1=node=null;
+            
+        }
+          
+         Node getNode(int data){
+            
+            Node a=new Node();
+            
+            a.setData(data);
+            
+            a.setNext(null);
+            
+            return a;
+            
+        }
+        
+        public void enequeue(int data) throws CloneNotSupportedException{
+           
+            if( node==null ){
+                
+                node=node1=getNode(data);
+                
+         //     node=new Node(data);
+               
+           //   node1=new Node(data);
+              
+                //System.out.println("am here");
+                
+                length++;
+                
+                return;
+                
+            }
+         
+            length++;
+            
+            //node.setNext( getNode(data) );
+         
+            node.next=getNode(data);
+            
+            node=node.getNext();
+            
+        }
+
+        public boolean isEmpty(){
+            
+            return node==null;
+            
+        }
+        
+        public int dequeue(){
+            
+        if( isEmpty() ){
+            
+            return -1;
+            
+        }    
+            
+        int res=node1.getData();
+        
+        node1=node1.getNext();
+        
+        if( node1==null ){
+            
+            node=null;
+            
+        }
+        
+       // node=node.getNext();
+        
+        length--;
+        
+        return res;
+        
+        }
+        
+        public int peek(){
+             
+             if( isEmpty() ){
+                 
+                 return -1;
+                 
+             }
+             
+             return node1.getData();
+             
+         }
+         
+        public int size(){
+             
+             return length;
+             
+         }
+         
+        @Override
+        protected queue clone() throws CloneNotSupportedException {
+        
+            try{
+            
+            queue st= (queue)super.clone(); //To change body of generated methods, choose Tools | Templates.
+     
+            return st;
+            
+            }catch(CloneNotSupportedException e){
+                
+                return this;
+                
+            }
+            
+        }
+            
+    }
+    
+    static queue q=new queue();
+    
+    static void seeData() throws CloneNotSupportedException{
+        
+        queue r=q.clone();
+        
+        while( !r.isEmpty() ){
+            
+            System.out.print(r.node.data+"  ");
+            
+            r.dequeue();
+            
+        }
+        
+        System.out.println();
+        
+    }
+    
+    static void makeQueue() throws CloneNotSupportedException{
+        
+        queue w=q.clone();
+        
+        queue making=new queue();
+        
+        while( !w.isEmpty() ){
+            
+            making.enequeue( w.node.data );
+            
+            w.dequeue();
+            
+        }
+        
+        q=making;
+        
+    }
+    
+    public static void main(String[] args) throws CloneNotSupportedException {
+        
+    testCases=scanner.nextInt();
+        
+    for(int i=0;i<testCases;i++){
+        
+        type=scanner.nextInt();
+        
+        switch (type) {
+           
+            case 1:
+                n=scanner.nextInt();
+      
+                q.enequeue(n);
+               
+            //    seeData();
+                
+    //            System.out.println("peek: "+q.peek()+" size: "+q.size());
+                
+                //makeQueue();
+                
+               // seeData();
+                
+                break;
+            case 2:
+                
+             //   try{
+                
+                    if( !q.isEmpty() ){
+                  
+                       // makeQueue();
+                        
+                q.dequeue();
+                
+                    }
+                
+               /* }catch(CloneNotSupportedException e){
+                    
+                    
+                }*/
+                
+                break;
+            case 3:
+             
+                try{
+                
+                int y=q.peek();
+                if(y!=-1){
+                    
+                    System.out.println( y );
+                    
+                }
+                
+                }catch(Exception e){
+                        
+                }
+                
+                break;
+            default:
+                break;
+        }
+        
+    }
+    
+    }
+    
+}
+/*
+
+10
+1 42
+2
+1 14
+3
+1 28
+3
+1 60
+1 78
+2
+2
+
+*/
