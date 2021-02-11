@@ -1,0 +1,160 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Flipping_the_Matrix {
+
+    static int testCases,n;
+    
+    static BufferedReader in=new BufferedReader( new InputStreamReader( System.in ) );
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=Integer.parseInt( in.readLine() );
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=Integer.parseInt( in.readLine() );
+            
+            solve(n);
+            
+        }
+        
+    }
+
+    private static void solve(int n) throws IOException {
+      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+      int mat[][]=new int[2*n][2*n];
+      
+      n=2*n;
+      
+      for( int i=0;i<n;i++ ){
+          
+          String x[]=in.readLine().split("\\s");
+          
+          for(int j=0;j<x.length;j++){
+              
+              mat[i][j]=Integer.parseInt( x[j] );
+              
+          }
+          
+      }
+      
+      int makeSumLeft1=0,firstPerfect=0,haveSumLeft=0,makeSumLeft=0,haveTopSum=0,makeTopSum=0,ans=0;
+      
+      for(int i=0;i<n/2;i++){
+          
+          int directSumLeft3=0,directSumLeft2=0,directSumLeft1=0,haveSumTop=0,haveSumSight=0,directSumTop=0,directSumLeft=0;
+          
+          for(int j=0;j<n/2;j++){
+              
+              haveSumSight+=mat[i][j];
+              
+              haveSumTop+=mat[j][i];
+              
+              directSumLeft+=(mat[i][n-j-1]);
+              
+              directSumLeft1+=mat[n-i-1][n-j-1];
+              
+              directSumTop+=mat[n-j-1][i];
+              
+              directSumLeft2+=mat[n-j-1][i]+mat[i][n-j-1];
+              
+              directSumLeft3+=mat[n-j-1][i]+mat[i][n-j-1];
+              
+              ans+=Math.max( Math.max(mat[i][j],mat[i][n-j-1] ),Math.max( mat[n-i-1][n-j-1],mat[n-i-1][j] ) );
+              
+          }
+          
+         /* System.out.println("haveSumSight: "+haveSumSight+" i: "+i);
+          
+          System.out.println("haveSumTop: "+haveSumTop+" i: "+i);
+          
+          System.out.println("directSumLeft: "+directSumLeft+" i: "+i);
+          
+          System.out.println("directSumTop: "+directSumTop+" i: "+i);*/
+          
+       //  haveSumLeft+=(haveSumSight);
+          
+        // haveTopSum+=haveSumTop;
+      
+         //if( makeSumLeft+directSumLeft>haveSumLeft ){
+         
+         makeSumLeft+=Math.max( Math.max(directSumLeft,directSumLeft1),Math.max(haveSumSight,Math.max(directSumLeft2,directSumLeft3) ) );
+         
+         makeSumLeft1+=Math.max(directSumLeft1, haveSumSight);
+         
+       //  }
+         
+   //      if( makeTopSum+directSumTop>haveTopSum ){
+         
+         makeTopSum+=Math.max(directSumTop,haveSumTop);
+         
+     //    }
+         
+      }
+       
+       // System.out.println("makeSumLeft: "+makeSumLeft+" makeSumLeft1: "+makeSumLeft1);
+      
+   /*   if( makeTopSum>(makeSumLeft) ){
+          
+          System.out.println(makeTopSum);
+          
+          firstPerfect=1;
+          
+      }else{
+          
+          System.out.println( (makeSumLeft) );
+          
+          firstPerfect=1;
+          
+      }*/
+      
+      /*  System.out.println("haveTopSum: "+haveTopSum);
+      
+        System.out.println("haveLeftSum: "+haveSumLeft);
+        
+        System.out.println("makeSumLeft: "+makeSumLeft);
+        
+        System.out.println("makeTopSum: "+makeTopSum);*/
+        
+        System.out.println(ans);
+        
+    }
+    
+}
+/*
+
+1
+2
+112 42 83 119
+56 125 56 49
+15 78 101 43
+62 98 114 108
+
+*/
+
+/*
+
+1
+2
+107 54 128 15
+12 75 110 138
+100 96 34 85
+75 15 28 112
+
+*/
+
+/*
+
+1
+3
+4089 1714 459 3709 2113 773
+969 2435 2197 1766 852 1278
+2235 1228 429 1771 1832 3673
+2728 2050 1747 3488 2439 4086
+3451 3472 1816 2635 1365 4091
+2772 2673 3237 2672 1182 2357
+
+*/
