@@ -1,0 +1,207 @@
+import java.util.Scanner;
+
+public class Largest_Rectangle {
+
+    static int n;
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static class Node{
+        
+        int data;
+        
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+        
+    }
+    
+    static class Stack{
+        
+        int length;
+        
+        Node node;
+
+        public Stack() {
+        
+            length=0;
+            
+            node=null;
+            
+        }
+        
+        boolean isEmpty(){
+            
+            return length==0;
+            
+        }
+        
+        void push(int data){
+            
+            Node top=new Node(data);
+            
+            top.setNext(node);
+            
+            node=top;
+            
+            length++;
+            
+        }
+        
+        int pop() throws Exception{
+            
+            if( isEmpty() ){
+                
+                throw new Exception("The stack is emty");
+                
+            }
+            
+            int res=node.getData();
+            
+            node=node.getNext();
+            
+            length--;
+            
+            return res;
+            
+        }
+        
+        int peek() throws Exception{
+            
+            if( isEmpty() ){
+                
+                throw new Exception("The stack is empty");
+                
+            }
+            
+            return node.getData();
+            
+        }
+        
+        int size(){
+            
+            return length;
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) throws Exception {
+        
+        n=scanner.nextInt();
+        
+        int height[]=new int[n];
+        
+        for(int i=0;i<n;i++){
+            
+            height[i]=scanner.nextInt();
+            
+        }
+        
+        System.out.println( largestRectangleArea(height) );
+        
+    }
+    
+    static int largestRectangleArea(int height[]) throws Exception{
+        
+        int max=0;
+        
+        if( height.length==0 ){
+            
+            return 0;
+            
+        }
+        
+        if( height.length==1 ){
+            
+            return height[0];
+            
+        }
+        
+        Stack stack=new Stack();
+        
+        stack.push(0);
+        
+        for(int i=1;i<height.length;i++){
+            
+            int current=height[i];
+            
+            if( current>=height[ stack.peek() ] ){
+                
+                stack.push(i);
+                
+            }else{
+                
+     while( !stack.isEmpty() && height[ stack.peek() ]>current ){
+         
+         int temp=height[ stack.pop() ];
+         
+         if( stack.isEmpty() ){
+             
+             max=Math.max(max, temp*i);
+             
+         }else{
+             
+             max=Math.max(max,temp*(i-stack.peek()-1) );
+             
+         }
+         
+     }           
+      
+     stack.push(i);
+     
+            }
+            
+        }
+        
+        if( !stack.isEmpty() ){
+            
+            int i=height.length;
+            
+             while( !stack.isEmpty() ){
+         
+         int temp=height[ stack.pop() ];
+         
+         if( stack.isEmpty() ){
+             
+             max=Math.max(max, temp*i);
+             
+         }else{
+             
+             max=Math.max(max,temp*(i-stack.peek()-1) );
+             
+         }
+         
+     }           
+            
+        }
+        
+        return max;
+        
+    }
+    
+}
+/*
+
+5
+1 2 3 4 5
+
+*/
