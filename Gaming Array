@@ -1,0 +1,413 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Gaming_Array {
+
+    static int testCases,n;
+    
+    static Scanner scanner=new Scanner(System.in);
+    
+    static class Node{
+        
+        int data,index;
+        
+        Node next;
+
+        public Node(int data,int index) {
+        
+            this.data = data;
+        
+            this.index=index;
+            
+            next=null;
+            
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+         
+    }
+    
+    static class Stack implements Cloneable {
+        
+        int length;
+        
+        Node node;
+
+        public Stack() {
+        
+            length=0;
+            
+            node=null;
+            
+        }
+        
+        public boolean isEmpty(){
+            
+            return length==0;
+            
+        }
+        
+        public void push(int data,int index){
+            
+            Node top=new Node( data,index );
+            
+            top.setNext(node);
+            
+            node=top;
+            
+            length++;
+            
+        }
+        
+        public int[] pop() throws Exception{
+            
+            if( isEmpty() ){
+                
+                throw new Exception("The stack is empty");
+                
+            }
+            
+            int a[]=new int[2];
+            
+            a[0]=node.getData();
+            a[1]=node.getIndex();
+            
+            node=node.getNext();
+            
+            length--;
+            
+            return a;
+            
+        }
+        
+        int size(){
+            
+            return length;
+            
+        }
+
+        @Override
+        protected Stack clone() throws CloneNotSupportedException {
+            
+            try{
+            
+            Stack st = (Stack)super.clone(); //To change body of generated methods, choose Tools | Templates.
+        
+            return st;
+            
+            }catch(CloneNotSupportedException e){
+                
+                return this;
+                
+            }
+            
+        }
+        
+    }
+    
+    static FastReader fast=new FastReader();
+    
+    public static void main(String[] args) throws Exception {
+        
+        testCases=fast.nextInt();
+        
+        for(int t=0;t<testCases;t++){
+            
+            n=fast.nextInt();
+            
+            int a[]=new int[n];
+            
+            for(int i=0;i<n;i++){
+                
+                a[i]=fast.nextInt();
+                
+            }
+            
+            solve(a,n);
+            
+        }
+        
+    }
+
+    static class elements{
+        
+        int data;
+        
+        int index;
+
+        public elements(int data, int index) {
+            this.data = data;
+            this.index = index;
+        }
+
+        public elements() {
+        
+        
+        }
+        
+    }
+    
+    static void merge(elements e[],int left,int right,int mid){
+        
+        int n1=mid-left+1;
+        int n2=right-mid;
+        
+        elements L[]=new elements[n1];
+        
+        for(int i=0;i<n1;i++){
+            
+            L[i]=new elements();
+            
+        }
+        
+        elements R[]=new elements[n2];
+        
+        for(int i=0;i<n2;i++){
+            
+            R[i]=new elements();
+            
+        }
+        
+        for(int i=0;i<n1;i++){
+            
+            L[i].data=e[left+i].data;
+            
+            L[i].index=e[left+i].index;
+            
+        }
+        
+        for(int j=0;j<n2;j++){
+            
+            R[j].data=e[mid+j+1].data;
+            
+            R[j].index=e[mid+j+1].index;
+            
+        }
+        
+        int i=0,j=0,k=left;
+        
+        while(i<n1 && j<n2){
+            
+            if( L[i].data<=R[j].data ){
+                
+                e[k].data=L[i].data;
+                
+                e[k].index=L[i].index;
+                
+                i++;
+                
+            }else{
+                
+                e[k].data=R[j].data;
+               
+                e[k].index=R[j].index;
+                
+                j++;
+                
+            }
+            
+            k++;
+            
+        }
+        
+        while( i<n1 ){
+            
+            e[k].data=L[i].data;
+            e[k].index=L[i].index;
+            
+            i++;
+            k++;
+            
+        }
+        
+        while( j<n2 ){
+            
+            e[k].data=R[j].data;
+            
+            e[k].index=R[j].index;
+            
+            j++;
+            k++;
+            
+        }
+        
+    }
+    
+    static void mergeSort(elements e[],int left,int right){
+        
+        if( left>=right ){
+            
+            return;
+            
+        }
+        
+        int mid=(left+right)/2;
+        
+        mergeSort(e,left,mid);
+        
+        mergeSort( e,mid+1,right );
+        
+        merge(e,left,right,mid);
+        
+    }
+    
+    static void seeData(Stack st) throws CloneNotSupportedException, Exception{
+        
+        Stack x=st.clone();
+        
+        while( !x.isEmpty() ){
+            
+            int a[]=x.pop();
+            
+            System.out.println(a[0]+"   "+a[1]);
+            
+        }
+        
+    }
+    
+    private static void solve(int[] a, int n) throws Exception {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+       elements e[]=new elements[n];
+       
+       for(int i=0;i<n;i++){
+           
+           e[i]=new elements( a[i],i );
+           
+       }
+       
+       mergeSort( e,0,e.length-1 );
+       
+       Stack stack=new Stack();
+       
+       for(elements i: e){
+           
+           stack.push( i.data , i.index);
+           
+       }
+       
+   //    seeData(stack);
+       
+       boolean visited[]=new boolean[n];
+       
+       int ans=0;
+       
+       while( !stack.isEmpty() ){
+           
+           int b[]=stack.pop();
+           
+           if( !visited[b[1]] ){
+               
+               for(int i=b[1];i<=n-1;i++){
+                   
+                   visited[i]=true;
+                   
+               }
+               
+               ans++;
+               
+           }
+           
+       }
+       
+       if( ans%2==0 ){
+           
+           System.out.println("ANDY");
+           
+       }else{
+           
+           System.out.println("BOB");
+           
+       }
+       
+    }
+    
+     static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+ 
+        public FastReader()
+        {
+            br = new BufferedReader(
+                new InputStreamReader(System.in));
+        }
+ 
+        String next()
+        {
+        
+            while (st == null || !st.hasMoreElements()) {
+            
+                try {
+                    st = new StringTokenizer(br.readLine());
+                }
+                catch (IOException e) {
+                }
+            }
+            return st.nextToken();
+        }
+ 
+        int nextInt() { return Integer.parseInt(next()); }
+ 
+        long nextLong() { return Long.parseLong(next()); }
+ 
+        double nextDouble()
+        {
+            return Double.parseDouble(next());
+        }
+ 
+        String nextLine()
+        {
+            String str = "";
+            try {
+                str = br.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+    }
+    
+}
+/*
+
+2
+5
+5 2 6 3 4
+2
+3 1
+
+*/
+
+/*
+
+1
+5
+5 2 6 3 4
+
+*/
