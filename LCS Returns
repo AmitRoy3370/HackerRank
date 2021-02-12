@@ -1,0 +1,184 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+public class LCS_Returns {
+
+    static FastRead fast=new FastRead();
+    
+    static String a,b;
+    
+    static List<Integer> []pos=new ArrayList[5001];
+    
+    static int func(char c){
+        
+        if( c>='a' && c<='z' ){
+            
+            return c-'a';
+            
+        }
+        
+        if( c>='A' && c<='Z' ){
+            
+        return c-'A'+26;
+            
+        }
+        
+        return c-'0'+52;
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        a=fast.next();
+        b=fast.next();
+        
+        for(int i=0;i<5001;i++){
+            
+            pos[i]=new ArrayList<>();
+            
+        }
+        
+        for(int i=0;i<b.length();i++){
+            
+            pos[ func( b.charAt(i) ) ].add(i+1);
+            
+        }
+        
+        char chA[]=a.toCharArray();
+        char chB[]=b.toCharArray();
+        
+        solve(chA,chB);
+        
+    }
+
+    private static void solve(char[] chA, char[] chB) {
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+     int n=chA.length,m=chB.length;
+     
+     int dp[][]=new int[n+2][m+2];
+     
+     int dpr[][]=new int[n+2][m+2];
+     
+     int lcs;
+     
+     for(int i=1;i<=n;i++){
+         
+         for(int j=1;j<=m;j++){
+             
+             if( chA[i-1]==chB[j-1] ){
+                 
+                 dp[i][j]=dp[i-1][j-1]+1;
+                 
+             }else{
+                 
+                 dp[i][j]=Math.max(dp[i-1][j], dp[i][j-1]);
+                 
+             }
+             
+         }
+         
+     }
+     
+     lcs=dp[n][m];
+     
+     //   System.out.println("lcs: "+lcs);
+     
+     for(int i=n;i>=1;i--){
+         
+         for(int j=m;j>=1;j--){
+             
+             if( chA[i-1]==chB[j-1] ){
+                 
+                 dpr[i][j]=dpr[i+1][j+1]+1;
+                 
+             }else{
+                 
+                dpr[i][j]=Math.max(dpr[i+1][j], dpr[i][j+1]);
+                 
+             }
+             
+         }
+         
+     }
+     
+    //    System.out.println("dpr: "+dpr[n][m]);
+     
+     int ans=0;
+     
+     for(int i=0;i<=n;i++){
+         
+         for(int j=0;j<62;j++){
+             
+             for(int x: pos[j]){
+                 
+                 if(dp[i][x-1]+dpr[i+1][x+1]==lcs){
+                ans++;
+                break;
+            }
+                 
+             }
+             
+         }
+         
+     }
+     
+        System.out.println(ans);
+     
+    }
+    
+    static class FastRead{
+        
+        BufferedReader in;
+        
+        StringTokenizer st;
+
+        public FastRead() {
+        
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer( in.readLine() );
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        String nextLine() throws IOException{
+            
+            return in.readLine();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+aa
+baaa
+
+*/
