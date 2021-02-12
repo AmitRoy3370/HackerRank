@@ -1,0 +1,122 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Unexpected_Demand {
+
+    static FastRead fast=new FastRead();
+    
+    static int n,k;
+    
+    static List<Integer> list=new ArrayList<>();
+    
+    public static int filledOrders(List<Integer> order, int k) {
+    // Write your code here
+
+Collections.sort(order);
+    
+int c=0;
+
+for(int i=0;i<order.size();i++){
+    
+    if( order.get(i)<=k ){
+        
+        c++;
+        
+        k-=order.get(i);
+        
+    }
+    
+}
+
+return c;
+    
+    }
+    
+    public static void main(String[] args) {
+        
+        n=fast.nextInt();
+        
+        for(int i=0;i<n;i++){
+            
+            list.add( fast.nextInt() );
+            
+        }
+        
+        k=fast.nextInt();
+        
+        System.out.println( filledOrders(list,k) );
+        
+    }
+    
+    static class FastRead{
+        
+        BufferedReader in;
+        StringTokenizer st;
+
+        public FastRead() {
+        
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+        
+        String next(){
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                try {
+                    st=new StringTokenizer( in.readLine() );
+                } catch (IOException ex) {
+                    Logger.getLogger(Unexpected_Demand.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        String nextLine() throws IOException{
+            
+            return in.readLine();
+            
+        }
+        
+        int nextInt(){
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong(){
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+2
+10
+30
+40
+
+*/
+
+/*
+
+2
+21
+24
+83178701
+
+*/
