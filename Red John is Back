@@ -1,0 +1,213 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Red_John_is_Back {
+
+    static int []prime=new int[10000000];
+    static int dp[];
+   
+    static int is[]=new int[10000000];
+   
+    static int total;
+    
+    private static void solve(int n) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+ //  prime=new int[10000000];
+    
+   dp=new int[51];
+   
+   //is=new int[10000000];
+   
+   total=0;
+   
+   dp[0]=dp[1]=dp[2]=dp[3]=1;
+   
+   for(int i=4;i<=50;i++){
+       
+       dp[i]=dp[i-1]+dp[i-4];
+       
+   }
+   
+   for(int i=2;i<=dp[n];i++){
+       
+       is[i]=1;
+       
+   }
+   
+   for(int i=2;i<=dp[n];i++){
+       
+       if( is[i]>=1 ){
+           
+           prime[++total]=i;
+           
+       }
+       
+       for(int j=1;j<=total && i*prime[j]<=dp[n];j++){
+           
+           is[i*prime[j]]=0;
+           
+           if( i*prime[j]==0 ){
+               
+               break;
+               
+           }
+           
+       }
+       
+   }
+   
+        System.out.println(total);
+   
+    }
+
+    static class FastReader{
+        
+        BufferedReader in;
+        StringTokenizer st;
+
+        public FastReader() {
+        
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+        
+        String next(){
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                try {
+                
+                    st=new StringTokenizer(in.readLine());
+                
+                } catch (IOException ex) {
+                    Logger.getLogger(Red_John_is_Back.class.getName()).log(Level.SEVERE, null, ex);
+              
+                }
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        String nextLine(){
+            
+            String s="";
+            
+            try {
+            
+                s=in.readLine();
+           
+            } catch (IOException ex) {
+                Logger.getLogger(Red_John_is_Back.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            return s;
+            
+        }
+        
+        int nextInt(){
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong(){
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+    static FastReader fast=new FastReader();
+    
+    static int testCases,n;
+    
+    public static void main(String[] args) {
+        
+        testCases=fast.nextInt();
+        
+        for(int i=0;i<testCases;i++){
+            
+            n=fast.nextInt();
+            
+            solve(n);
+            
+        }
+        
+    }
+    
+}
+/*
+
+2
+1
+7
+
+*/
+
+/*
+
+3
+3
+5
+8
+
+*/
+
+/*
+
+20
+34
+3
+31
+35
+10
+38
+18
+27
+15
+3
+38
+14
+18
+4
+5
+23
+9
+31
+10
+25
+
+*/
+
+/*
+
+19
+16
+8
+40
+24
+26
+17
+39
+23
+40
+39
+1
+24
+21
+39
+34
+37
+9
+28
+6
+
+*/
