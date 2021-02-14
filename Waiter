@@ -1,0 +1,369 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Waiter {
+
+    static class Node{
+        
+        int data;
+    
+        Node next;
+
+        public Node(int data) {
+            
+            this.data = data;
+        
+            this.next=null;
+            
+        }
+
+        public int getData() {
+            return data;
+        }
+
+        public void setData(int data) {
+            this.data = data;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+        
+    }
+    
+    static class Stack implements Cloneable {
+        
+       int length;
+        
+       Node node;
+
+        public Stack() {
+       
+            length=0;
+            node=null;
+            
+        }
+       
+       void push(int data){
+           
+           Node top=new Node(data);
+           
+           top.setNext(node);
+           
+           node=top;
+           
+           length++;
+           
+       }
+       
+       boolean isEmpty(){
+           
+           return length==0;
+           
+       }
+       
+       int size(){
+           
+           return length;
+           
+       }
+       
+       int pop() throws Exception{
+           
+           if( isEmpty() ){
+               
+               throw new Exception("stack is empty");
+               
+           }
+           
+           int res=node.getData();
+           
+           node=node.getNext();
+         
+           length--;
+           
+           return res;
+           
+       }
+
+       int peek() throws Exception{
+           
+           if( isEmpty() ){
+               
+               throw new Exception("The stack is empty");
+               
+           }
+           
+           return node.getData();
+           
+       }
+       
+        @Override
+        protected Stack clone() throws CloneNotSupportedException {
+        
+            try{
+            
+         Stack st= (Stack)super.clone(); //To change body of generated methods, choose Tools | Templates.
+        
+         return st;
+         
+            }catch(CloneNotSupportedException e){
+                
+                return this;
+                
+            }
+         
+        }
+       
+    }
+    
+    static Scanner scanner=new Scanner();
+    
+    static Stack stack=new Stack();
+    
+    static int n,q;
+    
+    static String s="";
+    
+    static boolean visited[]=new boolean[1000001];
+    
+    static int p[]=new int[1000001];
+    
+    static int max=1000000;
+    
+    static boolean findDivisible(int k,int l) {
+        
+      return k%l==0;
+        
+    }
+    
+    static void primes(){
+        
+        visited[0]=visited[1]=true;
+        
+        for(int i=2;i*i<=max;i++){
+            
+            if( !visited[i] ){
+                
+                for(int j=i*i;j<=max;j+=i){
+                    
+                    visited[j]=true;
+                    
+                }
+                
+            }
+            
+        }
+        
+        int index=0;
+        
+        for(int i=2;i<max;i++){
+            
+            if( !visited[i] ){
+                
+                p[index++]=i;
+                
+            }
+            
+        }
+        
+    }
+    
+    static Stack prime=new Stack();
+    
+    static void printStack(Stack st) throws CloneNotSupportedException, Exception{
+        
+        Stack m=st.clone();
+        
+        while( !m.isEmpty() ){
+            
+            System.out.print(m.pop()+"  ");
+            
+        }
+    
+        System.out.println();
+    }
+    
+    static Stack printed=new Stack();
+    
+    public static void main(String[] args) throws IOException, Exception {
+        
+        n=scanner.nextInt();
+        
+        q=scanner.nextInt();
+        
+        int a[]=new int[n];
+        
+        primes();
+        
+        for(int i=0;i<n;i++){
+            
+            a[i]=scanner.nextInt();
+            
+        }
+        
+        for(int i=n-1;i>=0;i--){
+            
+            stack.push( a[i] );
+            
+        }
+        
+        for(int i=q-1;i>=0;i--){
+            
+            prime.push( p[i] );
+            
+        }
+        
+        System.out.print("prime's: ");
+        
+        printStack(prime);
+        
+        while( !prime.isEmpty() ){
+            
+            int rem=prime.peek();
+            
+            Stack copy=stack.clone();
+         
+            Stack temp=new Stack();
+            
+            while( !copy.isEmpty() ){
+                
+                int r=copy.pop();
+                
+                if( r%rem==0 ){
+                    
+                   // s+=r;
+                    
+                   printed.push(r);
+                   
+                }else{
+                    
+                    temp.push(r);
+                    
+                }
+                
+            }
+            
+        //    if( !temp.isEmpty() ){
+            
+            stack=temp;
+            
+            //    System.out.println("stack size now: "+stack.size());
+        
+//                printStack(stack);
+                
+          //  }
+            
+            prime.pop();
+            
+        }
+        
+        Stack ans=new Stack();
+        
+        while( !stack.isEmpty() ){
+            
+            ans.push( stack.pop()  );
+            
+        }
+        
+        while( !ans.isEmpty() ){
+            
+            try{
+            
+            printed.push( ans.pop() );
+            
+            }catch(Exception e){
+                
+                break;
+                
+            }
+            
+        }
+        
+        Stack show=new Stack();
+        
+        while( !printed.isEmpty() ){
+            
+            show.push( printed.pop() );
+            
+        }
+        
+        while( !show.isEmpty() ){
+            
+            System.out.println( show.pop() );
+            
+        }
+        
+    }
+    
+    static class Scanner{
+        
+        BufferedReader in;
+        
+        StringTokenizer st;
+
+        public Scanner() {
+        
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreTokens() ){
+                
+                st=new StringTokenizer( in.readLine() );
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        String nextLine() throws IOException{
+            
+            return in.readLine();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    } 
+    
+}
+/*
+
+5 2
+3 3 4 4 9
+
+*/
+
+/*
+
+6 3
+2 3 4 5 6 7
+
+*/
+
+/*
+
+5 1
+3 4 7 6 5
+
+*/
