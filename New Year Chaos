@@ -1,0 +1,214 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+public class New_Year_Chaos {
+
+    static Scanner scanner=new Scanner();
+    
+    static int testCases,n;
+    
+    static void printInMap(Map<Integer,Integer> map){
+        
+        for(int i: map.keySet()){
+            
+            System.out.println(i+"  "+map.get(i));
+            
+        }
+        
+    }
+    
+    static void solve(int a[],int n){
+        
+       int initial[]=new int[n];
+        
+       for(int i=0;i<n;i++){
+           
+           initial[i]=(i+1);
+           
+       }
+       
+       int ans=0;
+       
+       Map<Integer,Integer> w=new HashMap<>();
+       
+       Map<Integer,Integer> inMap=new HashMap<>();
+       
+       for(int i=1;i<=n;i++){
+           
+           inMap.put(i, i-1);
+           
+       }
+       
+       for(int i=0;i<n;i++){
+           
+           w.put( a[i] , i);
+           
+       }
+       
+       for(int i=0;i<n;i++){
+           
+           int x=0;
+           
+           if( a[i]!=initial[i] ){
+               
+              if( Math.abs( i-inMap.get(a[i]) )>2 ){
+                  
+            //      System.out.println("for a: "+a[i]+" ");
+                  
+                  System.out.println("Too chaotic");
+                  
+                  return;
+                  
+              }
+               
+          //     System.out.println("eneter for a: "+a[i]+" initial: "+initial[i]);
+              
+              for(int j=inMap.get(a[i]);j>i;j--){
+                  
+                  try{
+                  
+                      inMap.put( initial[j] , j-1);
+                      inMap.put( initial[j-1] , j);
+                      
+                  int temp=initial[j];
+                  initial[j]=initial[j-1];
+                  initial[j-1]=temp;
+                  
+                  //inMap.put( a[j] , j+1);
+                 
+                  ans++;
+                  
+                  }catch(Exception e){
+                      
+                      break;
+                      
+                  }
+                  
+              }
+         
+           /*   for(int j=0;j<initial.length;j++){
+                  
+                  inMap.put( initial[j] , j);
+                  
+              }*/
+              
+           }
+           
+         //  System.out.println("after swap: "+Arrays.toString(initial));
+      
+           //printInMap(inMap);
+           
+       }
+       
+        System.out.println(ans);
+       
+       // System.out.println("initial: "+Arrays.toString(initial));
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=scanner.nextInt();
+        
+        for(int t=0;t<testCases;t++){
+            
+            n=scanner.nextInt();
+            
+            int a[]=new int[n];
+            
+            for(int i=0;i<n;i++){
+                
+                a[i]=scanner.nextInt();
+                
+            }
+            
+            solve(a,n);
+            
+        }
+        
+    }
+    
+    static class Scanner{
+        
+        BufferedReader in;
+        
+        StringTokenizer st;
+
+        public Scanner() {
+        
+            in=new BufferedReader( new InputStreamReader( System.in ) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer( in.readLine() );
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        String nextLine() throws IOException{
+            
+            return in.readLine();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+1
+5
+2 1 5 3 4
+
+*/
+
+/*
+
+2
+5
+2 1 5 3 4
+5
+2 5 1 3 4
+
+*/
+
+/*
+
+2
+8
+5 1 2 3 7 8 6 4
+8
+1 2 5 3 7 8 6 4
+
+*/
+
+/*
+
+1
+8
+1 2 5 3 7 8 6 4
+
+*/
