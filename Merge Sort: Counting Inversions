@@ -1,0 +1,217 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Merge_Sort_Counting_Inversions {
+
+    static Scanner scanner=new Scanner();
+    
+    static int testCases,n;
+    
+    static long merge(long a[],int left,int right,int mid){
+        
+        long count=0;
+        
+        int n1=mid-left+1;
+        int n2=right-mid;
+        
+        long L[]=new long[n1];
+        long R[]=new long[n2];
+        
+        for(int i=0;i<n1;i++){
+            
+            L[i]=a[left+i];
+            
+        }
+        
+        for(int i=0;i<n2;i++){
+            
+            R[i]=a[mid+1+i];
+            
+        }
+        
+        int i=0,j=0,k=left;
+        
+        while(i<n1 && j<n2){
+            
+            if(L[i]<=R[j]){
+                
+                a[k]=L[i];
+                i++;
+                
+              //  count+=mid-i+1;
+                
+            }else{
+                
+                a[k]=R[j];
+
+                j++;
+                
+                count+=n1-i;
+                
+            }
+         
+            k++;
+            
+        }
+        
+        while(i<n1){
+            
+            a[k]=L[i];
+            
+            i++;
+            k++;
+            
+        }
+        
+        while(j<n2){
+            
+            a[k]=R[j];
+            
+            j++;
+            k++;
+            
+       //     count+=n1-i;
+            
+        }
+        
+        return count;
+        
+    }
+    
+    static long mergeSort(long a[],int left,int right){
+        
+        if( left>=right ){
+            
+            return 0;
+            
+        }
+        
+        long count=0;
+        
+        int mid=(left+right)/2;
+        
+        count+=mergeSort(a,left,mid);
+        
+        count+=mergeSort(a,mid+1,right);
+        
+        count+=merge(a,left,right,mid);
+        
+        return count;
+        
+    }
+    
+    static void solve(long a[],int len){
+        
+        System.out.println( mergeSort(a,0,a.length-1) );
+        
+     /* for(int i=0;i<len;i++){
+            
+            System.out.print(a[i]+" ");
+            
+        }*/
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=scanner.nextInt();
+        
+        for(int t=0;t<testCases;t++){
+            
+            n=scanner.nextInt();
+            
+            long a[]=new long[n];
+            
+            for(int i=0;i<n;i++){
+                
+                a[i]=scanner.nextLong();
+                
+            }
+            
+            int len=a.length;
+            
+            solve(a,len);
+            
+        }
+        
+    }
+    
+    static class Scanner{
+    
+        BufferedReader in;
+        StringTokenizer st;
+
+        public Scanner() {
+            
+            in=new BufferedReader(new InputStreamReader(System.in ));
+            
+        }
+        
+        String next() throws IOException{
+            
+            while(st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer(in.readLine());
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+         String nextLine() throws IOException{
+        
+        return in.readLine();
+        
+    }
+ 
+         int nextInt() throws IOException{
+             
+             return Integer.parseInt( next() );
+             
+         }
+ 
+         long nextLong() throws IOException{
+             
+             return Long.parseLong( next() );
+             
+         }
+         
+}
+    
+}
+/*
+
+2
+5
+1 1 1 2 2
+5
+2 1 3 1 2
+
+*/
+
+/*
+
+1
+5
+1 1 1 2 2
+
+*/
+
+/*
+
+1
+5
+2 1 3 1 2
+
+*/
+
+/*
+
+1
+5
+3 2 5 1 4
+
+*/
