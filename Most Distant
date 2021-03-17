@@ -1,0 +1,59 @@
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    // Complete the solve function below.
+    static double solve(int[][] coordinates) {
+
+int maxX=0,minX=0,maxY=0,minY=0;
+
+for(int i=0;i< coordinates.length;i++ ){
+    
+    maxX=Math.max( maxX,coordinates[i][0] );
+    minX=Math.min( minX,coordinates[i][0] );
+    
+    maxY=Math.max( maxY,coordinates[i][1] );
+    minY=Math.min( minY,coordinates[i][1] );
+    
+}
+
+return  Math.max(Math.max (maxX-minX, maxY-minY),
+        Math.sqrt(Math.pow(Math.max(Math.abs(maxX),Math.abs(minX)),2) + 
+        Math.pow(Math.max(Math.abs(maxY),Math.abs(minY)),2)));
+
+    }
+
+    private static final Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        int[][] coordinates = new int[n][2];
+
+        for (int coordinatesRowItr = 0; coordinatesRowItr < n; coordinatesRowItr++) {
+            String[] coordinatesRowItems = scanner.nextLine().split(" ");
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+            for (int coordinatesColumnItr = 0; coordinatesColumnItr < 2; coordinatesColumnItr++) {
+                int coordinatesItem = Integer.parseInt(coordinatesRowItems[coordinatesColumnItr]);
+                coordinates[coordinatesRowItr][coordinatesColumnItr] = coordinatesItem;
+            }
+        }
+
+        double result = solve(coordinates);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
+
+        scanner.close();
+    }
+}
