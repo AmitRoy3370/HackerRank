@@ -1,0 +1,93 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+static Scanner scanner=new Scanner(System.in);
+
+static int n;
+
+static void mean(double a[]){
+    
+    double sum=0;
+    
+  int l=0,r=n-1;
+    
+    while( r>l ){
+        
+        sum+=a[l];
+        sum+=a[r];
+        
+        r--;
+        l++;
+        
+        if(l==r){
+            
+            sum+=a[l];
+            
+        }
+        
+    }
+    
+    System.out.println( (sum/n) );
+    
+}
+
+static void median(double a[]){
+    
+    Arrays.sort(a);
+    
+    int mid=n/2;
+    
+    System.out.println( (a[mid]+a[mid-1])/2 );
+    
+}
+
+static void mode(double a[]){
+    
+     double mode=0,temp, count,max=0;
+        for(int i=0;i<n;i++)
+       {
+            temp=a[i];
+            count=0;
+            for(int j=0; j<n; j++)
+            {
+                if(temp==a[j])
+                {
+                    count++;
+                }
+                if(count>max)
+                {
+                    max=count;
+                    if(max==1)
+                    {
+                        mode=a[0];
+                    }
+                    mode=temp;
+                }
+            }           
+        }
+    
+    System.out.println((int)mode);
+    
+}
+
+    public static void main(String[] args) {
+           
+n=scanner.nextInt();
+
+double a[]=new double[n];
+    
+    for(int i=0;i<n;i++){
+        
+        a[i]=scanner.nextDouble();
+        
+    }
+    
+    mean(a);
+    median(a);
+    mode(a);
+    
+    }
+
+}
