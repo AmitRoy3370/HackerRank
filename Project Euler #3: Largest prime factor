@@ -1,0 +1,100 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+static void solve(long n){
+    
+    long ans=1;
+    
+   /* if(isPrime( n ) ){
+        
+        System.out.println(n);
+        
+        return;
+        
+    }*/
+    
+    long div=2;
+    
+    while( (long)Math.sqrt(n)>=div ){
+        
+        if( n%div==0 ){
+            
+            n/=div;
+            
+        }else{
+            
+            div++;
+            
+        }
+        
+    }
+    
+    System.out.println(n);
+    
+   //long ans=1;
+    
+   /* for(long i=1;i*i<=(n);i++){
+        
+        if( n%i==0 && isPrime(i) ){
+     
+    ans=i;
+            
+          //  return;
+            
+        }
+        
+    }*/
+    
+  /*  for(long i=(long)Math.sqrt(n)+1;i<n-1;i++ ){
+        
+        if( n%i==0 && isPrime(i) ){
+            
+            ans=i;
+            
+        }
+        
+    }*/
+    
+   // System.out.println(ans);
+    
+}
+
+static boolean isPrime(long n){
+    
+    if( n%2==0 && n!=2 ){
+        
+        return false;
+        
+    }
+    
+    for(long i=3;i<Math.sqrt( n );i++ ){
+        
+        if( n%i==0 ){
+            
+            return false;
+            
+        }
+        
+    }
+    
+    return true;
+    
+}
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int a0 = 0; a0 < t; a0++){
+        
+            long n = in.nextLong();
+        
+        solve(n);
+        
+        }
+    }
+}
