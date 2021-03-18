@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+static void solve(long n){
+    
+    long a=1,b=2,sum=b;
+    
+    while( b<=n ){
+        
+        long temp=a;
+        a=b;
+        b=temp+b;
+        
+        if( b>n ){
+            
+            break;
+            
+        }
+        
+        if( b%2==0 ){
+            
+         //   System.out.println("b: "+b);
+            
+            sum+=b;
+            
+        }
+        
+    }
+    
+    System.out.println(sum);
+    
+}
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int t = in.nextInt();
+        for(int a0 = 0; a0 < t; a0++){
+        
+            long n = in.nextLong();
+        
+        solve(n);
+        
+        }
+    }
+}
