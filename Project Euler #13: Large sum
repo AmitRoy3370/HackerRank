@@ -1,0 +1,32 @@
+import java.io.*;
+import java.util.*;
+import java.math.BigInteger; 
+
+public class Solution {
+
+static int n;
+
+static Scanner scanner=new Scanner(System.in);
+
+    public static void main(String[] args) {
+        
+        n=scanner.nextInt();
+        
+        BigInteger sum=new BigInteger("0");
+        
+        for(int i=0;i<n;i++){
+            
+            sum=sum.add( new BigInteger( scanner.next() ) );
+            
+        }
+        
+        String s=sum.toString(10);
+        
+        for(int i=0;i<10;i++){
+            
+            System.out.print( s.charAt(i) );
+            
+        }
+        
+    }
+}
