@@ -1,0 +1,96 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+public class Sum_square_difference {
+
+    static Scanner scanner=new Scanner();
+    static PrintWriter out=new PrintWriter(System.out);
+    
+    static int testCases,n;
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=scanner.nextInt();
+
+for(int t=0;t<testCases;t++){
+    
+    n=scanner.nextInt();
+    
+    long a[]=new long[n];
+    
+    for(int i=1;i<=n;i++){
+        
+        a[i-1]=i;
+        
+    }
+    
+    long sumSerise=0,sumSqure=0;
+    
+    for(long i: a){
+        
+        sumSerise+=i;
+        
+    }
+    
+    for(long i: a){
+        
+        sumSqure+=i*i;
+        
+    }
+    
+    out.println( ( sumSerise*sumSerise-sumSqure ) );
+    
+    out.flush();
+    
+}        
+        
+    }
+    
+static class Scanner{
+        
+        BufferedReader in;
+        StringTokenizer st;
+
+        public Scanner() {
+        
+            in=new BufferedReader( new InputStreamReader(System.in) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer(in.readLine());
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+2
+3
+10
+
+*/
