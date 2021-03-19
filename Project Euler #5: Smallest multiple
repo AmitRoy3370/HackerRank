@@ -1,0 +1,113 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
+
+public class Smallest_multiple {
+
+    static Scanner scanner=new Scanner();
+    
+    static int testCases,n;
+    
+    static PrintWriter out=new PrintWriter(System.out);
+    
+    static boolean isDivisible(long number){
+        
+        for( long i=1;i<=n;i++ ){
+            
+            if( number%i!=0 ){
+                
+                return false;
+                
+            }
+            
+           // out.println("blocked");
+            
+            out.flush();
+            
+        }
+        
+        return true;
+        
+    }
+    
+    public static void main(String[] args) throws IOException {
+        
+        testCases=scanner.nextInt();
+        
+        for(int t=0;t<testCases;t++){
+            
+            n=scanner.nextInt();
+            
+           long number=n+1;
+            
+            while(true){
+                
+                if( isDivisible(number) ){
+                    
+                    break;
+                    
+                }
+                
+             //   out.println(n);
+                
+               // out.flush();
+                
+                number++;
+                
+            }
+            
+            out.println(number);
+            
+            out.flush();
+            
+        }
+        
+    }
+    
+    static class Scanner{
+        
+        BufferedReader in;
+        StringTokenizer st;
+
+        public Scanner() {
+        
+            in=new BufferedReader( new InputStreamReader(System.in) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer(in.readLine());
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+        
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+2
+3
+10
+
+*/
