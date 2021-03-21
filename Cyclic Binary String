@@ -1,0 +1,104 @@
+import java.io.BufferedReader;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Cyclic_Binary_String {
+    
+  static class Result {
+
+    /*
+     * Complete the 'maximumPower' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts STRING s as parameter.
+     */
+
+     static int maximumPower(String s) {
+    // Write your code here
+
+    int cnt=0,st=0,ed=0,res;
+    
+    char ch[]=s.toCharArray();
+    
+    int n=ch.length;
+    
+    for(char i: ch){
+        
+        if( i=='0' ){
+            
+            st++;
+            
+        }else{
+            
+            break;
+            
+        }
+        
+    }
+    
+    for(int i=n-1;i>=0;i--){
+        
+        if( ch[i]=='0' ){
+            
+            ed++;
+            
+        }else{
+            
+            break;
+            
+        }
+        
+    }
+    
+    res=st+ed;
+    
+    for(char i: ch){
+        
+        if( i=='0' ){
+            
+            cnt++;
+            
+        }
+        
+        if( res<cnt ){
+            
+            res=cnt;
+            
+        }
+        
+        if( i=='1' ){
+            
+            cnt=0;
+            
+        }
+        
+    }
+    
+    if( res>=n ){
+        
+        res=-1;
+        
+    }
+    
+    return res;
+    
+    }
+
+}
+    
+     public static void main(String[] args) throws IOException {
+
+      //   BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+      try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+          //   BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+          
+          String s = bufferedReader.readLine();
+          int result = Result.maximumPower(s);
+          //   bufferedWriter.write(String.valueOf(result));
+          //bufferedWriter.newLine();
+          System.out.println( String.valueOf(result) );
+          // bufferedWriter.close();
+      }
+    }
+}
