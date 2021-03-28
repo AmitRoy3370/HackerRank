@@ -1,0 +1,77 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+static Scanner in=new Scanner(System.in);
+
+static int testCases,n;
+
+static int div(int n){
+    
+    int sum=0;
+    
+    for(int i=2;i<=Math.sqrt(n);i++){
+        
+        if( n%i==0  ){
+            
+            if( i==n/i ){
+                
+                sum+=i;
+                
+            }else{
+                
+                sum+=i+n/i;
+                
+            }
+            
+        }
+        
+    }
+    
+    return sum+1;
+    
+}
+
+    public static void main(String[] args) {
+        
+        testCases=in.nextInt();
+        
+         int num = 100000; 
+        
+        List<Integer> a=new ArrayList<>();
+        
+        a.add(0);
+        
+        List<Integer> sum=new ArrayList<>();
+        
+        sum.add(0);
+        
+        for(int i=1;i<=num;i++){
+            
+            int t=div(i);
+            
+            sum.add(t);
+            
+            if( i==div( sum.get(i) ) && i!=sum.get(i) ){
+                
+                a.add(i+a.get(i-1) );
+                
+            }else{
+                
+                a.add( a.get(i-1) );
+                
+            }
+            
+        }
+        
+        for(int t=0;t<testCases;t++){
+            
+            n=in.nextInt();
+            
+            System.out.println( a.get(n) );
+            
+        }
+        
+    }
+}
