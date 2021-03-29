@@ -1,0 +1,140 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+public class Names_scores {
+    
+    static Scanner in=new Scanner();
+    
+    static PrintWriter out=new PrintWriter(System.out);
+    
+    static int n,q;
+    
+    static Map<Character,Integer> map=new HashMap<>();
+    
+    static char []ch={'A','B','C','D','E','F',
+    'G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    
+    static Map<String,Integer> pos=new HashMap<>();
+    
+    public static void main(String[] args) throws IOException {
+        
+        n=in.nextInt();
+        
+        String s[]=new String[n];
+        
+        for(int i=0;i<ch.length;i++){
+            
+            map.put(ch[i], i+1);
+            
+        }
+        
+        for(int i=0;i<n;i++){
+            
+           s[i]=in.next().toUpperCase();
+            
+       //    Arrays.sort(s[i].toCharArray());
+           
+        }
+        
+        Arrays.sort(s);
+        
+        int index=1;
+        
+        for(String i: s){
+            
+            pos.put(i, index++);
+            
+        }
+        
+       // out.println( Arrays.toString(s) );
+        
+        //out.flush();
+        
+        q=in.nextInt();
+        
+        for(int i=0;i<q;i++){
+            
+         String t=in.next().toUpperCase();
+            
+         long sum=0;
+         
+         for(int j=0;j<t.length();j++){
+             
+             sum+=map.get(t.charAt(j));
+             
+         }
+         
+         out.println(sum*pos.get(t));
+         out.flush();
+         
+        }
+        
+    }
+    
+      static class Scanner{
+        
+        BufferedReader in;
+        StringTokenizer st;
+
+        public Scanner() {
+        
+            in=new BufferedReader( new InputStreamReader(System.in) );
+            
+        }
+        
+        String next() throws IOException{
+            
+            while( st==null || !st.hasMoreElements() ){
+                
+                st=new StringTokenizer(in.readLine() );
+                
+            }
+            
+            return st.nextToken();
+            
+        }
+        
+        int nextInt() throws IOException{
+            
+            return Integer.parseInt( next() );
+            
+        }
+    
+        long nextLong() throws IOException{
+            
+            return Long.parseLong( next() );
+            
+        }
+        
+        String nextLine() throws IOException{
+            
+            return in.readLine();
+            
+        }
+        
+        double nextDouble() throws IOException{
+            
+            return Double.parseDouble( next() );
+            
+        }
+        
+    }
+    
+}
+/*
+
+5
+ALEX
+LUIS
+JAMES
+BRIAN
+PAMELA
+1
+PAMELA
+*/
