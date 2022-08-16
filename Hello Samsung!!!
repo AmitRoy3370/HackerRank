@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+public class Solution {
+    
+    static Scanner in = new Scanner(System.in);
+    
+    static int n;
+    
+    static char a[];
+    
+    static void solve() {
+        
+        char s[] = "Samsung".toCharArray();
+        
+        int m = s.length;
+        
+        int lcs[][] = new int[m + 1][n + 1];
+        
+        for(int i = 0; i <= m; ++i) {
+            
+            for(int j = 0; j <= n; ++j) {
+                
+                if (i == 0 || j == 0)
+                    lcs[i][j] = 0;
+                else if (s[i - 1] == a[j - 1])
+                    lcs[i][j] = lcs[i - 1][j - 1] + 1;
+                else
+                    lcs[i][j] = Math.max(lcs[i - 1][j], lcs[i][j - 1]);
+                
+            }
+            
+        }
+        
+        int len = lcs[m][n];
+        
+        char sequence[] = new char[len];
+        
+        int i = m, j = n;
+        
+        while (i > 0 && j > 0) {
+          
+            if (s[i - 1] == a[j - 1]) {
+               
+               sequence[len - 1] = s[i - 1];
+
+               i--;
+               j--;
+               len--;
+                
+            } 
+ 
+            else if (lcs[i - 1][j] > lcs[i][j - 1])
+               i--;
+            else
+               j--;
+         
+        }
+        
+        if(new String(sequence).equalsIgnoreCase(new String(s))) {
+            
+            System.out.println("SRBD");
+            
+        } else {
+            
+            System.out.println("GHOST");
+            
+        }
+        
+    }
+
+    public static void main(String[] args) {
+       
+        a = in.nextLine().toCharArray();
+        
+        n = a.length;
+        
+        solve();
+        
+    }
+}
