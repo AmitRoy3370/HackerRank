@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class Solution {
+    
+    static Scanner in = new Scanner(System.in);
+    
+    static int testCases, a, b;
+    
+    static void solve() {
+        
+        int count = 0;
+        
+        for(int i = a; i <= b; ++i) {
+            
+            if(i == 0 || i == 1) continue;
+            
+            if(i == 2) {
+                
+                ++count;
+                
+                continue;
+                
+            }
+            
+            boolean prime = true;
+            
+            for(int j = 2; j * j <= i; ++j) {
+                
+                if(i % j == 0) {
+                    
+                    prime = false;
+                    
+                    break;
+                    
+                }
+                
+            }
+            
+            if(prime) {
+                
+                ++count;
+                
+            }
+            
+        }
+        
+        System.out.println(count);
+        
+    }
+    
+    public static void main(String args[] )  {
+       
+        testCases = in.nextInt(); 
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            a = in.nextInt();
+            b = in.nextInt();
+            
+            solve();
+            
+        }
+        
+    }
+}
