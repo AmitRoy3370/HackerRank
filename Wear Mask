@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    static int testCases;
+    
+    static long w, h;
+    
+    static Scanner in = new Scanner(System.in);
+    
+    static void solve() {
+        
+         long cover_col = (h / 3L) + (h % 3L == 0 ? 0L : 1L);
+        
+         long cover_raw = (w / 3L) + (w % 3L == 0 ? 0L : 1L);
+        
+         long ans = (cover_col * cover_raw);                           
+         System.out.println(ans);
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases = in.nextInt();
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            w = in.nextLong();
+            h = in.nextLong();
+            
+            solve();
+            
+        }
+        
+    }
+}
