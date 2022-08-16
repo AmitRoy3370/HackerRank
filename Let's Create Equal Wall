@@ -1,0 +1,81 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    
+    static Scanner in = new Scanner(System.in);
+    
+    static int n1, n2, n3;
+    
+    static long h1[], h2[], h3[];
+    
+    static void solve() {
+        
+        long sum1 = 0L, sum2 = 0L, sum3 = 0L;
+        
+        for(long i : h1) sum1 += i;
+        
+        for(long i : h2) sum2 += i;
+        
+        for(long i : h3) sum3 += i;
+        
+        if(sum1 == sum2 && sum2 == sum3) {
+            
+            System.out.println(sum1);
+            return;
+            
+        }
+        
+        int i = 0, j = 0, k = 0;
+        
+        while(sum1 > 0 && sum2 > 0 && sum3 > 0 && !(sum1 == sum2 && sum2 == sum3)) {
+            
+            if(i < n1 && ((sum1 >= sum2 && sum1 > sum3) || (sum1 > sum2 && sum1 >= sum3) ) ) {
+                
+                sum1 -= h1[i++];
+                
+            } else if(j < n2 && ((sum2 >= sum1 && sum2 > sum3) || (sum2 > sum1 && sum2 >= sum3) ) ) {
+                
+                sum2 -= h2[j++];
+                
+            } else if(k < n3 && ((sum3 >= sum1 && sum3 > sum2) || (sum3 >= sum1 && sum3 > sum2) )) {
+                
+                sum3 -= h3[k++];
+                
+            }
+            
+        }
+        
+        if( !(sum1 == sum2 && sum2 == sum3)) {
+            
+            sum1 = 0;
+            
+        }
+        
+        System.out.println(sum1);
+        
+    }
+    
+    public static void main(String args[] ) throws Exception {
+       
+        n1 = in.nextInt();
+        n2 = in.nextInt();
+        n3 = in.nextInt();
+        
+        h1 = new long[n1];
+        h2 = new long[n2];
+        h3 = new long[n3];
+        
+        for(int i = 0; i < n1; ++i) h1[i] = in.nextLong();
+        
+        for(int i = 0; i < n2; ++i) h2[i] = in.nextLong();
+        
+        for(int i = 0; i < n3; ++i) h3[i] = in.nextLong();
+        
+        solve();
+        
+    }
+}
