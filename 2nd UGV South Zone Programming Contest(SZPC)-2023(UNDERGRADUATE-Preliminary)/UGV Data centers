@@ -1,0 +1,198 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static Scanner in = new Scanner(System.in);
+    
+    static int testCases, n, m, s, T;
+    
+    static long x[], y[], w[];
+    
+    static StringBuilder sb = new StringBuilder();
+    
+    static int findMin(long dis[],boolean []visited){
+        
+        int min = Integer.MAX_VALUE,index = -1;
+        
+        for(int i = 0; i <= n; i++){
+            
+            if( !visited[i] && ( index == -1 || dis[i] < dis[index] ) ){
+                
+                index = i;
+                
+            }
+    
+           // System.out.println("I stopped here");
+            
+        }
+    
+        return index;
+        
+    }
+    
+    static void solve() {
+        
+        long graph[][] = new long[n + 1][n + 1];
+        
+        boolean vis[][] = new boolean[n + 1][n + 1];
+        
+        for(int i = 0; i <= n; ++i) {
+            
+            for(int j = 0; j <= n; ++j) {
+                
+                if(!vis[i][j]) {
+                    
+                    graph[i][j] = -1;
+                    
+                }
+                
+            }
+            
+        }
+        
+        for(int i = 0; i < m; ++i) {
+            
+            long val = graph[(int)x[i]][(int)y[i]];
+            
+            if(val == -1) {
+            
+              graph[(int)x[i]][(int)y[i]] = w[i];
+              graph[(int)y[i]][(int)x[i]] = w[i];
+            
+              vis[(int)x[i]][(int)y[i]] = true;
+              vis[(int)y[i]][(int)x[i]] = true;
+            
+            } else {
+            
+              graph[(int)x[i]][(int)y[i]] = Math.min(w[i], val);
+              graph[(int)y[i]][(int)x[i]] = Math.min(w[i], val);
+            
+              vis[(int)x[i]][(int)y[i]] = true;
+              vis[(int)y[i]][(int)x[i]] = true;
+                
+            }
+                
+        }
+        
+        // can be used disktra to solve this
+        
+        long distance[] = new long[n + 1];
+        
+        distance[s] = 0;
+        
+        for(int i = 0; i <= n; ++i) {
+            
+            if(i == s) {
+                
+                continue;
+                
+            }
+            
+            distance[i] = Integer.MAX_VALUE;
+            
+        }
+        
+        boolean visited[] = new boolean[n + 1];
+        
+        //visited[s] = true;
+        
+        for(int i = 0; i <= n; ++i) {
+            
+            int u = findMin(distance, visited);
+            
+            /*if(u == -1) {
+                
+                break;
+                
+            }*/
+            
+            visited[u] = true;
+            
+            for(int j = 0; j <= n; j++){
+                
+                if( graph[u][j] != -1 && !visited[j] && distance[u] != Integer.MAX_VALUE ){
+                    
+                    long newDistance = graph[u][j] + distance[u];
+                    
+                    if( newDistance < distance[j] ) {
+                        
+                        distance[j] = newDistance;
+                        
+                    }
+                    
+                }
+                
+            //    System.out.println("I stopped here");
+                
+            }
+            
+        }
+        
+        //print(distance);
+        
+        if(distance[T] >= Integer.MAX_VALUE) {
+            
+            sb.append("unreachable").append("\n");
+            return;
+            
+        }
+        
+        sb.append(distance[T]).append("\n");
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases = in.nextInt();
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            n = in.nextInt();
+            m = in.nextInt();
+            s = in.nextInt();
+            T = in.nextInt();
+            
+            if(m == 0) {
+                
+                sb.append("Case #" + (t + 1) + ": " + "unreachable").append("\n");
+                
+                continue;
+                
+            }
+            
+            x = new long[m];
+            y = new long[m];
+            w = new long[m];
+            
+            for(int i = 0; i < m; ++i) {
+                
+                x[i] = in.nextLong();
+                y[i] = in.nextLong();
+                w[i] = in.nextLong();
+                
+            }
+            
+            sb.append("Case #" + (t + 1) + ": ");
+            
+            solve();
+            
+        }
+        
+        System.out.print(sb.toString());
+        
+    }
+    
+    static void print(long a[]) {
+        
+        for(long i : a) {
+            
+            System.out.print(i + " ");
+            
+        }
+        
+        System.out.println();
+        
+    }
+    
+}
