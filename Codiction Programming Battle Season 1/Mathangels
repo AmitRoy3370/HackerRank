@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static int testCases, n;
+    
+    static long A, B, R;
+    
+    static Scanner in = new Scanner(System.in);
+    
+    static void solve() {
+        
+        long sum = A + B;
+        
+        for(long i = 1; i < sum;++i) {
+            
+            if(sum % i == R) {
+                
+                System.out.println(i);
+                return;
+                
+            }
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases = in.nextInt();
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            A = in.nextLong();
+            B = in.nextLong();
+            R = in.nextLong();
+            
+            System.out.print("Case " + (t + 1) + ": ");
+            
+            solve();
+            
+        }
+        
+    }
+    
+    static long lcm(long a, long b) {
+        
+        return (a * b) / gcd(a, b);
+        
+    }
+    
+    static long gcd(long a, long b) {
+
+        if (b == 0L) {
+
+            return a;
+
+        }
+
+        return gcd(b, a % b);
+
+    }
+    
+}
