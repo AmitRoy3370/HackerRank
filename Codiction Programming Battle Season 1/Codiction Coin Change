@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static Scanner in = new Scanner(System.in);
+    
+    static int n, testCases;
+    
+    static int a[];
+    
+    static int total;
+    
+    static void solve() {
+        
+        long dp[] = new long[total + 1];
+        
+        for(int i = 1; i <= total; ++i) {
+            
+            dp[i] = Integer.MAX_VALUE;
+            
+        }
+        
+        for(int i = 1; i <= total; ++i) {
+            
+            for(int j = 0; j < n; ++j) {
+                
+                if(a[j] <= i) {
+                    
+                    dp[i] = Math.min(dp[i], dp[i - a[j]] + 1L);
+                    
+                }
+                
+                
+            }
+            
+        }
+        
+        if(dp[total] != Integer.MIN_VALUE) {
+            
+            System.out.println(dp[total]);
+            
+        } else {
+            
+            System.out.println(-1);
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        total = in.nextInt();
+        
+        n = in.nextInt();
+        
+        a = new int[n];
+        
+        for(int i = 0; i < n; ++i) {
+            
+            a[i] = in.nextInt();
+            
+        } 
+        
+        solve();
+        
+    }
+}
