@@ -1,0 +1,89 @@
+import java.io.*;
+import java.util.*;
+import java.math.BigInteger;
+
+public class Solution {
+
+    static Scanner in = new Scanner(System.in);
+    
+    static long A, B, C, D, E, F;
+    
+    static int testCases;
+    
+    /*
+    
+    A^B * C^D * E^F = M
+    
+    */
+    
+    static void solve() {
+        
+        BigInteger M = new BigInteger(A + "");
+        
+        M.pow(Integer.valueOf(B + ""));
+        
+        BigInteger M1 = new BigInteger(C + "");
+        
+        M1.pow(Integer.valueOf(D + ""));
+        
+        BigInteger M3 = new BigInteger(E + "");
+        
+        M3.pow(Integer.valueOf(F + ""));
+        
+        M = M.multiply(M1);
+        
+        M = M.multiply(M3);
+        
+        String s = M.toString();
+        
+        char a[] = s.toCharArray();
+        
+        //System.out.println(s);
+        
+        int n = a.length;
+        
+        int i = n - 1;
+        
+        int cnt = 0;
+        
+        while(i >= 0) {
+            
+            if(a[i] == '0') {
+                
+                ++cnt;
+                
+            } else {
+                
+                break;
+                
+            }
+            
+            --i;
+            
+        }
+        
+        System.out.println(cnt);
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        testCases = in.nextInt();
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            A = in.nextLong();
+            B = in.nextLong();
+            C = in.nextLong();
+            D = in.nextLong();
+            E = in.nextLong();
+            F = in.nextLong();
+            
+            System.out.print("Case " + (t + 1) + ": ");
+            
+            solve();
+            
+        }
+        
+    }
+}
