@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static Scanner in = new Scanner(System.in);
+    
+    static int testCases, n;
+    
+    static double x[], y[];
+    
+    static void solve() {
+        
+        point a[] = new point[n];
+        
+        for(int i = 0; i < n; ++i) {
+            
+            a[i] = new point(x[i], y[i]);
+            
+        }
+        
+        double area = 0.0;
+        
+        for(int i = 0; i < n; ++i) {
+            
+            double x1 = a[i].x;
+            double y1 = a[i].y;
+            
+            double x2 = a[(i + 1) % n].x;
+            double y2 = a[(i + 1) % n].y;
+            
+            area += x1 * y2 - x2 * y1;
+            
+        }
+        
+        area = Math.abs(area) / 2.0;
+        
+        System.out.printf("%.2f\n", area);
+        
+    }
+    
+    public static void main(String[] args) {
+       
+        testCases = in.nextInt();
+        
+        for(int t = 0; t < testCases; ++t) {
+            
+            n = in.nextInt();
+            
+            x = new double[n];
+            y = new double[n];
+            
+            for(int i = 0; i < n; ++i) {
+                
+                x[i] = in.nextDouble();
+                y[i] = in.nextDouble();
+                
+            }
+            
+            solve();
+            
+        }
+        
+    }
+    
+    static class point {
+        
+        double x, y;
+        
+        public point(double x, double y) {
+            
+            this.x = x;
+            this.y = y;
+            
+        }
+        
+    }
+    
+}
